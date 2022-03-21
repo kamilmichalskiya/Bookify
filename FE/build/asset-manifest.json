@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/static/css/main.e6c13ad2.css",
+    "main.js": "/static/js/main.541bed4a.js",
+    "static/media/roll_dice_4.mp4": "/static/media/roll_dice_4.d92ac108e819e738ac2b.mp4",
+    "static/media/roll_dice_5.mp4": "/static/media/roll_dice_5.b6826d20f8971dfeeef9.mp4",
+    "static/media/roll_dice_3.mp4": "/static/media/roll_dice_3.4acae2f4f8ad59c7e39c.mp4",
+    "static/media/roll_dice_2.mp4": "/static/media/roll_dice_2.19c0085ec60557cd697d.mp4",
+    "static/media/roll_dice_6.mp4": "/static/media/roll_dice_6.bdef46a7d2638ab5bc76.mp4",
+    "static/media/roll_dice_1.mp4": "/static/media/roll_dice_1.dc9fe81aa987a8161ba2.mp4",
+    "static/media/yellow_pawn.svg": "/static/media/yellow_pawn.87fc4c4e2741c4470b79c6fd7fee57ac.svg",
+    "static/media/green_pawn.svg": "/static/media/green_pawn.36db557105b9f4a4251f0617b079bc63.svg",
+    "static/media/red_pawn.svg": "/static/media/red_pawn.342d95ba6b7711245e5d0922c4f05fc5.svg",
+    "static/media/blue_pawn.svg": "/static/media/blue_pawn.c56fdc6783938b32bef30dea0bee595c.svg",
+    "index.html": "/index.html",
+    "main.e6c13ad2.css.map": "/static/css/main.e6c13ad2.css.map",
+    "main.541bed4a.js.map": "/static/js/main.541bed4a.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.e6c13ad2.css",
+    "static/js/main.541bed4a.js"
+  ]
+}
