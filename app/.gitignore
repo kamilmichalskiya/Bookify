@@ -34,3 +34,4 @@ build/
 
 ### Front-End ###
 node_modules
+package-lock.json
