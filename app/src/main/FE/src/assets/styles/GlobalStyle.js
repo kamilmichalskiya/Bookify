@@ -1,8 +1,6 @@
 import { createGlobalStyle } from 'styled-components';
 
 export const GlobalStyle = createGlobalStyle`
- @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap'); // wzięte z google fonts
-
 
  html { // border-box jest znacznie bardziej przewidywalny niż content-Box
   box-sizing: border-box;
