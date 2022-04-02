@@ -1,5 +1,8 @@
 export const theme = {
   colors: {
+    primary: '#1ED760',
+    secondary: '222222',
+    tertiary: '6E7077',
     white: '#FFFFFF',
     lightGrey: '#F7F8FA',
     grey: '#C0C7D6',
@@ -9,8 +12,9 @@ export const theme = {
     warning: '#E1D888',
   },
   fontSize: {
-    l: '17px',
-    m: '12px',
-    s: '11px',
+    xl: '32px',
+    l: '16px',
+    m: '14px',
+    s: '12px',
   },
 };
