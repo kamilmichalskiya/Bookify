@@ -1,0 +1,19 @@
+#  Template maven-publish
+
+#  This template allows to test, build and publish with Maven your Java project.
+#  The workflow allows running tests, code checkstyle and security scans on feature branches (as well as master).
+
+# Prerequisites: pom.xml and appropriate project structure should exist in the repository.
+
+image: maven:3.6.3
+
+# Workflow Configuration
+
+pipelines:
+  branches:
+    master:
+      - parallel:
+        - step:
+            name: Heroku Deploy
+            script:
+              - pipe: atlassian/heroku-deploy:1.2.1
