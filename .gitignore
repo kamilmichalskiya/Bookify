@@ -1,1 +1,8 @@
 .idea/workspace.xml
+*.iml
+/app-react/node_modules/
+/app-react/target/
+/localdeployment/target/
+/app-react/node/
+/app-react/package-lock.json
+/app-react/build/
