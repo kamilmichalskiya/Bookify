@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("hello")
+@RequestMapping("/api/hello")
 public class TestController {
     private final SimpMessagingTemplate messagingTemplate;
 
@@ -15,8 +15,20 @@ public class TestController {
     }
 
     @GetMapping
-    public String hello() {
-        messagingTemplate.convertAndSend("/topic/test", "websocket test");
-        return "hello";
+    public Message hello() {
+        messagingTemplate.convertAndSend("/topic/test", new Message("websocket test"));
+        return new Message("hello to you");
+    }
+
+    class Message {
+        private final String value;
+
+        public Message(final String value) {
+            this.value = value;
+        }
+
+        public String getValue() {
+            return value;
+        }
     }
 }

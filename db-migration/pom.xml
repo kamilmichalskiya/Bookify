@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>localdeployment</artifactId>
+    <artifactId>db-migration</artifactId>
 
 
 </project>
