@@ -8,7 +8,7 @@ import { PrimaryButton } from 'components/atoms/Button/Button';
 
 const sendHttpRequest = async () => {
   console.log('sendHttpRequest');
-  const response = await fetch('//localhost:8080/api/hello');
+  const response = await fetch('/api/hello');
   const data = await response.json();
   console.log(data);
 };
