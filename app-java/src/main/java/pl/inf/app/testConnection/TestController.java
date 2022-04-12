@@ -15,8 +15,20 @@ public class TestController {
     }
 
     @GetMapping
-    public String hello() {
-        messagingTemplate.convertAndSend("/topic/test", "websocket test");
-        return "hello to you";
+    public Message hello() {
+        messagingTemplate.convertAndSend("/topic/test", new Message("websocket test"));
+        return new Message("hello to you");
+    }
+
+    class Message {
+        private final String value;
+
+        public Message(final String value) {
+            this.value = value;
+        }
+
+        public String getValue() {
+            return value;
+        }
     }
 }
