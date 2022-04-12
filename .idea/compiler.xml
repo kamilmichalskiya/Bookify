@@ -8,14 +8,18 @@
         <outputRelativeToContentRoot value="true" />
         <module name="app-react" />
         <module name="app-java" />
-        <module name="localdeployment" />
+        <module name="db-migration" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="localdeployment" target="1.8" />
+    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="app-java" options="-parameters" />
       <module name="app-react" options="-parameters" />
+      <module name="db-migration" options="-parameters" />
       <module name="localdeployment" options="-parameters" />
     </option>
   </component>
