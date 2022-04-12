@@ -2,7 +2,7 @@
 *.iml
 /app-react/node_modules/
 /app-react/target/
-/localdeployment/target/
+/db-migration/target/
 /app-react/node/
 /app-react/package-lock.json
 /app-react/build/
