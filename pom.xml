@@ -14,9 +14,9 @@
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
     <modules>
-        <module>app-java</module>
-        <module>app-react</module>
         <module>localdeployment</module>
+        <module>app-react</module>
+        <module>app-java</module>
     </modules>
     <build>
         <plugins>
