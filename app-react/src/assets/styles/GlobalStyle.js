@@ -12,9 +12,16 @@ export const GlobalStyle = createGlobalStyle`
 
  body {
   font-family: 'Montserrat', sans-serif;
+  /* background: ${({ theme }) => theme.colors.tertiary}; */
  }
 
  a, button { // linki i buttony nie dziedziczą z body font-family
   font-family: 'Montserrat', sans-serif;
+  border: none;
+  letter-spacing: 0.03em; //dodać w theme?
+ }
+
+ button:hover {
+    cursor: pointer;
  }
 `;
