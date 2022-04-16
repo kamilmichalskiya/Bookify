@@ -1,7 +1,8 @@
 *.iml
+/.idea/
 /app-react/node_modules/
 /app-react/target/
 /app-react/node/
 /app-react/package-lock.json
 /app-react/build/
-/.idea/
+/app-java/target/
