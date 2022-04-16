@@ -1,8 +1,8 @@
-.idea/workspace.xml
 *.iml
+/.idea/
 /app-react/node_modules/
 /app-react/target/
-/db-migration/target/
 /app-react/node/
 /app-react/package-lock.json
 /app-react/build/
+/app-java/target/
