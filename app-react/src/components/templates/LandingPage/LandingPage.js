@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import React from 'react';
 import {
   Wrapper,
@@ -21,6 +22,7 @@ import {
   RoomPrice,
   DetailsButton,
   Footer,
+  GreenTextWrapper,
 } from './LandingPage-styled';
 import { AccountCircle } from '@styled-icons/material/AccountCircle';
 import { MagnifyingGlass } from '@styled-icons/entypo/MagnifyingGlass';
@@ -28,8 +30,6 @@ import '@fontsource/montserrat';
 const LandingPage = () => {
   return (
     <Wrapper>
-      {/* <PrimaryButton>Kliknij mnie</PrimaryButton> */}
-      {/* header */}
       <Header>
         <Logo>Bookify</Logo>
         <IconStyleWrapper>
@@ -148,7 +148,7 @@ const LandingPage = () => {
       </RoomContainer>
       <Footer>
         <span>Więcej informacji</span>
-        <span>&copy;2022 Bookify</span>
+        <span>&copy;2022 <GreenTextWrapper>B</GreenTextWrapper>ookify</span>
         <span>Polityka prywatności</span>
       </Footer>
     </Wrapper>

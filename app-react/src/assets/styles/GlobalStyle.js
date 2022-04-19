@@ -18,7 +18,6 @@ export const GlobalStyle = createGlobalStyle`
  a, button { // linki i buttony nie dziedziczą z body font-family
   font-family: 'Montserrat', sans-serif;
   border: none;
-  letter-spacing: 0.03em; //dodać w theme?
  }
 
  button:hover {

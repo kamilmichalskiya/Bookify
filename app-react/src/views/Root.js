@@ -5,7 +5,8 @@ import { theme } from 'assets/styles/theme';
 import { Wrapper } from './Root.styles';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { PrimaryButton } from 'components/atoms/Button/Button';
-import LandingPage from 'components/templates/LandingPage/LandingPage';
+// import LandingPage from 'components/templates/LandingPage/LandingPage';
+import Step1 from 'components/templates/Step1/Step1';
 
 const sendHttpRequest = async () => {
   console.log('sendHttpRequest');
@@ -20,7 +21,7 @@ const Root = () => {
         <Wrapper>
           <Switch>
             <Route path="/">
-              <LandingPage></LandingPage>
+              <Step1></Step1>
             </Route>
             <Route path="/test">
               <PrimaryButton onClick={sendHttpRequest}>Get HTTP</PrimaryButton>

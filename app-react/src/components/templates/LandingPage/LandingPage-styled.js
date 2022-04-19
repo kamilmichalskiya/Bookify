@@ -31,6 +31,10 @@ export const DarkIconStyleWrapper = styled(IconStyleWrapper)`
   }
 `;
 
+export const GreenTextWrapper = styled.span`
+  color: ${({ theme }) => theme.colors.primary};
+`;
+
 export const Header = styled.div`
   display: flex;
   flex-wrap: nowrap;
