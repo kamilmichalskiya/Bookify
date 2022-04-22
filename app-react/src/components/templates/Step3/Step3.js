@@ -18,7 +18,7 @@ import {
   ContentRight,
   RowWrapperProvision,
   UserInput,
-} from './Step3-styled';
+} from './Step4-styled';
 import { AccountCircle } from '@styled-icons/material/AccountCircle';
 import { KeyboardArrowLeft } from '@styled-icons/material/KeyboardArrowLeft';
 import { KeyboardArrowDown } from '@styled-icons/material/KeyboardArrowDown';
@@ -26,7 +26,7 @@ import { CheckBox } from '@styled-icons/material/CheckBox';
 import { CheckBoxOutlineBlank } from '@styled-icons/material/CheckBoxOutlineBlank';
 import { ExclamationSquareFill } from '@styled-icons/bootstrap/ExclamationSquareFill';
 import '@fontsource/montserrat';
-const Step3 = () => {
+const Step4 = () => {
   return (
     <Wrapper>
       <Header>
@@ -89,4 +89,4 @@ const Step3 = () => {
   );
 };
 
-export default Step3;
+export default Step4;
