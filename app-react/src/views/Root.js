@@ -11,11 +11,8 @@ import Step2 from 'components/templates/Step2/Step2';
 
 const sendHttpRequest = async () => {
   console.log('sendHttpRequest');
-<<<<<<< HEAD
-  await fetch('/api/hello').then((value) => value.json().then((body) => console.log(body.value)));
-=======
+
   await fetch('/api/hello').then(value => value.json().then(body => console.log(body)));
->>>>>>> 0263c30b49efd657ed58a12fe4f6939a1aeb002b
 };
 
 const Root = () => {
