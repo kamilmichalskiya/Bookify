@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: bookify
+  main:
+    banner-mode: off
+  datasource:
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    open-in-view: false
+    hibernate:
+      ddl-auto: none
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: true
