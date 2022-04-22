@@ -7,12 +7,13 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { PrimaryButton } from 'components/atoms/Button/Button';
 // import LandingPage from 'components/templates/LandingPage/LandingPage';
 // import Step1 from 'components/templates/Step1/Step1';
-import Step2 from 'components/templates/Step2/Step2';
+// import Step2 from 'components/templates/Step2/Step2';
+import Step3 from 'components/templates/Step3/Step3';
 
 const sendHttpRequest = async () => {
   console.log('sendHttpRequest');
 
-  await fetch('/api/hello').then(value => value.json().then(body => console.log(body)));
+  await fetch('/api/hello').then((value) => value.json().then((body) => console.log(body)));
 };
 
 const Root = () => {
@@ -23,7 +24,7 @@ const Root = () => {
         <Wrapper>
           <Switch>
             <Route path="/">
-              <Step2></Step2>
+              <Step3></Step3>
             </Route>
             <Route path="/test">
               <PrimaryButton onClick={sendHttpRequest}>Get HTTP</PrimaryButton>
