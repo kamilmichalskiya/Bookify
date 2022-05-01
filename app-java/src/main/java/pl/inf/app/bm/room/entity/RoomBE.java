@@ -18,6 +18,9 @@ import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
+/**
+ * Class that represents the room entities in the database
+ */
 @Getter
 @Setter
 @Entity
