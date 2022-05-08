@@ -2,7 +2,7 @@ package pl.inf.app;
 
 import org.junit.jupiter.api.Test;
 
-class AppApplicationTests {
+class ApplicationTests {
 
     @Test
     void contextLoads() {

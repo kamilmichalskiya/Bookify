@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
  */
 @RestControllerAdvice
 public class GlobalAdviceController {
-    private static Logger logger = LoggerFactory.getLogger(GlobalAdviceController.class);
+    private static final Logger logger = LoggerFactory.getLogger(GlobalAdviceController.class);
 
     /**
      * Convert exception to user response.
@@ -22,8 +22,10 @@ public class GlobalAdviceController {
      */
     @ExceptionHandler(ProcessException.class)
     public ResponseEntity<String> processException(final ProcessException exception) {
-        final HttpStatus status = exception.getHttpStatus() != null ? exception.getHttpStatus() : HttpStatus.INTERNAL_SERVER_ERROR;
-        logger.error(exception.toString());
-        return ResponseEntity.status(status).body(exception.getErrorCode());
+        final HttpStatus status = exception.getHttpStatus() != null
+                                  ? exception.getHttpStatus()
+                                  : HttpStatus.INTERNAL_SERVER_ERROR;
+        logger.error(exception.getErrorType().getDescription(), exception.getParams());
+        return ResponseEntity.status(status).body(exception.toString());
     }
 }

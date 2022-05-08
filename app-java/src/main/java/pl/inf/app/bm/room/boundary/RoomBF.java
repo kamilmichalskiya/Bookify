@@ -6,9 +6,11 @@ import pl.inf.app.bm.room.control.RoomRepositoryBA;
 import pl.inf.app.bm.room.entity.RoomBE;
 import pl.inf.app.error.ErrorType;
 import pl.inf.app.error.ProcessException;
+import pl.inf.app.utils.Mapper;
 
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 /**
  * The room business facade class
@@ -21,21 +23,23 @@ public class RoomBF {
     /**
      * Get room from the database for the given id
      *
-     * @param id The id of room
-     * @return room entity
+     * @param id     the id of room
+     * @param mapper entity mapper
+     * @return mapped room
      * @throws ProcessException if no room with the given id was found
      */
-    public RoomBE getRoom(final UUID id) {
-        return roomRepository.findById(id).orElseThrow(() -> new ProcessException(ErrorType.ROOM_NOT_FOUND));
+    public <T> T getRoom(final UUID id, final Mapper<RoomBE, T> mapper) {
+        return roomRepository.findById(id).map(mapper::map).orElseThrow(() -> new ProcessException(ErrorType.ROOM_NOT_FOUND, id));
     }
 
     /**
      * Retrieve list of all rooms form database
      *
-     * @return list of rooms
+     * @param mapper entity mapper
+     * @return list of mapped rooms
      */
-    public List<RoomBE> getAllRooms() {
-        return roomRepository.findAll();
+    public <T> List<T> getAllRooms(final Mapper<RoomBE, T> mapper) {
+        return roomRepository.findAll().stream().map(mapper::map).collect(Collectors.toList());
     }
 
 }

@@ -10,5 +10,4 @@ import java.util.UUID;
  * Class to manage the room entity in the database
  */
 @Repository
-public interface RoomRepositoryBA extends JpaRepository<RoomBE, UUID> {
-}
+public interface RoomRepositoryBA extends JpaRepository<RoomBE, UUID> {}
