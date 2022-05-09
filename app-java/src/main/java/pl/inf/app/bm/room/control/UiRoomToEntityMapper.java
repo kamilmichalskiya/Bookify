@@ -6,8 +6,6 @@ import pl.inf.app.bm.room.entity.RoomBE;
 import pl.inf.app.utils.Filler;
 import pl.inf.app.utils.Mapper;
 
-import java.util.UUID;
-
 /**
  * Fills the database room model according to the UI room model
  */
@@ -19,8 +17,6 @@ public class UiRoomToEntityMapper implements Mapper<Filler<UiRoom, RoomBE>, Room
 
         final RoomBE target = filler.getTarget();
         final UiRoom source = filler.getSource();
-
-        if (target.getId() == null) target.setId(UUID.randomUUID());
 
         target.setRoomType(source.getRoomType());
         target.setPrice(source.getPrice());
