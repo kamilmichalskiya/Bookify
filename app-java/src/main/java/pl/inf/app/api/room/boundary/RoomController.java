@@ -6,6 +6,9 @@ import org.springframework.hateoas.CollectionModel;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import pl.inf.app.api.room.control.RoomToUiMapper;
@@ -17,8 +20,10 @@ import java.util.stream.Collectors;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
+import static pl.inf.app.api.LinkRelations.CREATE_ROOM;
 import static pl.inf.app.api.LinkRelations.GET_ALL_ROOMS;
 import static pl.inf.app.api.LinkRelations.GET_ROOM;
+import static pl.inf.app.api.LinkRelations.UPDATE_ROOM;
 
 /**
  * Api for rooms management
@@ -37,11 +42,14 @@ public class RoomController {
      * @return list of rooms
      */
     @GetMapping
-    public ResponseEntity<CollectionModel<UiRoom>> getAllRooms() {
-        return ResponseEntity.ok(CollectionModel.of(roomBF.getAllRooms(roomToUiMapper).stream().map(uiRoom -> uiRoom
-                .add(linkTo(methodOn(RoomController.class).getRoom(uiRoom.getId())).withRel(GET_ROOM.toString())))
+    public ResponseEntity<CollectionModel<UiRoom>> getAll() {
+        return ResponseEntity.ok(CollectionModel.of(roomBF.getAll(roomToUiMapper).stream().map(uiRoom -> uiRoom
+                .add(linkTo(methodOn(RoomController.class).getById(uiRoom.getId())).withRel(GET_ROOM.toString()))
+                .add(linkTo(methodOn(RoomController.class).updateRoom(uiRoom.getId(), null)).withRel(UPDATE_ROOM.toString())))
                                                           .collect(Collectors.toList()))
-                                                .add(linkTo(methodOn(RoomController.class).getAllRooms()).withSelfRel()));
+                                                .add(linkTo(methodOn(RoomController.class).createRoom(null))
+                                                             .withRel(CREATE_ROOM.toString()))
+                                                .add(linkTo(methodOn(RoomController.class).getAll()).withSelfRel()));
     }
 
     /**
@@ -51,11 +59,42 @@ public class RoomController {
      * @return room
      */
     @GetMapping("/{id}")
-    public ResponseEntity<UiRoom> getRoom(@PathVariable final UUID id) {
-        return ResponseEntity.ok(roomBF.getRoom(id, roomToUiMapper)
-                                       .add(linkTo(methodOn(RoomController.class).getRoom(id)).withSelfRel())
-                                       .add(linkTo(methodOn(RoomController.class).getAllRooms())
-                                                    .withRel(GET_ALL_ROOMS.toString())));
+    public ResponseEntity<UiRoom> getById(@PathVariable final UUID id) {
+        return ResponseEntity.ok(roomBF.getById(id, roomToUiMapper).add(
+                linkTo(methodOn(RoomController.class).getAll()).withRel(GET_ALL_ROOMS.toString()))
+                                       .add(linkTo(methodOn(RoomController.class).updateRoom(id, null))
+                                                    .withRel(UPDATE_ROOM.toString()))
+                                       .add(linkTo(methodOn(RoomController.class).getById(id)).withSelfRel()));
+    }
+
+    /**
+     * Create new room
+     *
+     * @param uiRoom room to save
+     * @return saved room
+     */
+    @PostMapping
+    public ResponseEntity<UiRoom> createRoom(@RequestBody final UiRoom uiRoom) {
+        final UiRoom room = roomBF.create(uiRoom, roomToUiMapper);
+        return ResponseEntity.ok(
+                room.add(linkTo(methodOn(RoomController.class).getById(room.getId())).withRel(GET_ROOM.toString()))
+                    .add(linkTo(methodOn(RoomController.class).createRoom(null)).withSelfRel()));
+    }
+
+    /**
+     * Update room
+     *
+     * @param id     the id of room
+     * @param uiRoom room to update
+     * @return updated room
+     */
+    @PutMapping("/{id}")
+    public ResponseEntity<UiRoom> updateRoom(@PathVariable final UUID id, @RequestBody final UiRoom uiRoom) {
+        uiRoom.setId(id);
+        final UiRoom room = roomBF.update(uiRoom, roomToUiMapper);
+        return ResponseEntity.ok(
+                room.add(linkTo(methodOn(RoomController.class).getById(room.getId())).withRel(GET_ROOM.toString()))
+                    .add(linkTo(methodOn(RoomController.class).updateRoom(id, null)).withSelfRel()));
     }
 
 }

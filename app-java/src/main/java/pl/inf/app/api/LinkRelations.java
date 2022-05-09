@@ -8,7 +8,9 @@ import lombok.Getter;
 @Getter
 public enum LinkRelations {
     GET_ROOM("Get room"),
-    GET_ALL_ROOMS("Get all rooms");
+    GET_ALL_ROOMS("Get all rooms"),
+    CREATE_ROOM("Add new room"),
+    UPDATE_ROOM("Update room");
 
     private final String description;
 
