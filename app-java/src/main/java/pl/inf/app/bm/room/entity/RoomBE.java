@@ -18,6 +18,9 @@ import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
+/**
+ * Class that represents the room entities in the database
+ */
 @Getter
 @Setter
 @Entity
@@ -37,7 +40,7 @@ public class RoomBE {
     private int capacity;
 
     @Enumerated(EnumType.STRING)
-    @ElementCollection(fetch = FetchType.LAZY)
+    @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "beds", joinColumns = @JoinColumn(name = "room_id"))
     @Column(name = "bed")
     private List<Bed> beds;
@@ -47,19 +50,19 @@ public class RoomBE {
     private int area;
 
     @Enumerated(EnumType.STRING)
-    @ElementCollection(fetch = FetchType.LAZY)
+    @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "add_ons", joinColumns = @JoinColumn(name = "room_id"))
     @Column(name = "add_on")
     private Set<AddOn> addOns;
 
     @Enumerated(EnumType.STRING)
-    @ElementCollection(fetch = FetchType.LAZY)
+    @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "accessories", joinColumns = @JoinColumn(name = "room_id"))
     @Column(name = "accessory")
     private Set<Accessory> accessories;
 
     @Enumerated(EnumType.STRING)
-    @ElementCollection(fetch = FetchType.LAZY)
+    @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "offer_details", joinColumns = @JoinColumn(name = "room_id"))
     @Column(name = "offer_detail")
     private Set<OfferDetail> offerDetails;
