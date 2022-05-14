@@ -22,9 +22,8 @@ public class GlobalAdviceController {
      */
     @ExceptionHandler(ProcessException.class)
     public ResponseEntity<String> processException(final ProcessException exception) {
-        final HttpStatus status = exception.getHttpStatus() != null
-                                  ? exception.getHttpStatus()
-                                  : HttpStatus.INTERNAL_SERVER_ERROR;
+        final HttpStatus status =
+                exception.getHttpStatus() != null ? exception.getHttpStatus() : HttpStatus.INTERNAL_SERVER_ERROR;
         logger.error(exception.getErrorType().getDescription(), exception.getParams());
         return ResponseEntity.status(status).body(exception.toString());
     }

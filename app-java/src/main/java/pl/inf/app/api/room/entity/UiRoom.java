@@ -3,7 +3,6 @@ package pl.inf.app.api.room.entity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.hateoas.RepresentationModel;
 import pl.inf.app.bm.room.entity.Accessory;
 import pl.inf.app.bm.room.entity.AddOn;
 import pl.inf.app.bm.room.entity.Bed;
@@ -20,7 +19,7 @@ import java.util.UUID;
 @Getter
 @Setter
 @NoArgsConstructor
-public class UiRoom extends RepresentationModel<UiRoom> {
+public class UiRoom {
     private UUID id;
     private String image;
     private RoomType roomType;
