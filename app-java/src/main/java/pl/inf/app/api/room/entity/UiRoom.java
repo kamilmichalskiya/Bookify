@@ -31,4 +31,5 @@ public class UiRoom {
     private Set<AddOn> addOns;
     private Set<Accessory> accessories;
     private Set<OfferDetail> offerDetails;
+    private boolean isActive;
 }
