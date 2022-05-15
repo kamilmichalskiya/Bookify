@@ -28,6 +28,7 @@ public class UiRoomToEntityMapper implements Mapper<Filler<UiRoom, RoomBE>, Room
         target.setArea(source.getArea());
         target.setAddOns(source.getAddOns());
         target.setAccessories(source.getAccessories());
+        target.setActive(source.isActive());
 
         return target;
     }
