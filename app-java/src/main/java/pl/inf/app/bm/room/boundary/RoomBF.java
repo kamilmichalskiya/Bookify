@@ -62,7 +62,6 @@ public class RoomBF {
      */
     public <T> T create(final UiRoom uiRoom, final Mapper<RoomBE, T> uiMapper) {
         final RoomBE targetRoom = new RoomBE();
-        targetRoom.setId(UUID.randomUUID());
         final RoomBE roomBE = uiRoomToEntityMapper.map(new Filler<>(uiRoom, targetRoom));
         return Optional.of(roomRepository.save(roomBE)).map(uiMapper::map).orElseThrow(
                 () -> new ProcessException(ROOM_ADDING_ERROR, roomBE));
