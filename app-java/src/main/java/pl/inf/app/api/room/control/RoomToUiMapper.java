@@ -24,6 +24,7 @@ public class RoomToUiMapper implements Mapper<RoomBE, UiRoom> {
         uiRoom.setOfferDetails(source.getOfferDetails());
         uiRoom.setPrice(source.getPrice());
         uiRoom.setRoomType(source.getRoomType());
+        uiRoom.setActive(source.isActive());
         return uiRoom;
     }
 }

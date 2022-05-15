@@ -66,4 +66,6 @@ public class RoomBE {
     @CollectionTable(name = "offer_details", joinColumns = @JoinColumn(name = "room_id"))
     @Column(name = "offer_detail")
     private Set<OfferDetail> offerDetails;
+
+    private boolean isActive;
 }
