@@ -28,6 +28,7 @@ import java.util.UUID;
 public class RoomBE {
     @Id
     @GeneratedValue
+    @Column(updatable = false)
     private UUID id;
 
     private String image;

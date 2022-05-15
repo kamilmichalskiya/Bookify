@@ -52,7 +52,7 @@ public class RoomBF {
     }
 
     /**
-     * Fills and saves the entity
+     * Fills and saves the room entity
      *
      * @param uiRoom   data to fill the entity
      * @param uiMapper mapper for the UI model
@@ -64,13 +64,12 @@ public class RoomBF {
         final RoomBE targetRoom = new RoomBE();
         targetRoom.setId(UUID.randomUUID());
         final RoomBE roomBE = uiRoomToEntityMapper.map(new Filler<>(uiRoom, targetRoom));
-
         return Optional.of(roomRepository.save(roomBE)).map(uiMapper::map).orElseThrow(
                 () -> new ProcessException(ROOM_ADDING_ERROR, roomBE));
     }
 
     /**
-     * Fills and updates the entity
+     * Fills and updates the room entity
      *
      * @param uiRoom   data to fill the entity
      * @param uiMapper mapper for the UI model
@@ -82,9 +81,7 @@ public class RoomBF {
     public <T> T update(final UiRoom uiRoom, final Mapper<RoomBE, T> uiMapper) {
         final RoomBE room = roomRepository.findById(uiRoom.getId()).orElseThrow(
                 () -> new ProcessException(ROOM_NOT_FOUND, uiRoom.getId()));
-
         final RoomBE roomBE = uiRoomToEntityMapper.map(new Filler<>(uiRoom, room));
-
         return Optional.of(roomRepository.save(roomBE)).map(uiMapper::map).orElseThrow(
                 () -> new ProcessException(ROOM_UPDATING_ERROR, roomBE));
     }
