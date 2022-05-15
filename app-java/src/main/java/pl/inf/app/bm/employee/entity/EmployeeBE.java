@@ -32,4 +32,6 @@ public class EmployeeBE {
     private String email;
 
     private String password;
+
+    private boolean isActive;
 }

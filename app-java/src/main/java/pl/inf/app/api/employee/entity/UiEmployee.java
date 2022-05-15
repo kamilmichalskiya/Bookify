@@ -16,4 +16,5 @@ public class UiEmployee {
     private String surname;
     private String email;
     private String password;
+    private boolean isActive;
 }

@@ -23,6 +23,7 @@ public class UiEmployeeToEntityMapper implements Mapper<Filler<UiEmployee, Emplo
         target.setPassword(source.getPassword());
         target.setName(source.getName());
         target.setSurname(source.getSurname());
+        target.setActive(source.isActive());
 
         return target;
     }
