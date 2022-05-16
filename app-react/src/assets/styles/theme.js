@@ -2,7 +2,7 @@ export const theme = {
   colors: {
     primary: '#1ED760',
     secondary: '#222222',
-    tertiary: '#E9E9E9', //było #6E7077
+    tertiary: '#E9E9E9',
     white: '#FFFFFF',
     lightGrey: '#F7F8FA',
     grey: '#C0C7D6',
@@ -10,6 +10,7 @@ export const theme = {
     success: '#8FCB81',
     error: '#CB8581',
     warning: '#E1D888',
+    placeholder: '#626262',
   },
   fontSize: {
     logo: '70px',

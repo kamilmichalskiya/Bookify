@@ -9,6 +9,8 @@ import Step1 from 'components/templates/Step1/Step1';
 import Step2 from 'components/templates/Step2/Step2';
 import Step3 from 'components/templates/Step3/Step3';
 import Step4 from 'components/templates/Step4/Step4';
+import Registration from 'components/templates/Registration/Registration';
+import Login from 'components/templates/Login/Login';
 
 const sendHttpRequest = async () => {
   console.log('sendHttpRequest');

@@ -134,7 +134,6 @@ export const SectionHeader = styled.span`
 export const UserInput = styled.input`
   margin: 10px 0;
   padding: 10px;
-  
 `;
 
 export const ContentLeftSection = styled.div`
