@@ -17,13 +17,12 @@ export const SearchBarContainer = styled.div`
   color: ${({ theme }) => theme.colors.white};
   width: 100%;
   @media ${({ theme }) => theme.breakpoints.md} {
-    width: 90%;
     border-radius: 100px;
     margin-top: 30px;
     padding: 0 20px;
   }
   @media ${({ theme }) => theme.breakpoints.lg} {
-    width: 80%;
+    height: 70px;
   }
 `;
 
@@ -42,5 +41,30 @@ export const DarkIconStyleWrapper = styled(IconStyleWrapper)`
   &:hover {
     opacity: 0.2;
     cursor: default;
+  }
+`;
+
+export const SearchBarItemWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  border-radius: 100px;
+  padding: 8px;
+  font-size: ${({ theme }) => theme.fontSize.s};
+  &:hover {
+    background-color: #ffffff1a;
+    cursor: pointer;
+  }
+  @media ${({ theme }) => theme.breakpoints.md} {
+    padding: 8px 20px 8px;
+  }
+`;
+
+export const SearchBarItemValue = styled.div`
+  font-weight: 700;
+  padding-left: 15px;
+  font-size: ${({ theme }) => theme.fontSize.s};
+  margin-top: 4px;
+  @media ${({ theme }) => theme.breakpoints.md} {
+    font-size: ${({ theme }) => theme.fontSize.m};
   }
 `;

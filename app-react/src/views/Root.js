@@ -10,6 +10,7 @@ import Step2 from 'components/templates/Step2/Step2';
 import Step3 from 'components/templates/Step3/Step3';
 import Step4 from 'components/templates/Step4/Step4';
 
+// eslint-disable-next-line no-unused-vars
 const sendHttpRequest = async () => {
   console.log('sendHttpRequest');
   await fetch('/api/hello').then((value) => value.json().then((body) => console.log(body)));

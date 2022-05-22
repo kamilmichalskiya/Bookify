@@ -1,30 +1,28 @@
-import React, { useState } from 'react';
-import { SecondaryButton } from '../../atoms/Button/Button';
-import {
-  Wrapper,
-  RoomContainer,
-  RoomContainerPhoto,
-  RoomContainerContext,
-  RoomContainerContextTitle,
-  RoomContainerContextData,
-  RoomContainerContextDataLeft,
-  RoomContainerContextDataRight,
-  RoomFeatures,
-  RoomPrice,
-  Footer,
-  GreenTextWrapper,
-} from './LandingPage-styled';
+import React, { useState, useEffect } from 'react';
+import { Wrapper, Footer, GreenTextWrapper } from './LandingPage-styled';
 import Header from 'components/molecules/Header/Header';
 import SearchBar from 'components/organisms/SearchBar/SearchBar';
+import List from 'components/organisms/List/List';
 import '@fontsource/montserrat';
 import { Redirect } from 'react-router-dom';
 
 const LandingPage = () => {
   const [shouldRedirect, setRedirect] = useState(false);
+  // const [rooms, setRooms] = useState({});
 
   const onRoomDetailsClickHandler = () => {
     console.log('test');
     setRedirect(true);
+  };
+
+  useEffect(() => {
+    getRoomList();
+  }, []);
+
+  const getRoomList = async () => {
+    const response = await fetch('https://chinczyk4.herokuapp.com/games');
+    const data = await response.json();
+    console.log(data);
   };
 
   return (
@@ -33,90 +31,7 @@ const LandingPage = () => {
       <Wrapper>
         <Header title="Bookify"></Header>
         <SearchBar></SearchBar>
-        <RoomContainer>
-          <RoomContainerPhoto></RoomContainerPhoto>
-          <RoomContainerContext>
-            <RoomContainerContextTitle>Pokój Standard (2 osobowy)</RoomContainerContextTitle>
-            <RoomContainerContextData>
-              <RoomContainerContextDataLeft>
-                <RoomFeatures>
-                  <li>2 gości</li>
-                  <li>1 sypialnia</li>
-                  <li>1 łóżko podwójne</li>
-                  <li>1 łazienka</li>
-                </RoomFeatures>
-              </RoomContainerContextDataLeft>
-              <RoomContainerContextDataRight>
-                (cena za 2 noce)
-                <RoomPrice>748zł</RoomPrice>
-                <SecondaryButton onClick={onRoomDetailsClickHandler}>Szczegóły</SecondaryButton>
-              </RoomContainerContextDataRight>
-            </RoomContainerContextData>
-          </RoomContainerContext>
-        </RoomContainer>
-        <RoomContainer>
-          <RoomContainerPhoto></RoomContainerPhoto>
-          <RoomContainerContext>
-            <RoomContainerContextTitle>Pokój Standard (2 osobowy)</RoomContainerContextTitle>
-            <RoomContainerContextData>
-              <RoomContainerContextDataLeft>
-                <RoomFeatures>
-                  <li>2 gości</li>
-                  <li>1 sypialnia</li>
-                  <li>1 łóżko podwójne</li>
-                  <li>1 łazienka</li>
-                </RoomFeatures>
-              </RoomContainerContextDataLeft>
-              <RoomContainerContextDataRight>
-                (cena za 2 noce)
-                <RoomPrice>748zł</RoomPrice>
-                <SecondaryButton onClick={onRoomDetailsClickHandler}>Szczegóły</SecondaryButton>
-              </RoomContainerContextDataRight>
-            </RoomContainerContextData>
-          </RoomContainerContext>
-        </RoomContainer>
-        <RoomContainer>
-          <RoomContainerPhoto></RoomContainerPhoto>
-          <RoomContainerContext>
-            <RoomContainerContextTitle>Pokój Standard (2 osobowy)</RoomContainerContextTitle>
-            <RoomContainerContextData>
-              <RoomContainerContextDataLeft>
-                <RoomFeatures>
-                  <li>2 gości</li>
-                  <li>1 sypialnia</li>
-                  <li>1 łóżko podwójne</li>
-                  <li>1 łazienka</li>
-                </RoomFeatures>
-              </RoomContainerContextDataLeft>
-              <RoomContainerContextDataRight>
-                (cena za 2 noce)
-                <RoomPrice>748zł</RoomPrice>
-                <SecondaryButton onClick={onRoomDetailsClickHandler}>Szczegóły</SecondaryButton>
-              </RoomContainerContextDataRight>
-            </RoomContainerContextData>
-          </RoomContainerContext>
-        </RoomContainer>
-        <RoomContainer>
-          <RoomContainerPhoto></RoomContainerPhoto>
-          <RoomContainerContext>
-            <RoomContainerContextTitle>Pokój Standard (2 osobowy)</RoomContainerContextTitle>
-            <RoomContainerContextData>
-              <RoomContainerContextDataLeft>
-                <RoomFeatures>
-                  <li>2 gości</li>
-                  <li>1 sypialnia</li>
-                  <li>1 łóżko podwójne</li>
-                  <li>1 łazienka</li>
-                </RoomFeatures>
-              </RoomContainerContextDataLeft>
-              <RoomContainerContextDataRight>
-                (cena za 2 noce)
-                <RoomPrice>748zł</RoomPrice>
-                <SecondaryButton onClick={onRoomDetailsClickHandler}>Szczegóły</SecondaryButton>
-              </RoomContainerContextDataRight>
-            </RoomContainerContextData>
-          </RoomContainerContext>
-        </RoomContainer>
+        <List test={onRoomDetailsClickHandler}></List>
         <Footer>
           <span>Więcej informacji</span>
           <span>
