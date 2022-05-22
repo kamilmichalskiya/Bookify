@@ -12,7 +12,6 @@ export const GlobalStyle = createGlobalStyle`
 
  body {
   font-family: 'Montserrat', sans-serif;
-  /* background: ${({ theme }) => theme.colors.tertiary}; */
  }
 
  a, button { // linki i buttony nie dziedziczą z body font-family
