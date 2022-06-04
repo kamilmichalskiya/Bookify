@@ -5,4 +5,5 @@
 /app-react/node/
 /app-react/package-lock.json
 /app-react/build/
+/app-react/.env
 /app-java/target/
