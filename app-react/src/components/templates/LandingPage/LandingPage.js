@@ -13,6 +13,7 @@ const LandingPage = () => {
   const [userSearch, setUserSearch] = useState({
     startDate: '',
     endDate: '',
+    days: 1,
     adultsNumber: 1,
     kidsNumber: 0,
   });
@@ -37,13 +38,18 @@ const LandingPage = () => {
     }
   }, [LinksCtx, rooms.length]);
 
+  useEffect(() => {
+    console.log('userSearch state changed!');
+    console.dir(userSearch);
+  }, [userSearch]);
+
   return (
     <>
       {shouldRedirect ? <Redirect push to={{ pathname: '/step1' }} /> : null}
       <Wrapper>
         <Header title="Bookify"></Header>
         <SearchBar setUserSearch={setUserSearch}></SearchBar>
-        <List rooms={rooms} onRoomDetailsClickHandler={onRoomDetailsClickHandler}></List>
+        <List rooms={rooms} onRoomDetailsClickHandler={onRoomDetailsClickHandler} userSearch={userSearch}></List>
         <Footer>
           <span>Więcej informacji</span>
           <span>

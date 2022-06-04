@@ -13,11 +13,10 @@ import {
 import { SecondaryButton } from 'components/atoms/Button/Button';
 import { Photo } from 'components/atoms/Photo/Photo';
 
-const calculatePrice = (price, capacity, days = 1) => {
-  return price * capacity * days;
-};
-
-const List = ({ rooms, onRoomDetailsClickHandler }) => {
+const List = ({ rooms, onRoomDetailsClickHandler, userSearch }) => {
+  const calculatePrice = (price, capacity, days) => {
+    return price * capacity * (days || 1);
+  };
   return (
     <RoomWrapper>
       {rooms.map(({ roomType, capacity, beds, price }, index) => (
@@ -39,7 +38,10 @@ const List = ({ rooms, onRoomDetailsClickHandler }) => {
               </RoomContainerContextDataLeft>
               <RoomContainerContextDataRight>
                 (cena za 2 noce)
-                <RoomPrice>{calculatePrice(price, capacity)}zł</RoomPrice>
+                <RoomPrice>
+                  {calculatePrice(price, capacity, userSearch.days)}
+                  zł
+                </RoomPrice>
                 <SecondaryButton onClick={onRoomDetailsClickHandler}>Szczegóły</SecondaryButton>
               </RoomContainerContextDataRight>
             </RoomContainerContextData>

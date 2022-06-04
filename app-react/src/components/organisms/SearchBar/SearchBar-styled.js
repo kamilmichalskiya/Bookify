@@ -27,8 +27,12 @@ export const SearchBarContainer = styled.div`
 `;
 
 export const IconStyleWrapper = styled.div`
+  display: none;
   ${StyledIconBase} {
     color: ${({ theme }) => theme.colors.white};
+  }
+  @media ${({ theme }) => theme.breakpoints.md} {
+    display: block;
   }
   &:hover {
     opacity: 0.9;
@@ -61,11 +65,11 @@ export const SearchBarItemWrapper = styled.div`
 
 export const SearchBarItemValue = styled.div`
   font-weight: 700;
-  padding-left: 15px;
   font-size: ${({ theme }) => theme.fontSize.s};
   margin-top: 4px;
   @media ${({ theme }) => theme.breakpoints.md} {
     font-size: ${({ theme }) => theme.fontSize.m};
+    padding-left: 15px;
   }
 `;
 

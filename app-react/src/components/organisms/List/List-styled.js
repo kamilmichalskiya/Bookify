@@ -18,7 +18,7 @@ export const RoomContainer = styled.div`
 `;
 
 export const RoomContainerContext = styled.div`
-  width: 80%;
+  width: 70%;
   display: flex;
   flex-direction: column;
   border-top-right-radius: 5px;
@@ -29,10 +29,13 @@ export const RoomContainerContext = styled.div`
 export const RoomContainerContextTitle = styled.div`
   height: 30%;
   width: 100%;
-  font-size: ${({ theme }) => theme.fontSize.xl};
+  font-size: ${({ theme }) => theme.fontSize.l};
   font-weight: 700;
   padding: 12px 20px 0 20px;
   letter-spacing: 0.08em;
+  @media ${({ theme }) => theme.breakpoints.md} {
+    font-size: ${({ theme }) => theme.fontSize.xl};
+  }
 `;
 
 export const RoomContainerContextData = styled.div`
@@ -43,7 +46,7 @@ export const RoomContainerContextData = styled.div`
 `;
 
 export const RoomContainerContextDataLeft = styled.div`
-  width: 70%;
+  width: 50%;
 `;
 
 export const RoomFeatures = styled.ul`
@@ -54,7 +57,7 @@ export const RoomFeatures = styled.ul`
 export const RoomContainerContextDataRight = styled.div`
   text-align: right;
   padding-right: 30px;
-  width: 30%;
+  width: 50%;
 `;
 
 export const RoomPrice = styled.div`

@@ -1,9 +1,6 @@
 import styled from 'styled-components';
 
-export const Collapsible = styled.div`
-
-
-`;
+export const Collapsible = styled.div``;
 
 export const CollapsibleButton = styled.div`
   border: unset;
@@ -53,10 +50,10 @@ export const CollapsibleContentContainer = styled.div`
 
 export const CollapsibleContentSelection = styled.div`
   font-weight: 700;
-  padding-left: 15px;
   font-size: ${({ theme }) => theme.fontSize.s};
   margin-top: 4px;
   @media ${({ theme }) => theme.breakpoints.md} {
     font-size: ${({ theme }) => theme.fontSize.m};
+    padding-left: 15px;
   }
 `;

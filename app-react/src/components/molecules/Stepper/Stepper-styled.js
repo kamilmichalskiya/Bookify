@@ -10,6 +10,7 @@ export const StepperLine = styled.div`
 
 export const StepperLabel = styled.div`
   margin-right: 8px;
+  font-size: 1rem;
 `;
 
 export const StepperWrapper = styled.div`

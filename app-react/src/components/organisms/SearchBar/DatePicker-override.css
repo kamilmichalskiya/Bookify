@@ -97,3 +97,12 @@
   color: #222;
 }
 
+.react-datepicker-wrapper,
+.react-datepicker__input-container {
+  max-width: 150px;
+  overflow: hidden;
+}
+
+.react-datepicker__input-container:input {
+  max-width: 85%;
+}

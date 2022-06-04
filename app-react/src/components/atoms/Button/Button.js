@@ -26,7 +26,9 @@ export const PrimaryButton = styled.button`
 
 export const SecondaryButton = styled.button`
   background-color: ${({ theme }) => theme.colors.primary};
-  width: 140px;
+  max-width: 140px;
+  width: auto;
+  padding: 0px 15px;
   height: 32px;
   border-radius: 100px;
   font-weight: 600;

@@ -32,6 +32,7 @@ const SearchBar = ({ setUserSearch }) => {
     const newUserSearchData = {
       startDate: startDate.toLocaleDateString('pl-pl', DateOptions),
       endDate: endDate.toLocaleDateString('pl-pl', DateOptions),
+      days: calculateDays(startDate, endDate),
       adultsNumber,
       kidsNumber,
       roomDetails,
@@ -40,14 +41,10 @@ const SearchBar = ({ setUserSearch }) => {
     setUserSearch(newUserSearchData);
   };
 
-  const onExpansionPanelClick = (e) => {
-    const collapsible = document.getElementById('collapsible');
-    collapsible.classList.toggle('active');
-    if (collapsible.style.display === 'none') {
-      collapsible.style.display = 'block';
-    } else if (collapsible.style.display === 'block') {
-      collapsible.style.display = 'none';
-    }
+  const calculateDays = (startDate, endDate) => {
+    let difference = endDate.getTime() - startDate.getTime();
+    let days = Math.ceil(difference / (1000 * 3600 * 24));
+    return days;
   };
 
   return (
@@ -79,7 +76,7 @@ const SearchBar = ({ setUserSearch }) => {
           onChange={(date) => setEndDate(date)}
           locale="pl"
           dateFormat="dd MMMM yyyy"
-        />
+        ></DatePicker>
       </SearchBarItemWrapper>
       <SearchBarItemWrapper>
         <Collapsible label="Goście" selection="1 dorosły, 0 dzieci">
