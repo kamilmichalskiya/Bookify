@@ -9,37 +9,34 @@ import Step1 from 'components/templates/Step1/Step1';
 import Step2 from 'components/templates/Step2/Step2';
 import Step3 from 'components/templates/Step3/Step3';
 import Step4 from 'components/templates/Step4/Step4';
-
-// eslint-disable-next-line no-unused-vars
-const sendHttpRequest = async () => {
-  console.log('sendHttpRequest');
-  await fetch('/api/hello').then((value) => value.json().then((body) => console.log(body)));
-};
+import LinksProvider from 'providers/LinksProvider';
 
 const Root = () => {
   return (
     <Router>
       <ThemeProvider theme={theme}>
         <GlobalStyle />
-        <Wrapper>
-          <Switch>
-            <Route path="/step1">
-              <Step1></Step1>
-            </Route>
-            <Route path="/step2">
-              <Step2></Step2>
-            </Route>
-            <Route path="/step3">
-              <Step3></Step3>
-            </Route>
-            <Route path="/step4">
-              <Step4></Step4>
-            </Route>
-            <Route path="/">
-              <LandingPage></LandingPage>
-            </Route>
-          </Switch>
-        </Wrapper>
+        <LinksProvider>
+          <Wrapper>
+            <Switch>
+              <Route path="/step1">
+                <Step1></Step1>
+              </Route>
+              <Route path="/step2">
+                <Step2></Step2>
+              </Route>
+              <Route path="/step3">
+                <Step3></Step3>
+              </Route>
+              <Route path="/step4">
+                <Step4></Step4>
+              </Route>
+              <Route path="/">
+                <LandingPage></LandingPage>
+              </Route>
+            </Switch>
+          </Wrapper>
+        </LinksProvider>
       </ThemeProvider>
     </Router>
   );

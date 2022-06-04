@@ -1,33 +1,40 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Wrapper, Footer, GreenTextWrapper } from './LandingPage-styled';
 import Header from 'components/molecules/Header/Header';
 import SearchBar from 'components/organisms/SearchBar/SearchBar';
 import List from 'components/organisms/List/List';
 import '@fontsource/montserrat';
 import { Redirect } from 'react-router-dom';
+import { LinksContext } from 'providers/LinksProvider';
 
 const LandingPage = () => {
   const [shouldRedirect, setRedirect] = useState(false);
-  // const [rooms, setRooms] = useState({});
+  const [rooms, setRooms] = useState([]);
+  const LinksCtx = useContext(LinksContext);
 
   const onRoomDetailsClickHandler = () => {
-    console.log('test');
+    console.log('LandingPage: roomDetailsClick');
     setRedirect(true);
   };
 
   useEffect(() => {
-    getRoomList();
-  }, []);
+    const getRooms = async () => {
+      const response = await fetch(LinksCtx.rooms);
+      const data = await response.json();
+      const roomsArray = data._embedded.uiRoomList;
+      setRooms(roomsArray);
+      console.dir(roomsArray);
+    };
 
-  const getRoomList = async () => {
-    const response = await fetch('https://chinczyk4.herokuapp.com/games');
-    const data = await response.json();
-    console.log(data);
-  };
+    if (LinksCtx.rooms && rooms.length === 0) {
+      getRooms();
+    }
+  }, [LinksCtx, rooms.length]);
 
   return (
     <>
       {shouldRedirect ? <Redirect push to={{ pathname: '/step1' }} /> : null}
+      {console.dir(LinksCtx)}
       <Wrapper>
         <Header title="Bookify"></Header>
         <SearchBar></SearchBar>
