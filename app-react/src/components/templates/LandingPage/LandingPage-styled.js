@@ -19,7 +19,7 @@ export const Footer = styled.div`
   flex-wrap: nowrap;
   justify-content: space-between;
   align-items: center;
-  margin-top: auto;
+  margin-top: 10px;
   padding: 0 40px;
   background-color: ${({ theme }) => theme.colors.secondary};
   color: ${({ theme }) => theme.colors.white};

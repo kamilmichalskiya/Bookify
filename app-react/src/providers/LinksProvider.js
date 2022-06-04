@@ -8,18 +8,15 @@ const linkNames = {
 };
 
 export const LinksContext = React.createContext({
-  roomsUrl: '',
-  employeesUrl: '',
-  offersUrl: '',
-  linksUrl: '/api',
+  rooms: '',
+  employees: '',
+  offers: '',
+  links: '/api',
   getLinks: () => {},
 });
 
 const LinksProvider = ({ children }) => {
-  const [roomsUrl, setRoomsUrl] = useState('');
-  const [employeesUrl, setEmployeesUrl] = useState('');
-  const [offersUrl, setOffersUrl] = useState('');
-  const [linksUrl, setLinksUrl] = useState('');
+  const [links, setLinks] = useState({});
 
   useEffect(() => {
     getLinks();
@@ -28,21 +25,22 @@ const LinksProvider = ({ children }) => {
   const getLinks = async () => {
     const response = await fetch('/api');
     const data = await response.json();
+    let newLinksContext = {};
     for (const link of data) {
       const { rel, href } = link;
       if (href) {
         switch (rel) {
           case linkNames.rooms:
-            setRoomsUrl(href);
+            newLinksContext.rooms = href;
             break;
           case linkNames.employees:
-            setEmployeesUrl(href);
+            newLinksContext.employees = href;
             break;
           case linkNames.offers:
-            setOffersUrl(href);
+            newLinksContext.offers = href;
             break;
           case linkNames.links:
-            setLinksUrl(href);
+            newLinksContext.links = href;
             break;
           default:
             break;
@@ -51,15 +49,13 @@ const LinksProvider = ({ children }) => {
         console.error('GetLinks: Missing href param in response');
       }
     }
+    setLinks(newLinksContext);
   };
 
   return (
     <LinksContext.Provider
       value={{
-        rooms: roomsUrl,
-        employees: employeesUrl,
-        offers: offersUrl,
-        links: linksUrl,
+        ...links,
         getLinks,
       }}
     >

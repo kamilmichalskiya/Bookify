@@ -38,7 +38,7 @@ const LandingPage = () => {
       <Wrapper>
         <Header title="Bookify"></Header>
         <SearchBar></SearchBar>
-        <List test={onRoomDetailsClickHandler}></List>
+        <List rooms={rooms} onRoomDetailsClickHandler={onRoomDetailsClickHandler}></List>
         <Footer>
           <span>Więcej informacji</span>
           <span>

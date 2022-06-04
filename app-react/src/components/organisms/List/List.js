@@ -11,94 +11,37 @@ import {
   RoomPrice,
 } from './List-styled.js';
 import { SecondaryButton } from 'components/atoms/Button/Button';
+import { Photo } from 'components/atoms/Photo/Photo';
 
-const List = ({ test }) => {
+const List = ({ rooms, onRoomDetailsClickHandler }) => {
   return (
     <>
-      <RoomContainer>
-        <RoomContainerPhoto></RoomContainerPhoto>
-        <RoomContainerContext>
-          <RoomContainerContextTitle>Pokój Standard (2 osobowy)</RoomContainerContextTitle>
-          <RoomContainerContextData>
-            <RoomContainerContextDataLeft>
-              <RoomFeatures>
-                <li>2 gości</li>
-                <li>1 sypialnia</li>
-                <li>1 łóżko podwójne</li>
-                <li>1 łazienka</li>
-              </RoomFeatures>
-            </RoomContainerContextDataLeft>
-            <RoomContainerContextDataRight>
-              (cena za 2 noce)
-              <RoomPrice>748zł</RoomPrice>
-              <SecondaryButton onClick={test}>Szczegóły</SecondaryButton>
-            </RoomContainerContextDataRight>
-          </RoomContainerContextData>
-        </RoomContainerContext>
-      </RoomContainer>
-      <RoomContainer>
-        <RoomContainerPhoto></RoomContainerPhoto>
-        <RoomContainerContext>
-          <RoomContainerContextTitle>Pokój Standard (2 osobowy)</RoomContainerContextTitle>
-          <RoomContainerContextData>
-            <RoomContainerContextDataLeft>
-              <RoomFeatures>
-                <li>2 gości</li>
-                <li>1 sypialnia</li>
-                <li>1 łóżko podwójne</li>
-                <li>1 łazienka</li>
-              </RoomFeatures>
-            </RoomContainerContextDataLeft>
-            <RoomContainerContextDataRight>
-              (cena za 2 noce)
-              <RoomPrice>748zł</RoomPrice>
-              <SecondaryButton onClick={test}>Szczegóły</SecondaryButton>
-            </RoomContainerContextDataRight>
-          </RoomContainerContextData>
-        </RoomContainerContext>
-      </RoomContainer>
-      <RoomContainer>
-        <RoomContainerPhoto></RoomContainerPhoto>
-        <RoomContainerContext>
-          <RoomContainerContextTitle>Pokój Standard (2 osobowy)</RoomContainerContextTitle>
-          <RoomContainerContextData>
-            <RoomContainerContextDataLeft>
-              <RoomFeatures>
-                <li>2 gości</li>
-                <li>1 sypialnia</li>
-                <li>1 łóżko podwójne</li>
-                <li>1 łazienka</li>
-              </RoomFeatures>
-            </RoomContainerContextDataLeft>
-            <RoomContainerContextDataRight>
-              (cena za 2 noce)
-              <RoomPrice>748zł</RoomPrice>
-              <SecondaryButton onClick={test}>Szczegóły</SecondaryButton>
-            </RoomContainerContextDataRight>
-          </RoomContainerContextData>
-        </RoomContainerContext>
-      </RoomContainer>
-      <RoomContainer>
-        <RoomContainerPhoto></RoomContainerPhoto>
-        <RoomContainerContext>
-          <RoomContainerContextTitle>Pokój Standard (2 osobowy)</RoomContainerContextTitle>
-          <RoomContainerContextData>
-            <RoomContainerContextDataLeft>
-              <RoomFeatures>
-                <li>2 gości</li>
-                <li>1 sypialnia</li>
-                <li>1 łóżko podwójne</li>
-                <li>1 łazienka</li>
-              </RoomFeatures>
-            </RoomContainerContextDataLeft>
-            <RoomContainerContextDataRight>
-              (cena za 2 noce)
-              <RoomPrice>748zł</RoomPrice>
-              <SecondaryButton onClick={test}>Szczegóły</SecondaryButton>
-            </RoomContainerContextDataRight>
-          </RoomContainerContextData>
-        </RoomContainerContext>
-      </RoomContainer>
+      {rooms.map(({ roomType, capacity, beds, price }, index) => (
+        <RoomContainer>
+          <Photo url={`room${index + 1}`}></Photo>
+          <RoomContainerContext>
+            <RoomContainerContextTitle>
+              Pokój {roomType} ({capacity} osobowy)
+            </RoomContainerContextTitle>
+            <RoomContainerContextData>
+              <RoomContainerContextDataLeft>
+                <RoomFeatures>
+                  <li>{capacity} gości</li>
+                  <li>1 sypialnia</li>
+                  {beds.includes('DOUBLE_BED') ? <li>1 łóżko podwójne</li> : ''}
+                  {beds.includes('SINGLE_BED') ? <li>1 łóżko pojedyńcze</li> : ''}
+                  <li>1 łazienka</li>
+                </RoomFeatures>
+              </RoomContainerContextDataLeft>
+              <RoomContainerContextDataRight>
+                (cena za 2 noce)
+                <RoomPrice>{price}zł</RoomPrice>
+                <SecondaryButton onClick={onRoomDetailsClickHandler}>Szczegóły</SecondaryButton>
+              </RoomContainerContextDataRight>
+            </RoomContainerContextData>
+          </RoomContainerContext>
+        </RoomContainer>
+      ))}
     </>
   );
 };

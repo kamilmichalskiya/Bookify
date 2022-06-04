@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import RoomPhoto from '../../../assets/img/photo1.png';
+import RoomPhoto from 'assets/img/room1.png';
 
 export const RoomContainer = styled.div`
   display: flex;
@@ -8,17 +8,9 @@ export const RoomContainer = styled.div`
   height: 150px;
   width: 60%;
   border-radius: 5px;
-  margin-top: 10px;
+  margin-bottom: 20px;
   background-color: ${({ theme }) => theme.colors.secondary};
   color: ${({ theme }) => theme.colors.white};
-`;
-
-export const RoomContainerPhoto = styled.div`
-  background-image: url(${RoomPhoto});
-  background-size: cover;
-  width: 20%;
-  border-top-left-radius: 5px;
-  border-bottom-left-radius: 5px;
 `;
 
 export const RoomContainerContext = styled.div`
