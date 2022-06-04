@@ -12,18 +12,29 @@ export const Button = styled.button`
 `;
 
 export const PrimaryButton = styled.button`
-  margin: 15px 0px;
-  padding: 12px 20px;
-  font-size: ${({ theme }) => theme.fontSize.s};
-  background-color: ${({ theme }) => theme.colors.secondary};
-  border-radius: 5px;
-  border: none;
-  font-weight: bold;
-  color: ${({ theme }) => theme.colors.primary};
-  position: relative;
-  left: 0;
-  hover: {
-    background-color: yellow;
+  background-color: ${({ theme }) => theme.colors.white};
+  width: 120px;
+  min-width: 80px;
+  height: 32px;
+  border-radius: 100px;
+  font-weight: 600;
+  &:hover {
+    cursor: pointer;
+    opacity: 0.9;
   }
-  cursor: pointer;
+`;
+
+export const SecondaryButton = styled.button`
+  background-color: ${({ theme }) => theme.colors.primary};
+  max-width: 140px;
+  width: auto;
+  padding: 0px 15px;
+  height: 32px;
+  border-radius: 100px;
+  font-weight: 600;
+  color: ${({ theme }) => theme.colors.white};
+  letter-spacing: 0.08em;
+  &:hover {
+    opacity: 0.9;
+  }
 `;

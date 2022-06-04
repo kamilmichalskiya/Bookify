@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
 import styled from "styled-components";
 import { StyledIconBase } from "@styled-icons/styled-icon";
-import RoomPhoto from "../../../assets/img/photo1.png";
+import RoomPhoto from "../../../assets/img/room1.png";
 import ProgressBar1 from "../../../assets/img/progressbar1.png";
 
 export const Wrapper = styled.div`

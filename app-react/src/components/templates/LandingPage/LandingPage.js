@@ -1,164 +1,55 @@
-/* eslint-disable prettier/prettier */
-import React, { useState, useEffect } from 'react';
-import {
-  Wrapper,
-  Header,
-  Logo,
-  IconStyleWrapper,
-  DarkIconStyleWrapper,
-  SearchBarContainer,
-  FindButton,
-  SearchBarTextContainer,
-  SearchBarTextCol,
-  SearchBarValue,
-  RoomContainer,
-  RoomContainerPhoto,
-  RoomContainerContext,
-  RoomContainerContextTitle,
-  RoomContainerContextData,
-  RoomContainerContextDataLeft,
-  RoomContainerContextDataRight,
-  RoomFeatures,
-  RoomPrice,
-  DetailsButton,
-  Footer,
-  GreenTextWrapper,
-} from './LandingPage-styled';
-import { AccountCircle } from '@styled-icons/material/AccountCircle';
-import { MagnifyingGlass } from '@styled-icons/entypo/MagnifyingGlass';
+import React, { useState, useEffect, useContext } from 'react';
+import { Wrapper, Footer, GreenTextWrapper } from './LandingPage-styled';
+import Header from 'components/molecules/Header/Header';
+import SearchBar from 'components/organisms/SearchBar/SearchBar';
+import List from 'components/organisms/List/List';
 import '@fontsource/montserrat';
-// import { BrowserRouter as Router, Link } from 'react-router-dom';
 import { Redirect } from 'react-router-dom';
-
+import { LinksContext } from 'providers/LinksProvider';
 
 const LandingPage = () => {
   const [shouldRedirect, setRedirect] = useState(false);
+  const [rooms, setRooms] = useState([]);
+  const [userSearch, setUserSearch] = useState({
+    startDate: '',
+    endDate: '',
+    days: 1,
+    adultsNumber: 1,
+    kidsNumber: 0,
+  });
+  const LinksCtx = useContext(LinksContext);
 
   const onRoomDetailsClickHandler = () => {
-    console.log("test");
+    console.log('LandingPage: roomDetailsClick');
     setRedirect(true);
-  }
+  };
+
+  useEffect(() => {
+    const getRooms = async () => {
+      const response = await fetch(LinksCtx.rooms);
+      const data = await response.json();
+      const roomsArray = data._embedded.uiRoomList;
+      setRooms(roomsArray);
+      console.dir(roomsArray);
+    };
+
+    if (LinksCtx.rooms && rooms.length === 0) {
+      getRooms();
+    }
+  }, [LinksCtx, rooms.length]);
+
+  useEffect(() => {
+    console.log('userSearch state changed!');
+    console.dir(userSearch);
+  }, [userSearch]);
 
   return (
     <>
-      {shouldRedirect ? <Redirect push to={{ pathname: '/step1'}} /> : null}
+      {shouldRedirect ? <Redirect push to={{ pathname: '/step1' }} /> : null}
       <Wrapper>
-        <Header>
-          <Logo>Bookify</Logo>
-          <IconStyleWrapper>
-            <AccountCircle size="60" />
-          </IconStyleWrapper>
-        </Header>
-        {/* search bar */}
-        <SearchBarContainer>
-          <DarkIconStyleWrapper>
-            <MagnifyingGlass size="24" />
-          </DarkIconStyleWrapper>
-          <SearchBarTextContainer>
-            <SearchBarTextCol>
-              Przyjazd
-              <SearchBarValue>15 kwietnia 2022</SearchBarValue>
-            </SearchBarTextCol>
-            <SearchBarTextCol>
-              Wyjazd
-              <SearchBarValue>17 kwietnia 2022</SearchBarValue>
-            </SearchBarTextCol>
-            <SearchBarTextCol>
-              Goście
-              <SearchBarValue>2 dorosłych, 1 dziecko</SearchBarValue>
-            </SearchBarTextCol>
-            <SearchBarTextCol>
-              Cechy pokoju
-              <SearchBarValue>Klimatyzacja, lodówka</SearchBarValue>
-            </SearchBarTextCol>
-          </SearchBarTextContainer>
-          <FindButton>Szukaj</FindButton>
-        </SearchBarContainer>
-        {/* rooms */}
-        <RoomContainer>
-          <RoomContainerPhoto></RoomContainerPhoto>
-          <RoomContainerContext>
-            <RoomContainerContextTitle>Pokój Standard (2 osobowy)</RoomContainerContextTitle>
-            <RoomContainerContextData>
-              <RoomContainerContextDataLeft>
-                <RoomFeatures>
-                  <li>2 gości</li>
-                  <li>1 sypialnia</li>
-                  <li>1 łóżko podwójne</li>
-                  <li>1 łazienka</li>
-                </RoomFeatures>
-              </RoomContainerContextDataLeft>
-              <RoomContainerContextDataRight>
-                (cena za 2 noce)
-                <RoomPrice>748zł</RoomPrice>
-                <DetailsButton onClick={onRoomDetailsClickHandler}>Szczegóły</DetailsButton>
-              </RoomContainerContextDataRight>
-            </RoomContainerContextData>
-          </RoomContainerContext>
-        </RoomContainer>
-        <RoomContainer>
-          <RoomContainerPhoto></RoomContainerPhoto>
-          <RoomContainerContext>
-            <RoomContainerContextTitle>Pokój Standard (2 osobowy)</RoomContainerContextTitle>
-            <RoomContainerContextData>
-              <RoomContainerContextDataLeft>
-                <RoomFeatures>
-                  <li>2 gości</li>
-                  <li>1 sypialnia</li>
-                  <li>1 łóżko podwójne</li>
-                  <li>1 łazienka</li>
-                </RoomFeatures>
-              </RoomContainerContextDataLeft>
-              <RoomContainerContextDataRight>
-                (cena za 2 noce)
-                <RoomPrice>748zł</RoomPrice>
-                <DetailsButton onClick={onRoomDetailsClickHandler}>Szczegóły</DetailsButton>
-              </RoomContainerContextDataRight>
-            </RoomContainerContextData>
-          </RoomContainerContext>
-        </RoomContainer>
-        <RoomContainer>
-          <RoomContainerPhoto></RoomContainerPhoto>
-          <RoomContainerContext>
-            <RoomContainerContextTitle>Pokój Standard (2 osobowy)</RoomContainerContextTitle>
-            <RoomContainerContextData>
-              <RoomContainerContextDataLeft>
-                <RoomFeatures>
-                  <li>2 gości</li>
-                  <li>1 sypialnia</li>
-                  <li>1 łóżko podwójne</li>
-                  <li>1 łazienka</li>
-                </RoomFeatures>
-              </RoomContainerContextDataLeft>
-              <RoomContainerContextDataRight>
-                (cena za 2 noce)
-                <RoomPrice>748zł</RoomPrice>
-                <DetailsButton onClick={onRoomDetailsClickHandler}>Szczegóły</DetailsButton>
-              </RoomContainerContextDataRight>
-            </RoomContainerContextData>
-          </RoomContainerContext>
-        </RoomContainer>
-        <RoomContainer>
-          <RoomContainerPhoto></RoomContainerPhoto>
-          <RoomContainerContext>
-            <RoomContainerContextTitle>Pokój Standard (2 osobowy)</RoomContainerContextTitle>
-            <RoomContainerContextData>
-              <RoomContainerContextDataLeft>
-                <RoomFeatures>
-                  <li>2 gości</li>
-                  <li>1 sypialnia</li>
-                  <li>1 łóżko podwójne</li>
-                  <li>1 łazienka</li>
-                </RoomFeatures>
-              </RoomContainerContextDataLeft>
-              <RoomContainerContextDataRight>
-                (cena za 2 noce)
-                <RoomPrice>748zł</RoomPrice>
-                <DetailsButton onClick={onRoomDetailsClickHandler}>Szczegóły</DetailsButton>
-              </RoomContainerContextDataRight>
-            </RoomContainerContextData>
-          </RoomContainerContext>
-        </RoomContainer>
+        <Header title="Bookify"></Header>
+        <SearchBar setUserSearch={setUserSearch}></SearchBar>
+        <List rooms={rooms} onRoomDetailsClickHandler={onRoomDetailsClickHandler} userSearch={userSearch}></List>
         <Footer>
           <span>Więcej informacji</span>
           <span>
