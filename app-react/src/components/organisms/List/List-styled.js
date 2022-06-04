@@ -1,12 +1,16 @@
 import styled from 'styled-components';
-import RoomPhoto from 'assets/img/room1.png';
+
+export const RoomWrapper = styled.div`
+  width: 90%;
+  margin: 0px 20px;
+`;
 
 export const RoomContainer = styled.div`
   display: flex;
   flex-wrap: nowrap;
   align-items: stretch;
   height: 150px;
-  width: 60%;
+  width: 100%;
   border-radius: 5px;
   margin-bottom: 20px;
   background-color: ${({ theme }) => theme.colors.secondary};

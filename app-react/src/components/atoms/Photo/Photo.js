@@ -18,14 +18,15 @@ const handleUrl = (url) => {
     case 'room5':
       return Room5;
     default:
-      break;
+      return Room1;
   }
 };
 
 export const Photo = styled.div`
   background-image: url(${({ url }) => handleUrl(url)});
   background-size: cover;
-  width: 20%;
+  width: 30%;
+  max-width: 300px;
   border-top-left-radius: 5px;
   border-bottom-left-radius: 5px;
 `;

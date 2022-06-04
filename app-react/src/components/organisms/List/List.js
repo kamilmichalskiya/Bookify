@@ -1,7 +1,7 @@
 import React from 'react';
 import {
+  RoomWrapper,
   RoomContainer,
-  RoomContainerPhoto,
   RoomContainerContext,
   RoomContainerContextTitle,
   RoomContainerContextData,
@@ -13,9 +13,13 @@ import {
 import { SecondaryButton } from 'components/atoms/Button/Button';
 import { Photo } from 'components/atoms/Photo/Photo';
 
+const calculatePrice = (price, capacity, days = 1) => {
+  return price * capacity * days;
+};
+
 const List = ({ rooms, onRoomDetailsClickHandler }) => {
   return (
-    <>
+    <RoomWrapper>
       {rooms.map(({ roomType, capacity, beds, price }, index) => (
         <RoomContainer>
           <Photo url={`room${index + 1}`}></Photo>
@@ -35,14 +39,14 @@ const List = ({ rooms, onRoomDetailsClickHandler }) => {
               </RoomContainerContextDataLeft>
               <RoomContainerContextDataRight>
                 (cena za 2 noce)
-                <RoomPrice>{price}zł</RoomPrice>
+                <RoomPrice>{calculatePrice(price, capacity)}zł</RoomPrice>
                 <SecondaryButton onClick={onRoomDetailsClickHandler}>Szczegóły</SecondaryButton>
               </RoomContainerContextDataRight>
             </RoomContainerContextData>
           </RoomContainerContext>
         </RoomContainer>
       ))}
-    </>
+    </RoomWrapper>
   );
 };
 

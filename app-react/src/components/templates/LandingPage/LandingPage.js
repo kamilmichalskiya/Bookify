@@ -10,6 +10,12 @@ import { LinksContext } from 'providers/LinksProvider';
 const LandingPage = () => {
   const [shouldRedirect, setRedirect] = useState(false);
   const [rooms, setRooms] = useState([]);
+  const [userSearch, setUserSearch] = useState({
+    startDate: '',
+    endDate: '',
+    adultsNumber: 1,
+    kidsNumber: 0,
+  });
   const LinksCtx = useContext(LinksContext);
 
   const onRoomDetailsClickHandler = () => {
@@ -34,10 +40,9 @@ const LandingPage = () => {
   return (
     <>
       {shouldRedirect ? <Redirect push to={{ pathname: '/step1' }} /> : null}
-      {console.dir(LinksCtx)}
       <Wrapper>
         <Header title="Bookify"></Header>
-        <SearchBar></SearchBar>
+        <SearchBar setUserSearch={setUserSearch}></SearchBar>
         <List rooms={rooms} onRoomDetailsClickHandler={onRoomDetailsClickHandler}></List>
         <Footer>
           <span>Więcej informacji</span>
