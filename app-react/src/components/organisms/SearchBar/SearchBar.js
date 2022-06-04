@@ -1,16 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import {
-  SearchBarContainer,
-  DarkIconStyleWrapper,
-  SearchBarItemWrapper,
-  SearchBarItemValue,
-  CollapsiblePanelButton,
-  CollapsiblePanelContent,
-} from './SearchBar-styled';
+import { SearchBarContainer, DarkIconStyleWrapper, SearchBarItemWrapper, SearchBarItemValue, StepperContainer } from './SearchBar-styled';
 import { PrimaryButton } from 'components/atoms/Button/Button';
 import { MagnifyingGlass } from '@styled-icons/entypo/MagnifyingGlass';
 import DatePicker, { registerLocale } from 'react-datepicker';
 import Collapsible from 'components/molecules/Collapsible/Collapsible';
+import Stepper from 'components/molecules/Stepper/Stepper';
 import 'react-datepicker/dist/react-datepicker.css';
 import './DatePicker-override.css';
 import pl from 'date-fns/locale/pl';
@@ -23,9 +17,9 @@ const SearchBar = ({ setUserSearch }) => {
   const DateOptions = { year: 'numeric', month: 'long', day: 'numeric' };
   const [startDate, setStartDate] = useState(today);
   const [endDate, setEndDate] = useState(tomorrow);
-  const [adultsNumber, setAdultsNumber] = useState(0);
+  const [adultsNumber, setAdultsNumber] = useState(1);
   const [kidsNumber, setKidsNumber] = useState(0);
-  const [roomDetails, setRoomDetails] = useState({});
+  const [roomDetails, setRoomDetails] = useState(['Klimatyzacja', 'Lodówka']);
 
   useEffect(() => {
     if (endDate.setHours(0, 0, 0, 0) < startDate.setHours(0, 0, 0, 0)) {
@@ -88,22 +82,12 @@ const SearchBar = ({ setUserSearch }) => {
         />
       </SearchBarItemWrapper>
       <SearchBarItemWrapper>
-        <Collapsible>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-            minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-          </p>
+        <Collapsible label="Goście" selection="1 dorosły, 0 dzieci">
+          <StepperContainer>
+            <Stepper title="Dorośli" value={adultsNumber} updateValue={setAdultsNumber} minValue={1}></Stepper>
+            <Stepper title="Dzieci" value={kidsNumber} updateValue={setKidsNumber} minValue={0}></Stepper>
+          </StepperContainer>
         </Collapsible>
-        {/* <CollapsiblePanelButton onClick={onExpansionPanelClick}>
-          Goście
-          <SearchBarItemValue>2 dorosłych, 1 dziecko</SearchBarItemValue>
-        </CollapsiblePanelButton>
-        <CollapsiblePanelContent id="collapsible">
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-            minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-          </p>
-        </CollapsiblePanelContent> */}
       </SearchBarItemWrapper>
       <SearchBarItemWrapper>
         Cechy pokoju

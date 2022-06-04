@@ -68,3 +68,10 @@ export const SearchBarItemValue = styled.div`
     font-size: ${({ theme }) => theme.fontSize.m};
   }
 `;
+
+export const StepperContainer = styled.div`
+  display: table;
+  align-items: center;
+  width: 100%;
+  margin: 0px 0px 16px;
+`;

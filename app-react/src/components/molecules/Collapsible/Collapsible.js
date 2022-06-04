@@ -1,13 +1,16 @@
 import React, { useState, useRef } from 'react';
-import { Collapsible, CollapsibleButton, CollapsibleContentContainer, CollapsibleContent } from './Collapsible-styled';
+import { Collapsible, CollapsibleButton, CollapsibleContentContainer, CollapsibleContent, CollapsibleContentSelection } from './Collapsible-styled';
 
-const FormField = ({ children }) => {
+const FormField = ({ children, label, selection }) => {
   const [isOpen, setIsOpen] = useState(false);
   const parentRef = useRef();
 
   return (
     <Collapsible>
-      <CollapsibleButton onClick={() => setIsOpen(!isOpen)}>Toggle</CollapsibleButton>
+      <CollapsibleButton onClick={() => setIsOpen(!isOpen)}>
+        {label}
+        <CollapsibleContentSelection>{selection}</CollapsibleContentSelection>
+      </CollapsibleButton>
       <CollapsibleContentContainer isOpen={isOpen} height={parentRef.current?.scrollHeight} ref={parentRef}>
         <CollapsibleContent>{children}</CollapsibleContent>
       </CollapsibleContentContainer>
