@@ -84,15 +84,6 @@ export const ContentContainer = styled.div`
   letter-spacing: 0.03em;
 `;
 
-export const ContentLeftContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  background-color: ${({ theme }) => theme.colors.secondary};
-  width: 65%;
-  border-radius: 5px;
-  padding: 0 30px;
-`;
-
 export const ContentLeftTitle = styled.div`
   width: 100%;
   font-size: ${({ theme }) => theme.fontSize.xxl};

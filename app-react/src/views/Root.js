@@ -16,9 +16,7 @@ const Root = () => {
         <LinksProvider>
           <Wrapper>
             <Switch>
-              <Route path="/steps">
-                <Steps></Steps>
-              </Route>
+              <Route path="/steps" render={(props) => <Steps {...props} />}></Route>
               <Route path="/">
                 <LandingPage></LandingPage>
               </Route>

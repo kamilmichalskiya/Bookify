@@ -10,7 +10,7 @@ import './DatePicker-override.css';
 import pl from 'date-fns/locale/pl';
 registerLocale('pl', pl);
 
-const SearchBar = ({ setUserSearch }) => {
+const SearchBar = ({ setUserSelection }) => {
   const today = new Date();
   const tomorrow = new Date(today);
   tomorrow.setDate(tomorrow.getDate() + 1);
@@ -35,9 +35,9 @@ const SearchBar = ({ setUserSearch }) => {
       adultsNumber,
       kidsNumber,
       roomDetails,
+      selectedRoom: {},
     };
-    console.dir(newUserSearchData);
-    setUserSearch(newUserSearchData);
+    setUserSelection(newUserSearchData);
   };
 
   const calculateDays = (startDate, endDate) => {

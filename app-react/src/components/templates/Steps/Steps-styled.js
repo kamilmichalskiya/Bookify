@@ -1,7 +1,6 @@
 /* eslint-disable prettier/prettier */
 import styled from "styled-components";
 import { StyledIconBase } from "@styled-icons/styled-icon";
-import ProgressBar1 from "assets/img/progressbar1.png";
 
 export const Wrapper = styled.div`
   display: flex;
@@ -69,22 +68,25 @@ export const SearchBarContainer = styled.div`
   display: flex;
   justify-content: center;
   height: 50px;
-  width: 80%;
+  width: 100%;
   border-radius: 100px;
   margin-top: 30px;
   margin-bottom: 30px;
-  letter-spacing: 0.03em; //dodać w theme?
+  letter-spacing: 0.03em;
   background-color: ${({ theme }) => theme.colors.secondary};
   color: ${({ theme }) => theme.colors.white};
+  @media ${({ theme }) => theme.breakpoints.md} {
+    width: 80%;
+  }
 `;
 
 export const SearchBarImg = styled.div`
-  background-image: url(${ProgressBar1});
+  background-image: url(${({ url }) => url});
   background-size: 70%;
   background-repeat: no-repeat;
   background-position: center;
   height: 50px;
-  width: 90%;
+  width: 100%;
   padding: 0 15px;
   border-radius: 100px;
 `;
@@ -103,21 +105,43 @@ export const WhiteButton = styled.button`
 
 export const ContentContainer = styled.div`
   display: flex;
+  flex-direction: column-reverse;
   justify-content: space-between;
   align-items: flex-start;
-  width: 70%;
+  width: 100%;
   color: ${({ theme }) => theme.colors.white};
-  letter-spacing: 0.03em; //to trzeba globalnie ustawić!
+  letter-spacing: 0.03em;
+  margin-bottom: 110px;
+  @media ${({ theme }) => theme.breakpoints.sm} {
+    width: 80%;
+    flex-direction: row;
+  }
+`;
+
+export const ContentLeft = styled.div`
+  display: flex;
+  flex-direction: column;
+  background-color: ${({ theme }) => theme.colors.secondary};
+  width: 100%;
+  border-radius: 5px;
+  padding: 0 30px;
+  @media ${({ theme }) => theme.breakpoints.sm} {
+    width: 65%;
+  }
 `;
 
 export const ContentRight = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-bottom: 20px;
   background-color: ${({ theme }) => theme.colors.secondary};
-  width: 30%;
+  width: 100%;
   border-radius: 5px;
   padding: 10px 20px;
+  @media ${({ theme }) => theme.breakpoints.sm} {
+    width: 30%;
+  }
 `;
 
 export const BottomMenu = styled.div`
@@ -133,4 +157,6 @@ export const BottomMenu = styled.div`
   height: 80px;
   width: 100%;
   letter-spacing: 0.08em;
+  position: fixed;
+  bottom: 0px
 `;

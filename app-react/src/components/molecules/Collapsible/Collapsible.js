@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Collapsible, CollapsibleButton, CollapsibleContentContainer, CollapsibleContent, CollapsibleContentSelection } from './Collapsible-styled';
 
-const FormField = ({ children, label, selection }) => {
+const FormField = ({ children, label, selection, summaryView }) => {
   const [isOpen, setIsOpen] = useState(false);
   const parentRef = useRef();
 
@@ -31,6 +31,7 @@ const FormField = ({ children, label, selection }) => {
           setIsOpen(false);
         }}
         autoFocus
+        summaryView={summaryView}
       >
         <CollapsibleContent>{children}</CollapsibleContent>
       </CollapsibleContentContainer>

@@ -31,6 +31,16 @@ export const CollapsibleContentContainer = styled.div`
     `
     height: ${height}px;
   `}
+  ${({ summaryView }) =>
+    summaryView &&
+    `
+    right: 0%;
+    width: 100%;
+    @media ${({ theme }) => theme.breakpoints.md} {
+      right: 10%;
+      width: 24%;
+    }
+  `}
 
   &:after {
     box-sizing: content-box;

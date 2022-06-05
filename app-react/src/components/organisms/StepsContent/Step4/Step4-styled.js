@@ -6,9 +6,9 @@ export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 80vw;
-  min-height: 100vh;
+  width: 100%;
   box-shadow: 0px 0px 45px rgba(0, 0, 0, 0.1);
+  padding: 30px 0px;
   font-size: ${({ theme }) => theme.fontSize.m};
 `;
 
@@ -75,23 +75,9 @@ export const WhiteButton = styled.button`
   }
 `;
 
-export const ContentContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  width: 70%;
-  color: ${({ theme }) => theme.colors.white};
-  letter-spacing: 0.03em;
-`;
-
-export const ContentLeftContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+export const Container = styled.div`
   background-color: ${({ theme }) => theme.colors.secondary};
-  width: 65%;
-  border-radius: 5px;
+  width: 100%;
   padding: 70px 30px;
 `;
 

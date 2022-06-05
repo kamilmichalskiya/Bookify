@@ -2,15 +2,6 @@ import styled from 'styled-components';
 import RoomPhoto from 'assets/img/room1.png';
 import { StyledIconBase } from '@styled-icons/styled-icon';
 
-export const ContentLeft = styled.div`
-  display: flex;
-  flex-direction: column;
-  background-color: ${({ theme }) => theme.colors.secondary};
-  width: 65%;
-  border-radius: 5px;
-  padding: 0 30px;
-`;
-
 export const ContentLeftTitle = styled.div`
   width: 100%;
   font-size: ${({ theme }) => theme.fontSize.xl};
