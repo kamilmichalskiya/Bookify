@@ -24,6 +24,9 @@ export const RoomContainerContext = styled.div`
   border-top-right-radius: 5px;
   border-bottom-right-radius: 5px;
   letter-spacing: 0.06em;
+  @media ${({ theme }) => theme.breakpoints.md} {
+    width: 100%;
+  }
 `;
 
 export const RoomContainerContextTitle = styled.div`
