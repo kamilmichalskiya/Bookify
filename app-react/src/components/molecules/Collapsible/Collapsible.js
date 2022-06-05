@@ -5,15 +5,6 @@ const FormField = ({ children, label, selection }) => {
   const [isOpen, setIsOpen] = useState(false);
   const parentRef = useRef();
 
-  // useEffect((event) => {
-  //   if (isOpen === true && parentRef.current && !parentRef.current.contains(event.target)) {
-  //     parentRef.current.focus();
-  //     parentRef.current.onpointerleave = () => {
-  //       setIsOpen(false);
-  //     };
-  //   }
-  // }, [isOpen]);
-
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (isOpen && parentRef.current && !parentRef.current.contains(event.target)) {

@@ -28,7 +28,6 @@ const SearchBar = ({ setUserSearch }) => {
   }, [endDate, startDate]);
 
   const onSearchButtonClick = () => {
-    console.log('Search Button Click!');
     const newUserSearchData = {
       startDate: startDate.toLocaleDateString('pl-pl', DateOptions),
       endDate: endDate.toLocaleDateString('pl-pl', DateOptions),

@@ -20,7 +20,6 @@ const LandingPage = () => {
   const LinksCtx = useContext(LinksContext);
 
   const onRoomDetailsClickHandler = () => {
-    console.log('LandingPage: roomDetailsClick');
     setRedirect(true);
   };
 
@@ -38,14 +37,9 @@ const LandingPage = () => {
     }
   }, [LinksCtx, rooms.length]);
 
-  useEffect(() => {
-    console.log('userSearch state changed!');
-    console.dir(userSearch);
-  }, [userSearch]);
-
   return (
     <>
-      {shouldRedirect ? <Redirect push to={{ pathname: '/step1' }} /> : null}
+      {shouldRedirect ? <Redirect push to={{ pathname: '/steps' }} /> : null}
       <Wrapper>
         <Header title="Bookify"></Header>
         <SearchBar setUserSearch={setUserSearch}></SearchBar>

@@ -10,24 +10,52 @@ import {
   SearchBarContainer,
   BottomMenu,
   ContentContainer,
-  ContentLeftContainer,
-  TextSection,
   ContentRight,
-  SectionHeader,
-} from './Step4-styled';
+} from './Steps-styled';
+import '@fontsource/montserrat';
+import Step1 from 'components/organisms/StepsContent/Step1/Step1';
+import Step2 from 'components/organisms/StepsContent/Step2/Step2';
+import Step3 from 'components/organisms/StepsContent/Step3/Step3';
+import Step4 from 'components/organisms/StepsContent/Step4/Step4';
 import { AccountCircle } from '@styled-icons/material/AccountCircle';
 import { KeyboardArrowLeft } from '@styled-icons/material/KeyboardArrowLeft';
 import { KeyboardArrowDown } from '@styled-icons/material/KeyboardArrowDown';
-import { CheckCircle } from '@styled-icons/material/CheckCircle';
-import '@fontsource/montserrat';
 import { Redirect } from 'react-router-dom';
 
-const Step4 = () => {
+const Steps = () => {
+  const [activeStep, setActiveStep] = useState(1);
   const [redirectUrl, setRedirectUrl] = useState(null);
 
-  const changeStep = (path = '/') => {
-    console.log('Step4: test');
-    setRedirectUrl(path);
+  const changeStep = (direction = 'next') => {
+    console.log(`Step${activeStep} is Changing with direction ${direction}`);
+    if (direction === 'next') {
+      setActiveStep(activeStep + 1);
+    } else if (direction === 'prev') {
+      if (activeStep === 1) {
+        returnToLandingPage();
+      } else if (activeStep > 1) {
+        setActiveStep(activeStep - 1);
+      }
+    }
+  };
+
+  const returnToLandingPage = () => {
+    setRedirectUrl('/');
+  };
+
+  const displayStepContent = () => {
+    switch (activeStep) {
+      case 1:
+        return <Step1></Step1>;
+      case 2:
+        return <Step2></Step2>;
+      case 3:
+        return <Step3></Step3>;
+      case 4:
+        return <Step4></Step4>;
+      default:
+        break;
+    }
   };
 
   return (
@@ -35,7 +63,7 @@ const Step4 = () => {
       {redirectUrl ? <Redirect push to={{ pathname: redirectUrl }} /> : null}
       <Wrapper>
         <Header>
-          <Logo onClick={changeStep}>Bookify</Logo>
+          <Logo onClick={returnToLandingPage}>Bookify</Logo>
           <IconStyleWrapper>
             <AccountCircle size="60" />
           </IconStyleWrapper>
@@ -45,14 +73,7 @@ const Step4 = () => {
           <SearchBarImg></SearchBarImg>
         </SearchBarContainer>
         <ContentContainer>
-          <ContentLeftContainer>
-            <GreenIconStyleWrapper>
-              <CheckCircle size="96" />
-            </GreenIconStyleWrapper>
-            <SectionHeader>Dziękujemy!</SectionHeader>
-            <TextSection>Twoja rezerwacja została rozpatrzona pozytywnie a jej potwierdzenie otrzymasz wkrótce na podany adres e-mail!</TextSection>
-            <TextSection>Dziękujemy za skorzystanie z Bookify.</TextSection>
-          </ContentLeftContainer>
+          {displayStepContent()}
           <ContentRight>
             Podsumowanie rezerwacji
             <GreenIconStyleWrapper>
@@ -64,18 +85,24 @@ const Step4 = () => {
           <IconStyleWrapper>
             <span
               onClick={() => {
-                changeStep('/step3');
+                changeStep('prev');
               }}
             >
               <KeyboardArrowLeft size="36" />
               Wstecz
             </span>
           </IconStyleWrapper>
-          <WhiteButton>Dalej</WhiteButton>
+          <WhiteButton
+            onClick={() => {
+              changeStep('next');
+            }}
+          >
+            Dalej
+          </WhiteButton>
         </BottomMenu>
       </Wrapper>
     </>
   );
 };
 
-export default Step4;
+export default Steps;
