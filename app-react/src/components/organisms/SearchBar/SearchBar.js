@@ -10,7 +10,7 @@ import './DatePicker-override.css';
 import pl from 'date-fns/locale/pl';
 registerLocale('pl', pl);
 
-const SearchBar = ({ setUserSearch }) => {
+const SearchBar = ({ setUserSelection }) => {
   const today = new Date();
   const tomorrow = new Date(today);
   tomorrow.setDate(tomorrow.getDate() + 1);
@@ -28,7 +28,6 @@ const SearchBar = ({ setUserSearch }) => {
   }, [endDate, startDate]);
 
   const onSearchButtonClick = () => {
-    console.log('Search Button Click!');
     const newUserSearchData = {
       startDate: startDate.toLocaleDateString('pl-pl', DateOptions),
       endDate: endDate.toLocaleDateString('pl-pl', DateOptions),
@@ -36,9 +35,9 @@ const SearchBar = ({ setUserSearch }) => {
       adultsNumber,
       kidsNumber,
       roomDetails,
+      selectedRoom: {},
     };
-    console.dir(newUserSearchData);
-    setUserSearch(newUserSearchData);
+    setUserSelection(newUserSearchData);
   };
 
   const calculateDays = (startDate, endDate) => {
@@ -79,7 +78,14 @@ const SearchBar = ({ setUserSearch }) => {
         ></DatePicker>
       </SearchBarItemWrapper>
       <SearchBarItemWrapper>
-        <Collapsible label="Goście" selection="1 dorosły, 0 dzieci">
+        <Collapsible
+          label="Goście"
+          selection={
+            adultsNumber +
+            (adultsNumber === 1 ? ' dorosły' : ' dorosłych') +
+            (kidsNumber ? ', ' + kidsNumber + (kidsNumber === 1 ? ' dziecko' : ' dzieci') : '')
+          }
+        >
           <StepperContainer>
             <Stepper title="Dorośli" value={adultsNumber} updateValue={setAdultsNumber} minValue={1}></Stepper>
             <Stepper title="Dzieci" value={kidsNumber} updateValue={setKidsNumber} minValue={0}></Stepper>
