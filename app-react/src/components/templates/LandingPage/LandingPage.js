@@ -10,17 +10,18 @@ import { LinksContext } from 'providers/LinksProvider';
 const LandingPage = () => {
   const [shouldRedirect, setRedirect] = useState(false);
   const [rooms, setRooms] = useState([]);
-  const [userSearch, setUserSearch] = useState({
+  const [userSelection, setUserSelection] = useState({
     startDate: '',
     endDate: '',
     days: 1,
     adultsNumber: 1,
     kidsNumber: 0,
+    selectedRoom: {},
   });
   const LinksCtx = useContext(LinksContext);
 
-  const onRoomDetailsClickHandler = () => {
-    console.log('LandingPage: roomDetailsClick');
+  const onRoomDetailsClickHandler = (selectedRoom) => {
+    setUserSelection({ ...userSelection, selectedRoom: selectedRoom });
     setRedirect(true);
   };
 
@@ -30,7 +31,6 @@ const LandingPage = () => {
       const data = await response.json();
       const roomsArray = data._embedded.uiRoomList;
       setRooms(roomsArray);
-      console.dir(roomsArray);
     };
 
     if (LinksCtx.rooms && rooms.length === 0) {
@@ -38,18 +38,13 @@ const LandingPage = () => {
     }
   }, [LinksCtx, rooms.length]);
 
-  useEffect(() => {
-    console.log('userSearch state changed!');
-    console.dir(userSearch);
-  }, [userSearch]);
-
   return (
     <>
-      {shouldRedirect ? <Redirect push to={{ pathname: '/step1' }} /> : null}
+      {shouldRedirect ? <Redirect push to={{ pathname: '/steps', state: userSelection }} /> : null}
       <Wrapper>
         <Header title="Bookify"></Header>
-        <SearchBar setUserSearch={setUserSearch}></SearchBar>
-        <List rooms={rooms} onRoomDetailsClickHandler={onRoomDetailsClickHandler} userSearch={userSearch}></List>
+        <SearchBar setUserSelection={setUserSelection}></SearchBar>
+        <List rooms={rooms} onRoomDetailsClickHandler={onRoomDetailsClickHandler} userSelection={userSelection}></List>
         <Footer>
           <span>Więcej informacji</span>
           <span>

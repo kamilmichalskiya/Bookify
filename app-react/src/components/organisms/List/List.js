@@ -13,36 +13,36 @@ import {
 import { SecondaryButton } from 'components/atoms/Button/Button';
 import { Photo } from 'components/atoms/Photo/Photo';
 
-const List = ({ rooms, onRoomDetailsClickHandler, userSearch }) => {
+const List = ({ rooms, onRoomDetailsClickHandler, userSelection }) => {
   const calculatePrice = (price, capacity, days) => {
     return price * capacity * (days || 1);
   };
   return (
     <RoomWrapper>
-      {rooms.map(({ roomType, capacity, beds, price }, index) => (
+      {rooms.map((room, index) => (
         <RoomContainer>
           <Photo url={`room${index + 1}`}></Photo>
           <RoomContainerContext>
             <RoomContainerContextTitle>
-              Pokój {roomType} ({capacity} osobowy)
+              Pokój {room.roomType} ({room.capacity} osobowy)
             </RoomContainerContextTitle>
             <RoomContainerContextData>
               <RoomContainerContextDataLeft>
                 <RoomFeatures>
-                  <li>{capacity} gości</li>
+                  <li>{room.capacity} gości</li>
                   <li>1 sypialnia</li>
-                  {beds.includes('DOUBLE_BED') ? <li>1 łóżko podwójne</li> : ''}
-                  {beds.includes('SINGLE_BED') ? <li>1 łóżko pojedyńcze</li> : ''}
+                  {room.beds.includes('DOUBLE_BED') ? <li>1 łóżko podwójne</li> : ''}
+                  {room.beds.includes('SINGLE_BED') ? <li>1 łóżko pojedyńcze</li> : ''}
                   <li>1 łazienka</li>
                 </RoomFeatures>
               </RoomContainerContextDataLeft>
               <RoomContainerContextDataRight>
                 (cena za 2 noce)
                 <RoomPrice>
-                  {calculatePrice(price, capacity, userSearch.days)}
+                  {calculatePrice(room.price, room.capacity, userSelection.days)}
                   zł
                 </RoomPrice>
-                <SecondaryButton onClick={onRoomDetailsClickHandler}>Szczegóły</SecondaryButton>
+                <SecondaryButton onClick={() => onRoomDetailsClickHandler(room)}>Szczegóły</SecondaryButton>
               </RoomContainerContextDataRight>
             </RoomContainerContextData>
           </RoomContainerContext>

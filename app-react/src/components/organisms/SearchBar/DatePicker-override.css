@@ -105,4 +105,10 @@
 
 .react-datepicker__input-container:input {
   max-width: 85%;
+  cursor: pointer;
+}
+
+.react-datepicker__input-container:input:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  cursor: pointer;
 }
