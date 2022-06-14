@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -31,6 +32,7 @@ import static pl.inf.app.api.LinkRelations.UPDATE_EMPLOYEE;
 @Api(tags = {"Employees"})
 @RestController
 @RequiredArgsConstructor
+@CrossOrigin(origins="*")
 @RequestMapping(value = "/api/employees", produces = "application/hal+json")
 public class EmployeeController {
     private final EmployeeBF employeeBF;
