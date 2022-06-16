@@ -40,33 +40,29 @@ public class RoomBE {
 
     private int capacity;
 
-    @Enumerated(EnumType.STRING)
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "beds", joinColumns = @JoinColumn(name = "room_id"))
     @Column(name = "bed")
-    private List<Bed> beds;
+    private List<String> beds;
 
     private String description;
 
     private int area;
 
-    @Enumerated(EnumType.STRING)
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "add_ons", joinColumns = @JoinColumn(name = "room_id"))
     @Column(name = "add_on")
-    private Set<AddOn> addOns;
+    private Set<String> addOns;
 
-    @Enumerated(EnumType.STRING)
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "accessories", joinColumns = @JoinColumn(name = "room_id"))
     @Column(name = "accessory")
-    private Set<Accessory> accessories;
+    private Set<String> accessories;
 
-    @Enumerated(EnumType.STRING)
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "offer_details", joinColumns = @JoinColumn(name = "room_id"))
     @Column(name = "offer_detail")
-    private Set<OfferDetail> offerDetails;
+    private Set<String> offerDetails;
 
     private boolean isActive;
 }

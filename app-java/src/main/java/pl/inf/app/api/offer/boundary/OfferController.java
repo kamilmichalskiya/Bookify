@@ -5,12 +5,12 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import pl.inf.app.api.offer.control.OfferToUiMapper;
@@ -33,7 +33,7 @@ import static pl.inf.app.api.LinkRelations.UPDATE_OFFER;
 @Api(tags = {"Offers"})
 @RestController
 @RequiredArgsConstructor
-@CrossOrigin(origins="*")
+@CrossOrigin(origins = "*")
 @RequestMapping(value = "/api/offers", produces = "application/hal+json")
 public class OfferController {
     private final OfferBF offerBF;

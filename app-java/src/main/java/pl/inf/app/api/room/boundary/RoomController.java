@@ -5,16 +5,17 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import pl.inf.app.api.room.control.RoomToUiMapper;
 import pl.inf.app.api.room.entity.UiRoom;
+import pl.inf.app.api.room.entity.UiSearchParams;
 import pl.inf.app.bm.room.boundary.RoomBF;
 
 import java.util.UUID;
@@ -33,7 +34,7 @@ import static pl.inf.app.api.LinkRelations.UPDATE_ROOM;
 @Api(tags = {"Rooms"})
 @RestController
 @RequiredArgsConstructor
-@CrossOrigin(origins="*")
+@CrossOrigin(origins = "*")
 @RequestMapping(value = "/api/rooms", produces = "application/hal+json")
 public class RoomController {
     private final RoomBF roomBF;
@@ -96,6 +97,22 @@ public class RoomController {
         return ResponseEntity.ok(EntityModel.of(room)
                 .add(linkTo(methodOn(RoomController.class).getById(room.getId())).withRel(GET_ROOM.toString()))
                 .add(linkTo(methodOn(RoomController.class).updateRoom(id, null)).withSelfRel()));
+    }
+
+    /**
+     * Search for rooms by query parameters
+     *
+     * @param searchParams params to search
+     * @return list of rooms
+     */
+    @PostMapping("/search")
+    public ResponseEntity<CollectionModel<EntityModel<UiRoom>>> searchRooms(@RequestBody final UiSearchParams searchParams) {
+        if (!searchParams.areValid()) return ResponseEntity.badRequest().build();
+
+        return ResponseEntity.ok(CollectionModel.of(roomBF.search(searchParams, roomToUiMapper).stream()
+                .map(uiRoom -> EntityModel.of(uiRoom)
+                        .add(linkTo(methodOn(RoomController.class).getById(uiRoom.getId())).withRel(GET_ROOM.toString())))
+                .collect(Collectors.toList())).add(linkTo(methodOn(RoomController.class).searchRooms(null)).withSelfRel()));
     }
 
 }
