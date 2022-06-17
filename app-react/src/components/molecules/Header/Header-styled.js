@@ -10,6 +10,7 @@ export const Wrapper = styled.div`
   width: 100%;
   height: 120px;
   border-bottom: 2px solid ${({ theme }) => theme.colors.white};
+  border-radius: none;
 
   @media ${({ theme }) => theme.breakpoints.md} {
     border-bottom: initial;

@@ -20,7 +20,7 @@ const List = ({ rooms, onRoomDetailsClickHandler, userSelection }) => {
   return (
     <RoomWrapper>
       {rooms.map((room, index) => (
-        <RoomContainer>
+        <RoomContainer key={`room-${index}`}>
           <Photo url={`room${index + 1}`}></Photo>
           <RoomContainerContext>
             <RoomContainerContextTitle>

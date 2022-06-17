@@ -1,9 +1,11 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { Wrapper, Footer, GreenTextWrapper } from './LandingPage-styled';
-import Header from 'components/molecules/Header/Header';
+import { Wrapper, Header, Logo, Footer, GreenTextWrapper, IconStyleWrapper } from './LandingPage-styled';
 import SearchBar from 'components/organisms/SearchBar/SearchBar';
 import List from 'components/organisms/List/List';
+import { Modal } from 'components/molecules/Modal/Modal';
+import Login from 'components/organisms/Login/Login';
 import '@fontsource/montserrat';
+import { AccountCircle } from '@styled-icons/material/AccountCircle';
 import { Redirect } from 'react-router-dom';
 import { LinksContext } from 'providers/LinksProvider';
 
@@ -18,7 +20,12 @@ const LandingPage = () => {
     kidsNumber: 0,
     selectedRoom: {},
   });
+  const [showModal, setShowModal] = useState(false);
   const LinksCtx = useContext(LinksContext);
+
+  const openModal = () => {
+    setShowModal((prev) => !prev);
+  };
 
   const onRoomDetailsClickHandler = (selectedRoom) => {
     setUserSelection({ ...userSelection, selectedRoom: selectedRoom });
@@ -42,7 +49,15 @@ const LandingPage = () => {
     <>
       {shouldRedirect ? <Redirect push to={{ pathname: '/steps', state: userSelection }} /> : null}
       <Wrapper>
-        <Header title="Bookify"></Header>
+        <Modal showModal={showModal} setShowModal={setShowModal}>
+          <Login></Login>
+        </Modal>
+        <Header>
+          <Logo>Bookify</Logo>
+          <IconStyleWrapper onClick={openModal}>
+            <AccountCircle size="60" />
+          </IconStyleWrapper>
+        </Header>
         <SearchBar setUserSelection={setUserSelection}></SearchBar>
         <List rooms={rooms} onRoomDetailsClickHandler={onRoomDetailsClickHandler} userSelection={userSelection}></List>
         <Footer>
