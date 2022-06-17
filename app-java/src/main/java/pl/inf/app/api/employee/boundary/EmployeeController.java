@@ -32,7 +32,7 @@ import static pl.inf.app.api.LinkRelations.UPDATE_EMPLOYEE;
 @Api(tags = {"Employees"})
 @RestController
 @RequiredArgsConstructor
-@CrossOrigin(origins="*")
+@CrossOrigin(origins = "*")
 @RequestMapping(value = "/api/employees", produces = "application/hal+json")
 public class EmployeeController {
     private final EmployeeBF employeeBF;

@@ -3,10 +3,6 @@ package pl.inf.app.api.room.entity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import pl.inf.app.bm.room.entity.Accessory;
-import pl.inf.app.bm.room.entity.AddOn;
-import pl.inf.app.bm.room.entity.Bed;
-import pl.inf.app.bm.room.entity.OfferDetail;
 import pl.inf.app.bm.room.entity.RoomType;
 
 import java.util.List;
@@ -25,11 +21,11 @@ public class UiRoom {
     private RoomType roomType;
     private float price;
     private int capacity;
-    private List<Bed> beds;
+    private List<String> beds;
     private String description;
     private int area;
-    private Set<AddOn> addOns;
-    private Set<Accessory> accessories;
-    private Set<OfferDetail> offerDetails;
+    private Set<String> addOns;
+    private Set<String> accessories;
+    private Set<String> offerDetails;
     private boolean isActive;
 }

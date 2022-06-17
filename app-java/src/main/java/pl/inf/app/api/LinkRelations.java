@@ -14,6 +14,8 @@ public enum LinkRelations {
     CREATE_ROOM("Add new room"),
     UPDATE_ROOM("Update room"),
 
+    SEARCH_ROOMS("Search rooms"),
+
     GET_EMPLOYEE("Get employee"),
     GET_ALL_EMPLOYEES("Get all employees"),
     CREATE_EMPLOYEE("Add new employee"),

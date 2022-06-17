@@ -19,9 +19,9 @@ const List = ({ rooms, onRoomDetailsClickHandler, userSelection }) => {
   };
   return (
     <RoomWrapper>
-      {rooms.map((room, index) => (
-        <RoomContainer key={`room-${index}`}>
-          <Photo url={`room${index + 1}`}></Photo>
+      {rooms.map((room) => (
+        <RoomContainer>
+          <Photo url={room.image}></Photo>
           <RoomContainerContext>
             <RoomContainerContextTitle>
               Pokój {room.roomType} ({room.capacity} osobowy)

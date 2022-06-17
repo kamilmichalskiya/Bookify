@@ -23,7 +23,7 @@ const handleUrl = (url) => {
 };
 
 export const Photo = styled.div`
-  background-image: url(${({ url }) => handleUrl(url)});
+  background-image: url(${({ url }) => url});
   background-size: cover;
   width: 30%;
   max-width: 220px;

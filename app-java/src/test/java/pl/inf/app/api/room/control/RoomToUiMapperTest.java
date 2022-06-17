@@ -5,10 +5,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.junit.jupiter.MockitoExtension;
 import pl.inf.app.api.room.entity.UiRoom;
-import pl.inf.app.bm.room.entity.Accessory;
-import pl.inf.app.bm.room.entity.AddOn;
-import pl.inf.app.bm.room.entity.Bed;
-import pl.inf.app.bm.room.entity.OfferDetail;
 import pl.inf.app.bm.room.entity.RoomBE;
 import pl.inf.app.bm.room.entity.RoomType;
 
@@ -29,13 +25,13 @@ class RoomToUiMapperTest {
         final UUID id = UUID.randomUUID();
         roomBE.setId(id);
         roomBE.setArea(100);
-        roomBE.setAddOns(Collections.singleton(AddOn.TELEPHONE));
-        roomBE.setAccessories(Collections.singleton(Accessory.TABLE));
-        roomBE.setBeds(Collections.singletonList(Bed.DOUBLE_BED));
+        roomBE.setAddOns(Collections.singleton("TELEPHONE"));
+        roomBE.setAccessories(Collections.singleton("TABLE"));
+        roomBE.setBeds(Collections.singletonList("DOUBLE_BED"));
         roomBE.setCapacity(4);
         roomBE.setDescription("Description");
         roomBE.setImage("Image");
-        roomBE.setOfferDetails(Collections.singleton(OfferDetail.FREE_WIFI));
+        roomBE.setOfferDetails(Collections.singleton("FREE_WIFI"));
         roomBE.setPrice(100);
         roomBE.setRoomType(RoomType.BUDGET);
 
