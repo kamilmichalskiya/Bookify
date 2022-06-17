@@ -8,4 +8,5 @@ export const Wrapper = styled.div`
   min-height: 100vh;
   box-shadow: 0px 0px 45px rgba(0, 0, 0, 0.1);
   font-size: ${({ theme }) => theme.fontSize.m};
+  background-color: ${({ theme }) => theme.colors.tertiary};
 `;

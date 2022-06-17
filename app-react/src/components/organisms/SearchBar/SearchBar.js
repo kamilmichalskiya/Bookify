@@ -1,5 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { SearchBarContainer, DarkIconStyleWrapper, SearchBarItemWrapper, SearchBarItemValue, StepperContainer } from './SearchBar-styled';
+import {
+  SearchBarContainer,
+  DarkIconStyleWrapper,
+  SearchBarItemWrapper,
+  SearchBarItemValue,
+  StepperContainer,
+  SearchBarTextInput,
+} from './SearchBar-styled';
 import { PrimaryButton } from 'components/atoms/Button/Button';
 import { MagnifyingGlass } from '@styled-icons/entypo/MagnifyingGlass';
 import DatePicker, { registerLocale } from 'react-datepicker';
@@ -10,7 +17,7 @@ import './DatePicker-override.css';
 import pl from 'date-fns/locale/pl';
 registerLocale('pl', pl);
 
-const SearchBar = ({ setUserSelection }) => {
+const SearchBar = ({ displayLevelMode, setUserSelection }) => {
   const today = new Date();
   const tomorrow = new Date(today);
   tomorrow.setDate(tomorrow.getDate() + 1);
@@ -19,6 +26,7 @@ const SearchBar = ({ setUserSelection }) => {
   const [endDate, setEndDate] = useState(tomorrow);
   const [adultsNumber, setAdultsNumber] = useState(1);
   const [kidsNumber, setKidsNumber] = useState(0);
+  // eslint-disable-next-line no-unused-vars
   const [roomDetails, setRoomDetails] = useState(['Klimatyzacja', 'Lodówka']);
 
   useEffect(() => {
@@ -48,55 +56,66 @@ const SearchBar = ({ setUserSelection }) => {
 
   return (
     <SearchBarContainer>
-      <DarkIconStyleWrapper>
-        <MagnifyingGlass size="24" />
-      </DarkIconStyleWrapper>
-      <SearchBarItemWrapper>
-        Przyjazd
-        <DatePicker
-          selected={startDate}
-          selectsStart
-          startDate={startDate}
-          minDate={new Date()}
-          endDate={endDate}
-          onChange={(date) => setStartDate(date)}
-          locale="pl"
-          dateFormat="dd MMMM yyyy"
-        />
-      </SearchBarItemWrapper>
-      <SearchBarItemWrapper>
-        Wyjazd
-        <DatePicker
-          selected={endDate}
-          selectsEnd
-          startDate={startDate}
-          endDate={endDate}
-          minDate={startDate}
-          onChange={(date) => setEndDate(date)}
-          locale="pl"
-          dateFormat="dd MMMM yyyy"
-        ></DatePicker>
-      </SearchBarItemWrapper>
-      <SearchBarItemWrapper>
-        <Collapsible
-          label="Goście"
-          selection={
-            adultsNumber +
-            (adultsNumber === 1 ? ' dorosły' : ' dorosłych') +
-            (kidsNumber ? ', ' + kidsNumber + (kidsNumber === 1 ? ' dziecko' : ' dzieci') : '')
-          }
-        >
-          <StepperContainer>
-            <Stepper title="Dorośli" value={adultsNumber} updateValue={setAdultsNumber} minValue={1}></Stepper>
-            <Stepper title="Dzieci" value={kidsNumber} updateValue={setKidsNumber} minValue={0}></Stepper>
-          </StepperContainer>
-        </Collapsible>
-      </SearchBarItemWrapper>
-      <SearchBarItemWrapper>
-        Cechy pokoju
-        <SearchBarItemValue>Klimatyzacja, lodówka</SearchBarItemValue>
-      </SearchBarItemWrapper>
-      <PrimaryButton onClick={onSearchButtonClick}>Szukaj</PrimaryButton>
+      {displayLevelMode === 'user' ? (
+        <>
+          <DarkIconStyleWrapper>
+            <MagnifyingGlass size="24" />
+          </DarkIconStyleWrapper>
+          <SearchBarItemWrapper>
+            Przyjazd
+            <DatePicker
+              selected={startDate}
+              selectsStart
+              startDate={startDate}
+              minDate={new Date()}
+              endDate={endDate}
+              onChange={(date) => setStartDate(date)}
+              locale="pl"
+              dateFormat="dd MMMM yyyy"
+            />
+          </SearchBarItemWrapper>
+          <SearchBarItemWrapper>
+            Wyjazd
+            <DatePicker
+              selected={endDate}
+              selectsEnd
+              startDate={startDate}
+              endDate={endDate}
+              minDate={startDate}
+              onChange={(date) => setEndDate(date)}
+              locale="pl"
+              dateFormat="dd MMMM yyyy"
+            ></DatePicker>
+          </SearchBarItemWrapper>
+          <SearchBarItemWrapper>
+            <Collapsible
+              label="Goście"
+              selection={
+                adultsNumber +
+                (adultsNumber === 1 ? ' dorosły' : ' dorosłych') +
+                (kidsNumber ? ', ' + kidsNumber + (kidsNumber === 1 ? ' dziecko' : ' dzieci') : '')
+              }
+            >
+              <StepperContainer>
+                <Stepper title="Dorośli" value={adultsNumber} updateValue={setAdultsNumber} minValue={1}></Stepper>
+                <Stepper title="Dzieci" value={kidsNumber} updateValue={setKidsNumber} minValue={0}></Stepper>
+              </StepperContainer>
+            </Collapsible>
+          </SearchBarItemWrapper>
+          <SearchBarItemWrapper>
+            Cechy pokoju
+            <SearchBarItemValue>Klimatyzacja, lodówka</SearchBarItemValue>
+          </SearchBarItemWrapper>
+          <PrimaryButton onClick={onSearchButtonClick}>Szukaj</PrimaryButton>
+        </>
+      ) : (
+        <>
+          <SearchBarTextInput placeholder="Szukaj..."></SearchBarTextInput>
+          <DarkIconStyleWrapper>
+            <MagnifyingGlass size="24" />
+          </DarkIconStyleWrapper>
+        </>
+      )}
     </SearchBarContainer>
   );
 };

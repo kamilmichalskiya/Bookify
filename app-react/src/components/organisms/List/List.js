@@ -37,9 +37,9 @@ const List = ({ rooms, onRoomDetailsClickHandler, userSelection }) => {
                 </RoomFeatures>
               </RoomContainerContextDataLeft>
               <RoomContainerContextDataRight>
-                (cena za 2 noce)
+                {`(cena za ${userSelection?.days || 2} noce)`}
                 <RoomPrice>
-                  {calculatePrice(room.price, room.capacity, userSelection.days)}
+                  {calculatePrice(room.price, room.capacity, userSelection?.days)}
                   zł
                 </RoomPrice>
                 <SecondaryButton onClick={() => onRoomDetailsClickHandler(room)}>Szczegóły</SecondaryButton>

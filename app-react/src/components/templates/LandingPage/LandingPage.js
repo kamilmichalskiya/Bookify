@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { Wrapper, Header, Logo, Footer, GreenTextWrapper, IconStyleWrapper } from './LandingPage-styled';
+import { Wrapper, Header, Logo, IconStyleWrapper } from './LandingPage-styled';
 import SearchBar from 'components/organisms/SearchBar/SearchBar';
 import List from 'components/organisms/List/List';
 import { Modal } from 'components/molecules/Modal/Modal';
 import Login from 'components/organisms/Login/Login';
+import Footer from 'components/molecules/Footer/Footer';
 import '@fontsource/montserrat';
 import { AccountCircle } from '@styled-icons/material/AccountCircle';
 import { Redirect } from 'react-router-dom';
@@ -58,15 +59,9 @@ const LandingPage = ({ history }) => {
             <AccountCircle size="60" />
           </IconStyleWrapper>
         </Header>
-        <SearchBar setUserSelection={setUserSelection}></SearchBar>
+        <SearchBar displayLevelMode="user" setUserSelection={setUserSelection}></SearchBar>
         <List rooms={rooms} onRoomDetailsClickHandler={onRoomDetailsClickHandler} userSelection={userSelection}></List>
-        <Footer>
-          <span>Więcej informacji</span>
-          <span>
-            &copy;2022 <GreenTextWrapper>B</GreenTextWrapper>ookify
-          </span>
-          <span>Polityka prywatności</span>
-        </Footer>
+        <Footer></Footer>
       </Wrapper>
     </>
   );
