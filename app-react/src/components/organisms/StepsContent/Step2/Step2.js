@@ -2,7 +2,6 @@ import React from 'react';
 import {
   IconStyleWrapper,
   GreenIconStyleWrapper,
-  ContentLeftContainer,
   ContentLeftTitle,
   ContentLeftSection1,
   ContentLeftSection2,
