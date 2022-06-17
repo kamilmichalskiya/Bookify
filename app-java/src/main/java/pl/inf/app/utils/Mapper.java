@@ -3,8 +3,8 @@ package pl.inf.app.utils;
 /**
  * Interface to map entities
  *
- * @param <S> Source Type
- * @param <T> Target Type
+ * @param <S> Source  Type
+ * @param <T> Target  Type
  */
 @FunctionalInterface
 public interface Mapper<S, T> {
