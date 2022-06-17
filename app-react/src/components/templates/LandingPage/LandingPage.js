@@ -9,7 +9,7 @@ import { AccountCircle } from '@styled-icons/material/AccountCircle';
 import { Redirect } from 'react-router-dom';
 import { LinksContext } from 'providers/LinksProvider';
 
-const LandingPage = () => {
+const LandingPage = ({ history }) => {
   const [shouldRedirect, setRedirect] = useState(false);
   const [rooms, setRooms] = useState([]);
   const [userSelection, setUserSelection] = useState({
@@ -50,7 +50,7 @@ const LandingPage = () => {
       {shouldRedirect ? <Redirect push to={{ pathname: '/steps', state: userSelection }} /> : null}
       <Wrapper>
         <Modal showModal={showModal} setShowModal={setShowModal}>
-          <Login></Login>
+          <Login history={history}></Login>
         </Modal>
         <Header>
           <Logo>Bookify</Logo>

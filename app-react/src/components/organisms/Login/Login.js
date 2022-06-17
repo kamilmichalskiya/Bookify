@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import {
   LoginTitle,
   TextSpan,
@@ -23,9 +23,10 @@ import { EyeOutline } from '@styled-icons/evaicons-outline/EyeOutline';
 import { Google } from '@styled-icons/fa-brands/Google';
 import { FacebookF } from '@styled-icons/fa-brands/FacebookF';
 import { Apple } from '@styled-icons/fa-brands/Apple';
+import auth from 'helpers/auth';
 import '@fontsource/montserrat';
 
-const Login = () => {
+const Login = ({ history }) => {
   const [userEmail, setUserEmail] = useState('');
   const [userPassword, setUserPassword] = useState('');
   const [passwordShown, setPasswordShown] = useState(false);
@@ -43,8 +44,9 @@ const Login = () => {
   };
 
   const onSubmit = () => {
-    if (userEmail === 'admin@admin.com' && userPassword === 'admin') {
-    }
+    auth.login(userEmail, userPassword, () => {
+      history.push('/admin');
+    });
   };
 
   return (
