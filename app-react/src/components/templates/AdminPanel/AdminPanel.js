@@ -1,8 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { Wrapper } from './AdminPanel-styled';
+import { Wrapper, Header, IconExit, Logo } from './AdminPanel-styled';
 import '@fontsource/montserrat';
 import auth from 'helpers/auth';
-import Header from 'components/molecules/Header/Header';
 import Footer from 'components/molecules/Footer/Footer';
 import Tabs from 'components/organisms/Tabs/Tabs';
 import { LinksContext } from 'providers/LinksProvider';
@@ -53,9 +52,11 @@ const AdminPanel = ({ history }) => {
   return (
     <>
       <Wrapper>
-        <Header title="Bookify"></Header>
+        <Header>
+          <Logo>Bookify</Logo>
+          <IconExit onClick={logout} />
+        </Header>
         <Tabs rooms={rooms} offers={offers} employees={employees}></Tabs>
-        <button onClick={logout}>logout</button>
         <Footer></Footer>
       </Wrapper>
     </>
