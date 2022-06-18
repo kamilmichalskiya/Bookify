@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { TabsWrapper, TabsList, TabContent, TabHeader } from './Tabs-styled';
+import { TabsWrapper, TabsList, TabContent, TabHeader, NavigationBar } from './Tabs-styled';
 import PropTypes from 'prop-types';
-import List from 'components/organisms/List/List';
+import AdminList from 'components/organisms/AdminList/AdminList';
 import SearchBar from 'components/organisms/SearchBar/SearchBar';
+import { TertiaryButton } from 'components/atoms/Button/Button';
 
 const Tabs = ({ rooms, offers, employees }) => {
   const [index, setIndex] = useState(0);
@@ -36,16 +37,25 @@ const Tabs = ({ rooms, offers, employees }) => {
         </TabHeader>
       </TabsList>
       <TabContent hidden={index !== 0}>
-        <SearchBar displayLevelMode="admin"></SearchBar>
-        <List rooms={rooms}></List>
+        <NavigationBar>
+          <SearchBar displayLevelMode="admin"></SearchBar>
+          <TertiaryButton>Dodaj</TertiaryButton>
+        </NavigationBar>
+        <AdminList items={rooms}></AdminList>
       </TabContent>
       <TabContent hidden={index !== 1}>
-        <SearchBar displayLevelMode="admin"></SearchBar>
-        This is Offers tab content
+        <NavigationBar>
+          <SearchBar displayLevelMode="admin"></SearchBar>
+          <TertiaryButton>Dodaj</TertiaryButton>
+        </NavigationBar>
+        <AdminList items={offers}></AdminList>
       </TabContent>
       <TabContent hidden={index !== 2}>
-        <SearchBar displayLevelMode="admin"></SearchBar>
-        This is Employees tab content
+        <NavigationBar>
+          <SearchBar displayLevelMode="admin"></SearchBar>
+          <TertiaryButton>Dodaj</TertiaryButton>
+        </NavigationBar>
+        <AdminList items={employees}></AdminList>
       </TabContent>
     </TabsWrapper>
   );
