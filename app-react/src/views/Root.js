@@ -21,7 +21,6 @@ const Root = () => {
               <ProtectedRoute exact path="/admin" component={AdminPanel} />
               <Route exact path="/steps" render={(props) => <Steps {...props} />}></Route>
               <Route exact path="/" component={LandingPage} />
-              <Route path="*" component={() => '404 NOT FOUND'} />
             </Switch>
           </Wrapper>
         </LinksProvider>
