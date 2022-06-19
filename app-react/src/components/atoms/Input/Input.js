@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 export const Input = styled.input`
+  font-size: 1rem;
   padding: 5px 8px;
   border: 1px solid ${({ theme }) => theme.colors.darkPurple};
   box-sizing: border-box;

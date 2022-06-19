@@ -11,7 +11,7 @@ import {
 import { SecondaryButton } from 'components/atoms/Button/Button';
 import { Photo } from 'components/atoms/Photo/Photo';
 
-const List = ({ items, onEditItemClickHandler }) => {
+const AdminList = ({ type, items, openModal }) => {
   return (
     <ItemWrapper>
       {items.map((item) => (
@@ -25,7 +25,7 @@ const List = ({ items, onEditItemClickHandler }) => {
             <ItemContainerContextData>
               <ItemContainerContextDataLeft>Numer ID: {item.id ? item.id : item.employeeId}</ItemContainerContextDataLeft>
               <ItemContainerContextDataRight>
-                <SecondaryButton onClick={() => onEditItemClickHandler(item)}>Edytuj</SecondaryButton>
+                <SecondaryButton onClick={() => openModal(type, item)}>Edytuj</SecondaryButton>
               </ItemContainerContextDataRight>
             </ItemContainerContextData>
           </ItemContainerContext>
@@ -35,4 +35,4 @@ const List = ({ items, onEditItemClickHandler }) => {
   );
 };
 
-export default List;
+export default AdminList;

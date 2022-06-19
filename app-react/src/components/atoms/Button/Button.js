@@ -57,3 +57,31 @@ export const TertiaryButton = styled.button`
     margin-bottom: 0px;
   }
 `;
+
+export const SaveButton = styled.button`
+  background-color: ${({ theme }) => theme.colors.primary};
+  color: ${({ theme }) => theme.colors.dark};
+  width: 120px;
+  min-width: 80px;
+  height: 32px;
+  border-radius: 100px;
+  font-weight: 600;
+  &:hover {
+    cursor: pointer;
+    opacity: 0.9;
+  }
+`;
+
+export const DeleteButton = styled.button`
+  background-color: rgb(225, 30, 30);
+  color: ${({ theme }) => theme.colors.white};
+  width: 120px;
+  min-width: 80px;
+  height: 32px;
+  border-radius: 100px;
+  font-weight: 600;
+  &:hover {
+    cursor: pointer;
+    opacity: 0.9;
+  }
+`;

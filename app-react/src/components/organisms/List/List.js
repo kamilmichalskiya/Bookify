@@ -20,7 +20,7 @@ const List = ({ rooms, onRoomDetailsClickHandler, userSelection }) => {
   return (
     <RoomWrapper>
       {rooms.map((room) => (
-        <RoomContainer>
+        <RoomContainer key={room.id}>
           <Photo url={room.image}></Photo>
           <RoomContainerContext>
             <RoomContainerContextTitle>
@@ -29,11 +29,11 @@ const List = ({ rooms, onRoomDetailsClickHandler, userSelection }) => {
             <RoomContainerContextData>
               <RoomContainerContextDataLeft>
                 <RoomFeatures>
-                  <li>{room.capacity} gości</li>
-                  <li>1 sypialnia</li>
-                  {room.beds.includes('DOUBLE_BED') ? <li>1 łóżko podwójne</li> : ''}
-                  {room.beds.includes('SINGLE_BED') ? <li>1 łóżko pojedyńcze</li> : ''}
-                  <li>1 łazienka</li>
+                  <li key="capacity">{room.capacity} gości</li>
+                  <li key="bedroom">1 sypialnia</li>
+                  {room.beds.includes('DOUBLE_BED') ? <li key="double-bed">1 łóżko podwójne</li> : ''}
+                  {room.beds.includes('SINGLE_BED') ? <li key="single-bed">1 łóżko pojedyńcze</li> : ''}
+                  <li key="bathrom">1 łazienka</li>
                 </RoomFeatures>
               </RoomContainerContextDataLeft>
               <RoomContainerContextDataRight>

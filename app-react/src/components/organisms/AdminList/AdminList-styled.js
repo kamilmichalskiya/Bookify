@@ -53,11 +53,6 @@ export const ItemContainerContextDataLeft = styled.div`
   padding: 10px 0px 0px 20px;
 `;
 
-export const ItemFeatures = styled.ul`
-  padding-left: 35px;
-  list-style-type: none;
-`;
-
 export const ItemContainerContextDataRight = styled.div`
   text-align: right;
   padding-right: 30px;

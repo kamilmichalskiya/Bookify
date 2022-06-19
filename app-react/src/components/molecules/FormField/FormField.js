@@ -11,11 +11,25 @@ const Wrapper = styled.div`
   ${Label} {
     margin: 10px 0;
   }
+  ${({ type }) =>
+    type === 'checkbox' &&
+    `
+    flex-direction: row-reverse;
+    align-items: center;
+    justify-content: flex-end;
+    ${Input} {
+      width: 24px;
+      height: 24px;
+    }
+    ${Label} {
+      margin-left: 15px;
+    }
+  `};
 `;
 
 const FormField = ({ onChange, value, label, name, id, type = 'text' }) => {
   return (
-    <Wrapper>
+    <Wrapper type={type}>
       <Label htmlFor={id}>{label}</Label>
       <Input name={name} id={id} type={type} value={value} onChange={onChange} />
     </Wrapper>

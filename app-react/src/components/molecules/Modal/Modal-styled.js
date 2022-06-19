@@ -4,6 +4,7 @@ import { MdClose } from 'react-icons/md';
 export const Background = styled.div`
   width: 100%;
   height: 100%;
+
   z-index: 2;
   background: rgba(0, 0, 0, 0.8);
   position: fixed;
@@ -14,6 +15,8 @@ export const Background = styled.div`
 
 export const ModalWrapper = styled.div`
   width: 800px;
+  max-height: 100vh;
+  overflow-y: auto;
   box-shadow: 0 5px 16px rgba(0, 0, 0, 0.2);
   background-color: ${({ theme }) => theme.colors.secondary};
   position: relative;
