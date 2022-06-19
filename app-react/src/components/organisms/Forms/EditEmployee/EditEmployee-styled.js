@@ -22,3 +22,8 @@ export const Footer = styled.div`
   margin-top: 30px;
   border-top: 1px solid #fff;
 `;
+
+export const ErrorText = styled.p`
+  font-size: 1rem;
+  color: ${({ theme }) => theme.colors.error};
+`;
