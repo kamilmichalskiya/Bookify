@@ -46,7 +46,7 @@ const EditOffer = ({ offer, setShowModal }) => {
       const data = await response.json();
       const { status, error } = data;
       if (response.ok) {
-        alert('Offer updated succesfuly!');
+        alert('Oferta zaaktualizowana pomyślnie!');
         setShowModal(false);
       } else {
         alert(`ERROR: An Error occured: ${status}: ${error}`);
@@ -64,7 +64,7 @@ const EditOffer = ({ offer, setShowModal }) => {
       const data = await response.json();
       const { status, error } = data;
       if (response.ok) {
-        alert('Offer created succesfuly!');
+        alert('Oferta stworzona pomyślnie!');
         setShowModal(false);
       } else {
         alert(`ERROR: An Error occured: ${status}: ${error}`);
