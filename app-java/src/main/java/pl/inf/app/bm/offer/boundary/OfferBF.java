@@ -52,6 +52,16 @@ public class OfferBF {
     }
 
     /**
+     * Retrieve list of all active offers form database
+     *
+     * @param mapper entity mapper
+     * @return list of mapped offers
+     */
+    public <T> List<T> getActiveOffers(final Mapper<OfferBE, T> mapper) {
+        return offerRepositoryBA.findByActiveTrue().stream().map(mapper::map).collect(Collectors.toList());
+    }
+
+    /**
      * Fills and saves the offer entity
      *
      * @param uiOffer  data to fill the entity
