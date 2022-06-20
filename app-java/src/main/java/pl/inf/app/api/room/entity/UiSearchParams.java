@@ -3,6 +3,7 @@ package pl.inf.app.api.room.entity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import pl.inf.app.bm.room.entity.AddOns;
 import pl.inf.app.bm.room.entity.RoomType;
 
 import java.sql.Date;
@@ -20,7 +21,7 @@ import java.util.Set;
 public class UiSearchParams {
     private int adult = 1;
     private int kids = 0;
-    private Set<String> features = new HashSet<>();
+    private Set<AddOns> addOns = new HashSet<>();
     private Set<RoomType> roomTypes = new HashSet<>();
     private Date startDate;
     private Date endDate;
