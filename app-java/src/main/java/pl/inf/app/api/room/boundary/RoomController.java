@@ -97,20 +97,20 @@ public class RoomController {
                 .add(linkTo(methodOn(RoomController.class).updateRoom(id, null)).withSelfRel()));
     }
 
-    /**
-     * Search for rooms by query parameters
-     *
-     * @param searchParams params to search
-     * @return list of rooms
-     */
-    @PostMapping("/search")
-    public ResponseEntity<CollectionModel<EntityModel<UiRoom>>> searchRooms(@RequestBody final UiSearchParams searchParams) {
-        if (!searchParams.areValid()) return ResponseEntity.badRequest().build();
-
-        return ResponseEntity.ok(CollectionModel.of(roomBF.search(searchParams, roomToUiMapper).stream()
-                .map(uiRoom -> EntityModel.of(uiRoom)
-                        .add(linkTo(methodOn(RoomController.class).getById(uiRoom.getId())).withRel(GET_ROOM.toString())))
-                .collect(Collectors.toList())).add(linkTo(methodOn(RoomController.class).searchRooms(null)).withSelfRel()));
-    }
+//    /**
+//     * Search for rooms by query parameters
+//     *
+//     * @param searchParams params to search
+//     * @return list of rooms
+//     */
+//    @PostMapping("/search")
+//    public ResponseEntity<CollectionModel<EntityModel<UiRoom>>> searchRooms(@RequestBody final UiSearchParams searchParams) {
+//        if (!searchParams.areValid()) return ResponseEntity.badRequest().build();
+//
+//        return ResponseEntity.ok(CollectionModel.of(roomBF.search(searchParams, roomToUiMapper).stream()
+//                .map(uiRoom -> EntityModel.of(uiRoom)
+//                        .add(linkTo(methodOn(RoomController.class).getById(uiRoom.getId())).withRel(GET_ROOM.toString())))
+//                .collect(Collectors.toList())).add(linkTo(methodOn(RoomController.class).searchRooms(null)).withSelfRel()));
+//    }
 
 }

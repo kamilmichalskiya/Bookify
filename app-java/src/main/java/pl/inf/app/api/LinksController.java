@@ -39,7 +39,7 @@ public class LinksController {
                 Arrays.asList(linkTo(methodOn(EmployeeController.class).getAll()).withRel(GET_ALL_EMPLOYEES.toString()),
                         linkTo(methodOn(RoomController.class).getAll()).withRel(GET_ALL_ROOMS.toString()),
                         linkTo(methodOn(OfferController.class).getAll()).withRel(GET_ALL_OFFERS.toString()),
-                        linkTo(methodOn(RoomController.class).searchRooms(null)).withRel(SEARCH_ROOMS.toString()),
+//                        linkTo(methodOn(RoomController.class).searchRooms(null)).withRel(SEARCH_ROOMS.toString()),
                         linkTo(methodOn(LinksController.class).getLinks()).withRel(GET_MAIN_LINKS.toString())));
     }
 }
