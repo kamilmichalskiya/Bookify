@@ -13,6 +13,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import java.util.Set;
 import java.util.UUID;
@@ -57,6 +58,9 @@ public class RoomBE {
     @CollectionTable(name = "accessories", joinColumns = @JoinColumn(name = "room_id"))
     @Column(name = "accessory")
     private Set<String> accessories;
+
+    @ManyToMany
+    private Set<ReservationBE> reservations;
 
     private boolean active;
 }
