@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.inf.app.api.room.entity.UiRoom;
 //import pl.inf.app.api.room.entity.UiSearchParams;
-//import pl.inf.app.bm.reservation.control.ReservationRepositoryBA;
 import pl.inf.app.bm.room.control.RoomRepositoryBA;
 import pl.inf.app.bm.room.control.UiRoomToEntityMapper;
 import pl.inf.app.bm.room.entity.RoomBE;
@@ -30,7 +29,6 @@ import static pl.inf.app.error.ErrorType.ROOM_UPDATING_ERROR;
 public class RoomBF {
     private final RoomRepositoryBA roomRepository;
     private final UiRoomToEntityMapper uiRoomToEntityMapper;
-//    private final ReservationRepositoryBA reservationRepository;
 
     /**
      * Get room from the database for the given id
