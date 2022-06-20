@@ -58,5 +58,5 @@ public class RoomBE {
     @Column(name = "accessory")
     private Set<String> accessories;
 
-    private boolean isActive;
+    private boolean active;
 }

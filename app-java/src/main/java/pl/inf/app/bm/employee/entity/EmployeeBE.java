@@ -33,5 +33,5 @@ public class EmployeeBE {
 
     private String password;
 
-    private boolean isActive;
+    private boolean active;
 }
