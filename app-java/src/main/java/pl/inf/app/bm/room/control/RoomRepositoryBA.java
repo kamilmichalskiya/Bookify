@@ -12,5 +12,5 @@ import java.util.UUID;
  */
 @Repository
 public interface RoomRepositoryBA extends JpaRepository<RoomBE, UUID> {
-    List<RoomBE> findByActiveTrue();
+    List<RoomBE> findByIsActiveTrue();
 }

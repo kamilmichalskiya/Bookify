@@ -12,5 +12,5 @@ import java.util.UUID;
  */
 @Repository
 public interface OfferRepositoryBA extends JpaRepository<OfferBE, UUID> {
-    List<OfferBE> findByActiveTrue();
+    List<OfferBE> findByIsActiveTrue();
 }

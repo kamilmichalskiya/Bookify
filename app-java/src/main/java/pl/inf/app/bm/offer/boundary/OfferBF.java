@@ -58,7 +58,7 @@ public class OfferBF {
      * @return list of mapped offers
      */
     public <T> List<T> getActiveOffers(final Mapper<OfferBE, T> mapper) {
-        return offerRepositoryBA.findByActiveTrue().stream().map(mapper::map).collect(Collectors.toList());
+        return offerRepositoryBA.findByIsActiveTrue().stream().map(mapper::map).collect(Collectors.toList());
     }
 
     /**
