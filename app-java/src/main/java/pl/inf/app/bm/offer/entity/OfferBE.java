@@ -29,5 +29,5 @@ public class OfferBE {
 
     private String details;
 
-    private boolean isActive;
+    private boolean active;
 }

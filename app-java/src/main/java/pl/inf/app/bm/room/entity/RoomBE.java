@@ -13,8 +13,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
@@ -40,29 +40,27 @@ public class RoomBE {
 
     private int capacity;
 
-    @ElementCollection(fetch = FetchType.EAGER)
-    @CollectionTable(name = "beds", joinColumns = @JoinColumn(name = "room_id"))
-    @Column(name = "bed")
-    private List<String> beds;
+    private int singleBeds;
+
+    private int doubleBeds;
 
     private String description;
 
     private int area;
 
+    @Enumerated(EnumType.STRING)
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "add_ons", joinColumns = @JoinColumn(name = "room_id"))
     @Column(name = "add_on")
-    private Set<String> addOns;
+    private Set<AddOns> addOns;
 
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "accessories", joinColumns = @JoinColumn(name = "room_id"))
     @Column(name = "accessory")
     private Set<String> accessories;
 
-    @ElementCollection(fetch = FetchType.EAGER)
-    @CollectionTable(name = "offer_details", joinColumns = @JoinColumn(name = "room_id"))
-    @Column(name = "offer_detail")
-    private Set<String> offerDetails;
+    @OneToMany
+    private Set<ReservationBE> reservations;
 
-    private boolean isActive;
+    private boolean active;
 }
