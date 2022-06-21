@@ -30,9 +30,8 @@ const List = ({ rooms, onRoomDetailsClickHandler, userSelection }) => {
               <RoomContainerContextDataLeft>
                 <RoomFeatures>
                   <li key="capacity">{room.capacity} gości</li>
-                  <li key="bedroom">1 sypialnia</li>
-                  {room.beds.includes('DOUBLE_BED') ? <li key="double-bed">1 łóżko podwójne</li> : ''}
-                  {room.beds.includes('SINGLE_BED') ? <li key="single-bed">1 łóżko pojedyńcze</li> : ''}
+                  {room.singleBed ? <li key="double-bed">{room.singleBed} łóżko podwójne</li> : ''}
+                  {room.doubleBed ? <li key="single-bed">{room.doubleBed} łóżko pojedyńcze</li> : ''}
                   <li key="bathrom">1 łazienka</li>
                 </RoomFeatures>
               </RoomContainerContextDataLeft>
