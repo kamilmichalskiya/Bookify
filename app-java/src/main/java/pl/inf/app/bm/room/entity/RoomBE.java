@@ -2,6 +2,7 @@ package pl.inf.app.bm.room.entity;
 
 import lombok.Getter;
 import lombok.Setter;
+import pl.inf.app.bm.reservation.entity.ReservationBE;
 
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
@@ -15,8 +16,10 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 /**
  * Class that represents the room entities in the database
@@ -52,15 +55,23 @@ public class RoomBE {
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "add_ons", joinColumns = @JoinColumn(name = "room_id"))
     @Column(name = "add_on")
-    private Set<AddOns> addOns;
+    private Set<AddOns> addOns = new HashSet<>();
 
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "accessories", joinColumns = @JoinColumn(name = "room_id"))
     @Column(name = "accessory")
-    private Set<String> accessories;
+    private Set<String> accessories = new HashSet<>();
 
-    @OneToMany
-    private Set<ReservationBE> reservations;
+    @OneToMany(mappedBy = "room")
+    private Set<ReservationBE> reservations = new HashSet<>();
 
     private boolean active;
+
+    @Override
+    public String toString() {
+        return "RoomBE{" + "id=" + id + '\'' + ", roomType=" + roomType + ", price=" + price + ", capacity=" + capacity +
+               ", singleBeds=" + singleBeds + ", doubleBeds=" + doubleBeds + ", description='" + description + '\'' + ", area=" +
+               area + ", addOns=" + addOns + ", accessories=" + accessories + ", reservations=" + reservations.stream().map(
+                ReservationBE::getId).collect(Collectors.toList()) + ", active=" + active + '}';
+    }
 }

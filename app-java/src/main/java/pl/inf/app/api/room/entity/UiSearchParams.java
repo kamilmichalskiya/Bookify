@@ -41,4 +41,10 @@ public class UiSearchParams {
         }
         return false;
     }
+
+    @Override
+    public String toString() {
+        return "UiSearchParams{" + "adult=" + adult + ", kids=" + kids + ", addOns=" + addOns + ", roomTypes=" + roomTypes +
+               ", startDate=" + startDate + ", endDate=" + endDate + '}';
+    }
 }

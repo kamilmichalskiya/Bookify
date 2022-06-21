@@ -13,27 +13,16 @@ public class ProcessException extends RuntimeException {
     private final Object[] params;
 
     /**
-     * Constructor with errorType and httpStatus
-     *
-     * @param status    error status
-     * @param errorType the type of error
-     * @param params    arguments to fill descriptions
-     */
-    public ProcessException(final HttpStatus status, final ErrorType errorType, final Object... params) {
-        super(errorType.getCode());
-        this.errorType = errorType;
-        this.httpStatus = status;
-        this.params = params;
-    }
-
-    /**
      * Constructor with errorType
      *
      * @param errorType the type of error
      * @param params    arguments to fill descriptions
      */
     public ProcessException(final ErrorType errorType, final Object... params) {
-        this(errorType.getDefaultStatus(), errorType, params);
+        super(errorType.getCode());
+        this.httpStatus = errorType.getDefaultStatus();
+        this.errorType = errorType;
+        this.params = params;
     }
 
 }

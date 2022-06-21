@@ -23,7 +23,11 @@ public enum ErrorType {
 
     OFFER_NOT_FOUND("B007", "Offer not found. Offer id: {}", NOT_FOUND),
     OFFER_ADDING_ERROR("B008", "Offer cannot be added. Offer : {}", UNPROCESSABLE_ENTITY),
-    OFFER_UPDATING_ERROR("B009", "Offer cannot be updated. Offer : {}", UNPROCESSABLE_ENTITY);
+    OFFER_UPDATING_ERROR("B009", "Offer cannot be updated. Offer : {}", UNPROCESSABLE_ENTITY),
+
+    INVALID_SEARCH_PARAMS("B010", "Search params are invalid. Search params : {}", UNPROCESSABLE_ENTITY),
+    RESERVATION_CREATING_ERROR("B011", "Reservation cannot be created. Reservation : {}", UNPROCESSABLE_ENTITY),
+    RESERVATION_VALIDATION_ERROR("B012", "Reservation is not valid. Reservation : {} | UiReservation : {}", UNPROCESSABLE_ENTITY);
 
     private final String code;
     private final String description;

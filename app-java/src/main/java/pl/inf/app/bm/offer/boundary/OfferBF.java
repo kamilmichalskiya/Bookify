@@ -87,10 +87,21 @@ public class OfferBF {
      */
     @Transactional
     public <T> T update(final UiOffer uiOffer, final Mapper<OfferBE, T> uiMapper) {
-        final OfferBE offer = offerRepositoryBA.findById(uiOffer.getId()).orElseThrow(
-                () -> new ProcessException(OFFER_NOT_FOUND, uiOffer.getId()));
+        final OfferBE offer = getById(uiOffer.getId(), offerBE -> offerBE);
         final OfferBE offerBE = uiOfferToEntityMapper.map(new Filler<>(uiOffer, offer));
         return Optional.of(offerRepositoryBA.save(offerBE)).map(uiMapper::map).orElseThrow(
                 () -> new ProcessException(OFFER_UPDATING_ERROR, offerBE));
+    }
+
+    /**
+     * Retrieve list of offers form database by id list
+     *
+     * @param idList list of offers id
+     * @param mapper mapper
+     * @param <T>    The class type of the mapping target
+     * @return get list of offers
+     */
+    public <T> T getOffersById(final List<UUID> idList, final Mapper<List<OfferBE>, T> mapper) {
+        return mapper.map(offerRepositoryBA.findAllById(idList));
     }
 }
