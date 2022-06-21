@@ -14,8 +14,6 @@ public enum LinkRelations {
     CREATE_ROOM("Add new room"),
     UPDATE_ROOM("Update room"),
 
-    SEARCH_ROOMS("Search rooms"),
-
     GET_EMPLOYEE("Get employee"),
     GET_ALL_EMPLOYEES("Get all employees"),
     CREATE_EMPLOYEE("Add new employee"),
@@ -23,8 +21,12 @@ public enum LinkRelations {
 
     GET_OFFER("Get offer"),
     GET_ALL_OFFERS("Get all offers"),
+    GET_ACTIVE_OFFERS("Get active offers"),
     CREATE_OFFER("Add new offer"),
-    UPDATE_OFFER("Update offer");
+    UPDATE_OFFER("Update offer"),
+
+    SEARCH_ROOMS("Search rooms"),
+    CREATE_RESERVATION("Create reservation");
 
     private final String description;
 

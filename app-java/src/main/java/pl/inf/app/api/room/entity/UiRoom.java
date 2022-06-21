@@ -28,4 +28,12 @@ public class UiRoom {
     private Set<AddOns> addOns;
     private Set<String> accessories;
     private boolean isActive;
+
+    @Override
+    public String toString() {
+        return "UiRoom{" + "id=" + id + ", image='" + image + '\'' + ", roomType=" + roomType + ", price=" + price +
+               ", capacity=" + capacity + ", singleBeds=" + singleBeds + ", doubleBeds=" + doubleBeds + ", description='" +
+               description + '\'' + ", area=" + area + ", addOns=" + addOns + ", accessories=" + accessories + ", isActive=" +
+               isActive + '}';
+    }
 }
