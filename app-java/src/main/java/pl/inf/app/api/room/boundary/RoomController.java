@@ -24,7 +24,6 @@ import java.util.stream.Collectors;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 import static pl.inf.app.api.LinkRelations.CREATE_ROOM;
-import static pl.inf.app.api.LinkRelations.GET_ALL_ROOMS;
 import static pl.inf.app.api.LinkRelations.GET_ROOM;
 import static pl.inf.app.api.LinkRelations.UPDATE_ROOM;
 
@@ -63,8 +62,7 @@ public class RoomController {
      */
     @GetMapping("/{id}")
     public ResponseEntity<EntityModel<UiRoom>> getById(@PathVariable final UUID id) {
-        return ResponseEntity.ok(EntityModel.of(roomBF.getById(id, roomToUiMapper)).add(
-                linkTo(methodOn(RoomController.class).getAll()).withRel(GET_ALL_ROOMS.toString()))
+        return ResponseEntity.ok(EntityModel.of(roomBF.getById(id, roomToUiMapper))
                 .add(linkTo(methodOn(RoomController.class).updateRoom(id, null)).withRel(UPDATE_ROOM.toString()))
                 .add(linkTo(methodOn(RoomController.class).getById(id)).withSelfRel()));
     }

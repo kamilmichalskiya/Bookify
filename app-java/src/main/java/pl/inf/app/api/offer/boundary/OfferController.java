@@ -23,7 +23,6 @@ import java.util.stream.Collectors;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 import static pl.inf.app.api.LinkRelations.CREATE_OFFER;
-import static pl.inf.app.api.LinkRelations.GET_ALL_OFFERS;
 import static pl.inf.app.api.LinkRelations.GET_OFFER;
 import static pl.inf.app.api.LinkRelations.UPDATE_OFFER;
 
@@ -55,6 +54,19 @@ public class OfferController {
     }
 
     /**
+     * Get active offers from database
+     *
+     * @return list of active offers
+     */
+    @GetMapping("/active")
+    public ResponseEntity<CollectionModel<EntityModel<UiOffer>>> getActiveOffers() {
+        return ResponseEntity.ok(CollectionModel.of(offerBF.getActiveOffers(offerToUiMapper).stream()
+                .map(offer -> EntityModel.of(offer)
+                        .add(linkTo(methodOn(OfferController.class).getById(offer.getId())).withRel(GET_OFFER.toString())))
+                .collect(Collectors.toList())).add(linkTo(methodOn(OfferController.class).getActiveOffers()).withSelfRel()));
+    }
+
+    /**
      * Get offer from database
      *
      * @param id the id of offer
@@ -62,9 +74,8 @@ public class OfferController {
      */
     @GetMapping("/{id}")
     public ResponseEntity<EntityModel<UiOffer>> getById(@PathVariable final UUID id) {
-        return ResponseEntity.ok(EntityModel.of(offerBF.getById(id, offerToUiMapper)).add(
-                linkTo(methodOn(OfferController.class).updateOffer(id, null)).withRel(UPDATE_OFFER.toString()))
-                .add(linkTo(methodOn(OfferController.class).getAll()).withRel(GET_ALL_OFFERS.toString()))
+        return ResponseEntity.ok(EntityModel.of(offerBF.getById(id, offerToUiMapper))
+                .add(linkTo(methodOn(OfferController.class).updateOffer(id, null)).withRel(UPDATE_OFFER.toString()))
                 .add(linkTo(methodOn(OfferController.class).getById(id)).withSelfRel()));
     }
 

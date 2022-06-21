@@ -22,7 +22,6 @@ import java.util.stream.Collectors;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 import static pl.inf.app.api.LinkRelations.CREATE_EMPLOYEE;
-import static pl.inf.app.api.LinkRelations.GET_ALL_EMPLOYEES;
 import static pl.inf.app.api.LinkRelations.GET_EMPLOYEE;
 import static pl.inf.app.api.LinkRelations.UPDATE_EMPLOYEE;
 
@@ -62,9 +61,8 @@ public class EmployeeController {
      */
     @GetMapping("/{id}")
     public ResponseEntity<EntityModel<UiEmployee>> getById(@PathVariable final Integer id) {
-        return ResponseEntity.ok(EntityModel.of(employeeBF.getById(id, employeeToUiMapper)).add(
-                linkTo(methodOn(EmployeeController.class).updateEmployee(id, null)).withRel(UPDATE_EMPLOYEE.toString()))
-                .add(linkTo(methodOn(EmployeeController.class).getAll()).withRel(GET_ALL_EMPLOYEES.toString()))
+        return ResponseEntity.ok(EntityModel.of(employeeBF.getById(id, employeeToUiMapper))
+                .add(linkTo(methodOn(EmployeeController.class).updateEmployee(id, null)).withRel(UPDATE_EMPLOYEE.toString()))
                 .add(linkTo(methodOn(EmployeeController.class).getById(id)).withSelfRel()));
     }
 
@@ -77,9 +75,10 @@ public class EmployeeController {
     @PostMapping
     public ResponseEntity<EntityModel<UiEmployee>> createEmployee(@RequestBody final UiEmployee uiEmployee) {
         final UiEmployee employee = employeeBF.create(uiEmployee, employeeToUiMapper);
-        return ResponseEntity.ok(EntityModel.of(employee)
-                .add(linkTo(methodOn(EmployeeController.class).getById(employee.getEmployeeId()))
-                        .withRel(GET_EMPLOYEE.toString()))
+        return ResponseEntity.ok(EntityModel.of(employee).add(
+                linkTo(methodOn(EmployeeController.class).getById(employee.getEmployeeId())).withRel(GET_EMPLOYEE.toString()))
+                .add(linkTo(methodOn(EmployeeController.class).updateEmployee(employee.getEmployeeId(), null))
+                        .withRel(UPDATE_EMPLOYEE.toString()))
                 .add(linkTo(methodOn(EmployeeController.class).createEmployee(null)).withSelfRel()));
     }
 
