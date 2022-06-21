@@ -3,12 +3,14 @@ package pl.inf.app.error;
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
 
+import java.util.Arrays;
+
 /**
  * Custom exception to convert to user response.
  */
 @Getter
 public class ProcessException extends RuntimeException {
-    private final ErrorType errorType;
+    private final String description;
     private final HttpStatus httpStatus;
     private final Object[] params;
 
@@ -19,10 +21,16 @@ public class ProcessException extends RuntimeException {
      * @param params    arguments to fill descriptions
      */
     public ProcessException(final ErrorType errorType, final Object... params) {
-        super(errorType.getCode());
+        super(errorType.getDescription());
         this.httpStatus = errorType.getDefaultStatus();
-        this.errorType = errorType;
+        this.description = errorType.getDescription();
         this.params = params;
     }
 
+    @Override
+    public String toString() {
+
+        return "ProcessException: " + "httpStatus=" + httpStatus + ", description=" + description + ", params=" + Arrays.toString(
+                params);
+    }
 }
