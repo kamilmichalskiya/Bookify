@@ -15,7 +15,7 @@ const AdminList = ({ type, items, openModal }) => {
   return (
     <ItemWrapper>
       {items.map((item) => (
-        <ItemContainer key={item.id}>
+        <ItemContainer key={item.id || item.employeeId}>
           {item.image ? <Photo url={item.image}></Photo> : null}
           <ItemContainerContext>
             <ItemContainerContextTitle>

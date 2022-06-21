@@ -3,11 +3,13 @@ import { StepperLine, StepperLabel, StepperWrapper, StepperButton, StepperValue 
 import PropTypes from 'prop-types';
 
 const Stepper = ({ title, value, updateValue, minValue }) => {
-  const increaseValue = () => {
+  const increaseValue = (e) => {
+    e.preventDefault();
     updateValue(value + 1);
   };
 
-  const decreaseValue = () => {
+  const decreaseValue = (e) => {
+    e.preventDefault();
     updateValue(value - 1);
   };
 

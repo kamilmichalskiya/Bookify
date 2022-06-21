@@ -55,5 +55,8 @@ export const NavigationBar = styled.div`
 
 export const ModalContainer = styled.div`
   width: 100%;
-  padding: 25px 50px;
+  padding: 10px 50px;
+  @media ${({ theme }) => theme.breakpoints.sm} {
+    padding: 25px 50px;
+  }
 `;
