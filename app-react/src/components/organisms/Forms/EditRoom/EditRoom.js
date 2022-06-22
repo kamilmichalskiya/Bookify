@@ -10,9 +10,9 @@ const EditRoom = ({ room, setShowModal }) => {
   const initialValues = {
     active: room.active || false,
     image: room.image || '',
-    roomType: room.roomType || '',
+    roomType: room.roomType ? { label: room.roomType, value: room.roomType } : '',
     price: room.price || '',
-    capacity: room.capacity || '',
+    capacity: room.capacity || 0,
     singleBeds: room.singleBeds || 0,
     doubleBeds: room.doubleBeds || 0,
     description: room.description || '',
@@ -160,12 +160,6 @@ const EditRoom = ({ room, setShowModal }) => {
     }
     if (!values.capacity) {
       errors.capacity = 'Pojemność pokoju jest wymagana!';
-    }
-    if (!values.singleBeds || values.singleBeds === 0) {
-      errors.singleBeds = 'Ilość pojedyńczych łóżek jest wymagana!';
-    }
-    if (!values.doubleBeds || values.doubleBeds === 0) {
-      errors.doubleBeds = 'Ilość podwójnych łóżek jest wymagana!';
     }
     if (!values.singleBeds && !values.doubleBeds) {
       errors.singleBeds = 'Wymagane jest co najmniej jedno łóżko w pokoju!';

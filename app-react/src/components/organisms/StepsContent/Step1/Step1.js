@@ -43,25 +43,25 @@ const Step1 = ({ state }) => {
           </RoomMainFeatureIcon>
           {state.selectedRoom.area} m<sup>2</sup>
         </RoomMainFeatureWrapper>
-        {state.selectedRoom.beds.includes('DOUBLE_BED') ? (
+        {state.selectedRoom.singleBeds ? (
           <>
             <RoomMainFeatureWrapper>
               <RoomMainFeatureIcon>
                 <Bed size="24" />
               </RoomMainFeatureIcon>
-              1 podwójne łóżko
+              {state.selectedRoom.singleBeds} podwójne łóżko
             </RoomMainFeatureWrapper>
           </>
         ) : (
           ''
         )}
-        {state.selectedRoom.beds.includes('SINGLE_BED') ? (
+        {state.selectedRoom.doubleBeds ? (
           <>
             <RoomMainFeatureWrapper>
               <RoomMainFeatureIcon>
                 <Bed size="24" />
               </RoomMainFeatureIcon>
-              1 pojedyńcze łóżko
+              {state.selectedRoom.doubleBeds} pojedyńcze łóżko
             </RoomMainFeatureWrapper>
           </>
         ) : (
@@ -79,7 +79,7 @@ const Step1 = ({ state }) => {
       </RoomAllFeaturesTitle>
       <RoomAllFeaturesContainer>
         {state.selectedRoom.accessories.map((element) => (
-          <RoomAllFeatureWrapper>
+          <RoomAllFeatureWrapper key="element">
             <RoomAllFeatureIcon>
               <Check size="18" />
             </RoomAllFeatureIcon>
