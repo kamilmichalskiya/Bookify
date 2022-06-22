@@ -36,7 +36,7 @@ const Step2 = ({ offers }) => {
       <ContentLeftSection2>
         <SectionHeader>Dodatkowo płatne:</SectionHeader>
         {offers.map((element) => (
-          <RowWrapper>
+          <RowWrapper key={element.id}>
             <GreenIconStyleWrapper>
               <CheckBox size="24" />
             </GreenIconStyleWrapper>
