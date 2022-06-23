@@ -10,7 +10,15 @@ export const Input = styled.input`
   ${({ type }) =>
     type !== 'checkbox' &&
     `width: 100%;
-  max-width: 300px`};
+  max-width: 250px`};
+  ${({ type }) =>
+    type === 'file' &&
+    `border-radius: 4px;
+    width: 100%;
+    max-width: 250px;
+    background-color: #fff;
+    
+    `};
   &:focus {
     outline: none;
     box-shadow: -2px 4px 10px rgba(115, 124, 142, 0.3);

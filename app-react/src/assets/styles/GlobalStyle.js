@@ -2,11 +2,11 @@ import { createGlobalStyle } from 'styled-components';
 
 export const GlobalStyle = createGlobalStyle`
 
- html { // border-box jest znacznie bardziej przewidywalny niż content-Box
+ html {
   box-sizing: border-box;
  }
 
- *, *::after, *::before { // by wszystkie elementy i pseudoelementy dziedziczyły box-sizing
+ *, *::after, *::before {
   box-sizing: inherit;
  }
 
@@ -14,7 +14,7 @@ export const GlobalStyle = createGlobalStyle`
   font-family: 'Montserrat', sans-serif;
  }
 
- a, button { // linki i buttony nie dziedziczą z body font-family
+ a, button {
   font-family: 'Montserrat', sans-serif;
   border: none;
  }
@@ -22,4 +22,8 @@ export const GlobalStyle = createGlobalStyle`
  button:hover {
     cursor: pointer;
  }
+
+ input[type='file'] {
+  color: rgba(0, 0, 0, 0);
+}
 `;
