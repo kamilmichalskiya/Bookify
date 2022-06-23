@@ -1,10 +1,12 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { SaveButton } from 'components/atoms/Button/Button';
-import { Header, ContentWrapper, Footer, ErrorText } from './EditRoom-styled';
+import { Header, ContentWrapper, Footer, ErrorText, ImageContainer, Image, DeleteImageButton } from './EditRoom-styled';
 import FormField from 'components/molecules/FormField/FormField';
 import { LinksContext } from 'providers/LinksProvider';
 import { roomTypeOptions } from 'data/roomTypeOptions';
 import { addOnOptions } from 'data/addOnOptions';
+import { Label } from 'components/atoms/Label/Label';
+import { convertBase64 } from 'helpers/convertBase64';
 
 const EditRoom = ({ room, setShowModal }) => {
   const initialValues = {
@@ -168,6 +170,11 @@ const EditRoom = ({ room, setShowModal }) => {
     if (!values.description) {
       errors.description = 'Opis pokoju jest wymagany!';
     }
+    if (!values.area) {
+      errors.area = 'Metraż jest wymagany!';
+    } else if (isNaN(values.area)) {
+      errors.price = 'Metraż musi być liczbą!';
+    }
     if (Array.isArray(values.addOns) && values.addOns.length === 0) {
       errors.addOns = 'Minimum jeden dodatek jest wymagany!';
     }
@@ -177,12 +184,39 @@ const EditRoom = ({ room, setShowModal }) => {
     return errors;
   };
 
+  const removeImage = (e) => {
+    e.preventDefault();
+    setFormValues({ ...formValues, image: '' });
+  };
+
+  const addImage = async (e) => {
+    e.preventDefault();
+    const files = e.target.files;
+    const base64 = await convertBase64(files[0]);
+    setFormValues({ ...formValues, image: base64 });
+  };
+
   return (
     <form>
       <Header>{room?.id ? 'Edytuj Pokój' : 'Stwórz Pokój'}</Header>
       <ContentWrapper>
         <FormField onChange={handleChange} value={formValues.active} label="Pokój aktywny" name="active" id="roomActive" type="checkbox" />
-        <FormField onChange={handleChange} value={formValues.image} label="Url Zdjęcia" name="image" id="roomImage" type="text" />
+        {/* <FormField onChange={handleChange} value={formValues.image} label="Url Zdjęcia" name="image" id="roomImage" type="text" /> */}
+
+        {formValues.image ? (
+          <>
+            <Label>Zdjęcie pokoju:</Label>
+            <ImageContainer>
+              <Image src={formValues.image} alt="roomImage1"></Image>
+              <DeleteImageButton onClick={removeImage} title="Usuń zdjęcie">
+                X
+              </DeleteImageButton>
+            </ImageContainer>
+          </>
+        ) : (
+          <FormField onChange={addImage} value={formValues.image} label="Wgraj zdjęcie" name="image" id="roomImage" type="file" />
+        )}
+
         <ErrorText>{formErrors.image}</ErrorText>
         <FormField
           onChange={handleChange}

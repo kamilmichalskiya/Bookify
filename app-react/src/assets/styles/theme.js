@@ -19,6 +19,7 @@ export const theme = {
     error: '#CB8581',
     warning: '#E1D888',
     placeholder: '#626262',
+    red: '#ff0033',
   },
   fontSize: {
     logo: '70px',

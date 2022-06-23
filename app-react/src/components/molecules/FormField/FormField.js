@@ -49,6 +49,20 @@ const FormField = ({ onChange, value, label, name, id, type = 'text', disabled =
         ''
       )}
       {type === 'stepper' ? <Stepper title="" value={value} updateValue={onChange} minValue={0}></Stepper> : ''}
+      {type === 'file' ? (
+        <Input
+          name={name}
+          id={id}
+          type={type}
+          value={value}
+          onChange={onChange}
+          disabled={disabled}
+          placeholder={`Uplaod an ${name}`}
+          accept=".png, .jpg, .jpeg"
+        />
+      ) : (
+        ''
+      )}
     </Wrapper>
   );
 };
