@@ -17,6 +17,12 @@ const List = ({ rooms, onRoomDetailsClickHandler, userSelection }) => {
   const calculatePrice = (price, capacity, days) => {
     return price * capacity * (days || 1);
   };
+
+  const calculateDays = (startDate, endDate) => {
+    let difference = endDate.getTime() - startDate.getTime();
+    let days = Math.ceil(difference / (1000 * 3600 * 24));
+    return days;
+  };
   return (
     <RoomWrapper>
       {rooms.map((room) => (

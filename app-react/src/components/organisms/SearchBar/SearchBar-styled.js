@@ -57,6 +57,10 @@ export const SearchBarItemWrapper = styled.div`
   &:hover {
     background-color: #ffffff1a;
     cursor: pointer;
+    input {
+      background-color: #ffffff1a;
+      cursor: pointer;
+    }
   }
   @media ${({ theme }) => theme.breakpoints.md} {
     padding: 8px 20px 8px;

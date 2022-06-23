@@ -9,28 +9,22 @@ import '@fontsource/montserrat';
 import { AccountCircle } from '@styled-icons/material/AccountCircle';
 import { Redirect } from 'react-router-dom';
 import { LinksContext } from 'providers/LinksProvider';
+import { UserDataContext } from 'providers/UserDataProvider';
 
 const LandingPage = ({ history }) => {
   const [shouldRedirect, setRedirect] = useState(false);
   const [rooms, setRooms] = useState([]);
-  const [userSelection, setUserSelection] = useState({
-    startDate: '',
-    endDate: '',
-    days: 1,
-    adultsNumber: 1,
-    kidsNumber: 0,
-    selectedRoom: {},
-  });
   const [showModal, setShowModal] = useState(false);
   const LinksCtx = useContext(LinksContext);
+  const UserCtx = useContext(UserDataContext);
 
   const openModal = () => {
     setShowModal((prev) => !prev);
   };
 
   const onRoomDetailsClickHandler = (selectedRoom) => {
-    setUserSelection({ ...userSelection, selectedRoom: selectedRoom });
     setRedirect(true);
+    UserCtx.setUserData({ ...UserCtx, room: selectedRoom });
   };
 
   useEffect(() => {
@@ -41,14 +35,14 @@ const LandingPage = ({ history }) => {
       setRooms(roomsArray);
     };
 
-    if (LinksCtx.rooms && rooms.length === 0) {
+    if (LinksCtx.rooms && rooms?.length === 0) {
       getRooms();
     }
-  }, [LinksCtx, rooms.length]);
+  }, [LinksCtx, rooms]);
 
   return (
     <>
-      {shouldRedirect ? <Redirect push to={{ pathname: '/steps', state: userSelection }} /> : null}
+      {shouldRedirect ? <Redirect push to={{ pathname: '/steps' }} /> : null}
       <Wrapper>
         <Modal showModal={showModal} setShowModal={setShowModal}>
           <Login history={history}></Login>
@@ -59,8 +53,15 @@ const LandingPage = ({ history }) => {
             <AccountCircle size="60" />
           </IconStyleWrapper>
         </Header>
-        <SearchBar displayLevelMode="user" setUserSelection={setUserSelection}></SearchBar>
-        <List rooms={rooms} onRoomDetailsClickHandler={onRoomDetailsClickHandler} userSelection={userSelection}></List>
+        <SearchBar displayLevelMode="user" setRooms={setRooms}></SearchBar>
+        {rooms ? (
+          <List rooms={rooms} onRoomDetailsClickHandler={onRoomDetailsClickHandler}></List>
+        ) : (
+          <>
+            <h1>Przepraszamy!</h1> <h2>Dla obecnie ustawionych filtrów nie posiadamy wolnych pokoi!</h2>
+          </>
+        )}
+
         <Footer></Footer>
       </Wrapper>
     </>

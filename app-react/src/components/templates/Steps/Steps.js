@@ -26,14 +26,17 @@ import { AccountCircle } from '@styled-icons/material/AccountCircle';
 import { KeyboardArrowLeft } from '@styled-icons/material/KeyboardArrowLeft';
 import { KeyboardArrowDown } from '@styled-icons/material/KeyboardArrowDown';
 import { Redirect } from 'react-router-dom';
-import { LinksContext } from 'providers/LinksProvider';
 import Collapsible from 'components/molecules/Collapsible/Collapsible';
+import { LinksContext } from 'providers/LinksProvider';
+import { UserDataContext } from 'providers/UserDataProvider';
 
-const Steps = ({ location: { state } }) => {
+const Steps = () => {
   const [activeStep, setActiveStep] = useState(1);
   const [redirectUrl, setRedirectUrl] = useState(null);
   const [offers, setOffers] = useState([]);
   const LinksCtx = useContext(LinksContext);
+  const UserCtx = useContext(UserDataContext);
+  console.log(UserCtx);
 
   useEffect(() => {
     const getRoomOffers = async () => {
@@ -66,13 +69,13 @@ const Steps = ({ location: { state } }) => {
   const displayStepContent = () => {
     switch (activeStep) {
       case 1:
-        return <Step1 state={state} offers={offers}></Step1>;
+        return <Step1 offers={offers}></Step1>;
       case 2:
-        return <Step2 state={state} offers={offers}></Step2>;
+        return <Step2 offers={offers}></Step2>;
       case 3:
-        return <Step3 state={state} offers={offers}></Step3>;
+        return <Step3 offers={offers}></Step3>;
       case 4:
-        return <Step4 state={state} offers={offers}></Step4>;
+        return <Step4 offers={offers}></Step4>;
       default:
         break;
     }
