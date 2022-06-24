@@ -4,7 +4,6 @@ import {
   Header,
   Logo,
   IconStyleWrapper,
-  GreenIconStyleWrapper,
   SearchBarImg,
   WhiteButton,
   SearchBarContainer,
@@ -12,6 +11,9 @@ import {
   ContentContainer,
   ContentLeft,
   ContentRight,
+  DateContainer,
+  DateRow,
+  DateRowItem,
 } from './Steps-styled';
 import '@fontsource/montserrat';
 import Step1 from 'components/organisms/StepsContent/Step1/Step1';
@@ -22,13 +24,13 @@ import ProgressBar1 from 'assets/img/progressbar1.png';
 import ProgressBar2 from 'assets/img/progressbar2.png';
 import ProgressBar3 from 'assets/img/progressbar3.png';
 import ProgressBar4 from 'assets/img/progressbar5.png';
+import Accordion from 'components/molecules/Accordion/Accordion';
 import { AccountCircle } from '@styled-icons/material/AccountCircle';
 import { KeyboardArrowLeft } from '@styled-icons/material/KeyboardArrowLeft';
-import { KeyboardArrowDown } from '@styled-icons/material/KeyboardArrowDown';
 import { Redirect } from 'react-router-dom';
-import Collapsible from 'components/molecules/Collapsible/Collapsible';
 import { LinksContext } from 'providers/LinksProvider';
 import { UserDataContext } from 'providers/UserDataProvider';
+import { HiOutlineArrowNarrowRight } from 'react-icons/hi';
 
 const Steps = () => {
   const [activeStep, setActiveStep] = useState(1);
@@ -36,7 +38,6 @@ const Steps = () => {
   const [offers, setOffers] = useState([]);
   const LinksCtx = useContext(LinksContext);
   const UserCtx = useContext(UserDataContext);
-  console.log(UserCtx);
 
   useEffect(() => {
     const getRoomOffers = async () => {
@@ -113,10 +114,57 @@ const Steps = () => {
         <ContentContainer>
           <ContentLeft>{displayStepContent()}</ContentLeft>
           <ContentRight>
-            <Collapsible label="Podsumowanie rezerwacji" summaryView></Collapsible>
-            <GreenIconStyleWrapper>
-              <KeyboardArrowDown size="36" />
-            </GreenIconStyleWrapper>
+            <Accordion title="Podsumowanie rezerwacji">
+              <DateContainer>
+                <DateRow>
+                  <DateRowItem>
+                    <p style={{ fontSize: '12px' }}>
+                      {new Date(UserCtx.startDate).toLocaleDateString('pl-pl', { year: 'numeric', month: 'long', day: 'numeric' })}
+                    </p>
+                    <p style={{ fontSize: '10px' }}>od 15:00</p>
+                  </DateRowItem>
+                  <HiOutlineArrowNarrowRight style={{ position: 'relative', top: '13px' }} />
+                  <DateRowItem>
+                    <p style={{ fontSize: '12px' }}>
+                      {new Date(UserCtx.endDate).toLocaleDateString('pl-pl', { year: 'numeric', month: 'long', day: 'numeric' })}
+                    </p>
+                    <p style={{ fontSize: '10px' }}>do 12:00</p>
+                  </DateRowItem>
+                </DateRow>
+              </DateContainer>
+              <div style={{ padding: '15px 0px' }}>
+                <p style={{ fontSize: '14px' }}>
+                  Pokój {UserCtx.room.capacity} osobowy <em style={{ color: '#1ED760' }}>{UserCtx.room.roomType}</em>
+                </p>
+                <div style={{ display: 'flex', justifyContent: 'space-between', paddingLeft: '5px' }}>
+                  <p style={{ fontSize: '12px' }}>Pokoje i oferta</p>
+                  <p style={{ fontSize: '12px' }}>{UserCtx.totalPrice}zł</p>
+                </div>
+                <div style={{ display: 'flex', justifyContent: 'space-between', paddingLeft: '5px' }}>
+                  <p style={{ fontSize: '12px' }}>Dodatki</p>
+                  <p style={{ fontSize: '12px' }}>276zł</p>
+                </div>
+                <div style={{ display: 'flex', justifyContent: 'space-between', paddingLeft: '5px' }}>
+                  <p style={{ fontSize: '12px', color: '#1ED760' }}>Rabat</p>
+                  <p style={{ fontSize: '12px', color: '#1ED760' }}>-0zł</p>
+                </div>
+              </div>
+
+              <div style={{ backgroundColor: '#444444', paddingBottom: '5px', borderRadius: '5px', padding: '10px' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                  <p style={{ fontSize: '16px' }}>SUMA</p>
+                  <p style={{ fontSize: '16px' }}>{UserCtx.totalPrice}zł</p>
+                </div>
+                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                  <p style={{ fontSize: '12px' }}>Przedpłata</p>
+                  <p style={{ fontSize: '12px' }}>0zł</p>
+                </div>
+                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                  <p style={{ fontSize: '12px' }}>Na miejscu</p>
+                  <p style={{ fontSize: '12px' }}>{UserCtx.totalPrice}zł</p>
+                </div>
+              </div>
+            </Accordion>
           </ContentRight>
         </ContentContainer>
         <BottomMenu>
@@ -130,13 +178,17 @@ const Steps = () => {
               Wstecz
             </span>
           </IconStyleWrapper>
-          <WhiteButton
-            onClick={() => {
-              changeStep('next');
-            }}
-          >
-            Dalej
-          </WhiteButton>
+          {activeStep < 5 ? (
+            <WhiteButton
+              onClick={() => {
+                changeStep('next');
+              }}
+            >
+              Dalej
+            </WhiteButton>
+          ) : (
+            ''
+          )}
         </BottomMenu>
       </Wrapper>
     </>

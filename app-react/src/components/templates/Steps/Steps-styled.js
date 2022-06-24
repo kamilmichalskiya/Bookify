@@ -1,6 +1,5 @@
-/* eslint-disable prettier/prettier */
-import styled from "styled-components";
-import { StyledIconBase } from "@styled-icons/styled-icon";
+import styled from 'styled-components';
+import { StyledIconBase } from '@styled-icons/styled-icon';
 
 export const Wrapper = styled.div`
   display: flex;
@@ -31,7 +30,6 @@ export const GreenIconStyleWrapper = styled(IconStyleWrapper)`
     cursor: pointer;
   }
 `;
-
 
 export const GreenTextWrapper = styled.span`
   color: ${({ theme }) => theme.colors.primary};
@@ -76,6 +74,9 @@ export const SearchBarContainer = styled.div`
   background-color: ${({ theme }) => theme.colors.secondary};
   color: ${({ theme }) => theme.colors.white};
   @media ${({ theme }) => theme.breakpoints.md} {
+    width: 90%;
+  }
+  @media ${({ theme }) => theme.breakpoints.xl} {
     width: 80%;
   }
 `;
@@ -113,8 +114,14 @@ export const ContentContainer = styled.div`
   letter-spacing: 0.03em;
   margin-bottom: 110px;
   @media ${({ theme }) => theme.breakpoints.sm} {
-    width: 80%;
     flex-direction: row;
+    width: 95%;
+  }
+  @media ${({ theme }) => theme.breakpoints.md} {
+    width: 90%;
+  }
+  @media ${({ theme }) => theme.breakpoints.xl} {
+    width: 80%;
   }
 `;
 
@@ -126,6 +133,9 @@ export const ContentLeft = styled.div`
   border-radius: 5px;
   padding: 0 30px;
   @media ${({ theme }) => theme.breakpoints.sm} {
+    width: 53%;
+  }
+  @media ${({ theme }) => theme.breakpoints.lg} {
     width: 65%;
   }
 `;
@@ -140,6 +150,9 @@ export const ContentRight = styled.div`
   border-radius: 5px;
   padding: 10px 20px;
   @media ${({ theme }) => theme.breakpoints.sm} {
+    width: 42%;
+  }
+  @media ${({ theme }) => theme.breakpoints.lg} {
     width: 30%;
   }
 `;
@@ -158,5 +171,21 @@ export const BottomMenu = styled.div`
   width: 100%;
   letter-spacing: 0.08em;
   position: fixed;
-  bottom: 0px
+  bottom: 0px;
+`;
+
+export const DateContainer = styled.div`
+  padding: 20px 0px;
+  border-top: 1px solid #fff;
+  border-bottom: 1px solid #fff;
+`;
+
+export const DateRow = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
+export const DateRowItem = styled.div`
+  display: flex;
+  flex-direction: column;
 `;

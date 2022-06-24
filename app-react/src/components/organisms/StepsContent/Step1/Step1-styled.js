@@ -17,7 +17,7 @@ export const RoomContainerPhotoWrapper = styled.div`
 `;
 
 export const RoomContainerPhoto = styled.div`
-  background-image: url(${RoomPhoto});
+  background-image: url(${({ url }) => url});
   background-size: cover;
   width: 70%;
   height: 220px;

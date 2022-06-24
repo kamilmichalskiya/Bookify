@@ -1,7 +1,6 @@
-import React from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import {
   IconStyleWrapper,
-  GreenIconStyleWrapper,
   ContentLeftTitle,
   ContentLeftSection1,
   ContentLeftSection2,
@@ -14,13 +13,46 @@ import {
   GreenTextWrapper,
   SectionSummary,
 } from './Step2-styled';
-import { CheckBox } from '@styled-icons/material/CheckBox';
-// import { CheckBoxOutlineBlank } from '@styled-icons/material/CheckBoxOutlineBlank';
+import FormField from 'components/molecules/FormField/FormField';
 import { Info } from '@styled-icons/material-outlined/Info';
 import { ExclamationSquareFill } from '@styled-icons/bootstrap/ExclamationSquareFill';
 import '@fontsource/montserrat';
+import { UserDataContext } from 'providers/UserDataProvider';
+
+const setBoolCheckboxStateObject = (offers) => {
+  const stateObject = {};
+  for (const offer of offers) {
+    stateObject[offer.name] = false;
+  }
+  return stateObject;
+};
 
 const Step2 = ({ offers }) => {
+  const [offersSelected, setOffersSelected] = useState(setBoolCheckboxStateObject(offers));
+  const [totalPrice, setTotalPrice] = useState(0);
+  const UserCtx = useContext(UserDataContext);
+
+  const handleOfferSelected = (offer) => {
+    setOffersSelected({ ...offersSelected, [offer.name]: !offersSelected[offer.name] });
+  };
+
+  useEffect(() => {
+    const calculateOfferTotalPrice = () => {
+      let price = 0;
+      const activeOffers = [];
+      for (const offer of offers) {
+        if (offersSelected[offer.name]) {
+          price += offer.price;
+          activeOffers.push(offer);
+        }
+      }
+      UserCtx.setUserData({ ...UserCtx, offers: activeOffers });
+      setTotalPrice(price.toString());
+    };
+    calculateOfferTotalPrice();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [offers, offersSelected]);
+
   return (
     <>
       <ContentLeftTitle>Szczegóły oferty</ContentLeftTitle>
@@ -35,13 +67,17 @@ const Step2 = ({ offers }) => {
       </ContentLeftSection1>
       <ContentLeftSection2>
         <SectionHeader>Dodatkowo płatne:</SectionHeader>
-        {offers.map((element) => (
+        {offers.map((element, i) => (
           <RowWrapper key={element.id}>
-            <GreenIconStyleWrapper>
-              <CheckBox size="24" />
-            </GreenIconStyleWrapper>
-            <RowText>{element.name}</RowText>
-            <IconStyleWrapper>
+            <FormField
+              onChange={() => handleOfferSelected(element)}
+              value={offersSelected[element.name]}
+              label={element.name}
+              name={element.name}
+              id={`${element.name}-${i}`}
+              type="checkbox"
+            />
+            <IconStyleWrapper style={{ margin: '0px 0px 0px 10px' }}>
               <Info size="18" />
             </IconStyleWrapper>
             <DashedLine></DashedLine>
@@ -49,7 +85,7 @@ const Step2 = ({ offers }) => {
           </RowWrapper>
         ))}
         <SectionSummary>
-          Dodatki łącznie: <GreenTextWrapper>276zł</GreenTextWrapper>
+          Dodatki łącznie: <GreenTextWrapper>{totalPrice}zł</GreenTextWrapper>
         </SectionSummary>
         <RowWrapper>
           <ExclamationSquareFill size="36" />
