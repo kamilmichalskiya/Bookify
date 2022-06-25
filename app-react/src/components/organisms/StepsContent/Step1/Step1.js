@@ -23,7 +23,7 @@ import { KeyboardArrowRight } from '@styled-icons/material/KeyboardArrowRight';
 import { KeyboardArrowLeft } from '@styled-icons/material/KeyboardArrowLeft';
 import { UserDataContext } from 'providers/UserDataProvider';
 
-const Step1 = ({ state }) => {
+const Step1 = () => {
   const UserCtx = useContext(UserDataContext);
   return (
     <>
@@ -32,7 +32,7 @@ const Step1 = ({ state }) => {
         <GreenIconStyleWrapper>
           <KeyboardArrowLeft size="36" />
         </GreenIconStyleWrapper>
-        <RoomContainerPhoto></RoomContainerPhoto>
+        <RoomContainerPhoto url={UserCtx.room.image} />
         <GreenIconStyleWrapper>
           <KeyboardArrowRight size="36" />
         </GreenIconStyleWrapper>
@@ -63,7 +63,7 @@ const Step1 = ({ state }) => {
               <RoomMainFeatureIcon>
                 <Bed size="24" />
               </RoomMainFeatureIcon>
-              {UserCtx.room.doubleBeds} pojedyńcze łóżko
+              {UserCtx.room.doubleBeds} pojedyncze łóżko
             </RoomMainFeatureWrapper>
           </>
         ) : (

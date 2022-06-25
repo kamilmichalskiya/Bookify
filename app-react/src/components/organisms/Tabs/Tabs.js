@@ -9,7 +9,7 @@ import EditOffer from 'components/organisms/Forms/EditOffer/EditOffer';
 import EditEmployee from 'components/organisms/Forms/EditEmployee/EditEmployee';
 import { TertiaryButton } from 'components/atoms/Button/Button';
 
-const Tabs = ({ rooms, offers, employees }) => {
+const Tabs = ({ rooms, offers, employees, updateData }) => {
   const [index, setIndex] = useState(0);
   const [showModal, setShowModal] = useState(false);
   const [activeItem, setActiveItem] = useState({});
@@ -80,9 +80,13 @@ const Tabs = ({ rooms, offers, employees }) => {
       </TabsWrapper>
       <Modal showModal={showModal} setShowModal={setShowModal}>
         <ModalContainer>
-          {activeItem.type === 'rooms' ? <EditRoom room={activeItem} setShowModal={setShowModal}></EditRoom> : ''}
-          {activeItem.type === 'offers' ? <EditOffer offer={activeItem} setShowModal={setShowModal}></EditOffer> : ''}
-          {activeItem.type === 'employees' ? <EditEmployee employee={activeItem} setShowModal={setShowModal}></EditEmployee> : ''}
+          {activeItem.type === 'rooms' ? <EditRoom room={activeItem} setShowModal={setShowModal} updateData={updateData}></EditRoom> : ''}
+          {activeItem.type === 'offers' ? <EditOffer offer={activeItem} setShowModal={setShowModal} updateData={updateData}></EditOffer> : ''}
+          {activeItem.type === 'employees' ? (
+            <EditEmployee employee={activeItem} setShowModal={setShowModal} updateData={updateData}></EditEmployee>
+          ) : (
+            ''
+          )}
         </ModalContainer>
       </Modal>
     </>
