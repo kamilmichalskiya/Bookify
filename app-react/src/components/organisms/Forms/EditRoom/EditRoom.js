@@ -145,6 +145,9 @@ const EditRoom = ({ room, setShowModal, updateData }) => {
           formFinalValues.addOns.push(element.value);
         }
       }
+      if (formValues.roomType) {
+        formFinalValues.roomType = formValues.roomType.value;
+      }
       console.log(`Submitted Room: ${JSON.stringify(formValues)}`);
       if (room.isNew) {
         createRoom(formFinalValues);
@@ -202,9 +205,16 @@ const EditRoom = ({ room, setShowModal, updateData }) => {
     <form>
       <Header>{room?.id ? 'Edytuj Pokój' : 'Stwórz Pokój'}</Header>
       <ContentWrapper>
-        <FormField onChange={handleChange} value={formValues.active} label="Pokój aktywny" name="active" id="roomActive" type="checkbox" />
-        {/* <FormField onChange={handleChange} value={formValues.image} label="Url Zdjęcia" name="image" id="roomImage" type="text" /> */}
-
+        <FormField
+          onChange={handleChange}
+          label="Pokój aktywny"
+          name="active"
+          id="roomActive"
+          type="checkbox"
+          disabled={false}
+          options=""
+          checked={formValues.active ? 'checked' : ''}
+        />
         {formValues.image ? (
           <>
             <Label>Zdjęcie pokoju:</Label>
@@ -218,7 +228,6 @@ const EditRoom = ({ room, setShowModal, updateData }) => {
         ) : (
           <FormField onChange={addImage} value={formValues.image} label="Wgraj zdjęcie" name="image" id="roomImage" type="file" />
         )}
-
         <ErrorText>{formErrors.image}</ErrorText>
         <FormField
           onChange={handleChange}
