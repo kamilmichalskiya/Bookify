@@ -19,7 +19,6 @@ const SearchBar = ({ displayLevelMode, setRooms }) => {
   const today = new Date();
   const tomorrow = new Date(today);
   tomorrow.setDate(tomorrow.getDate() + 1);
-  const DateOptions = { year: 'numeric', month: 'long', day: 'numeric' };
   const LinksCtx = useContext(LinksContext);
   const UserCtx = useContext(UserDataContext);
   const initialValues = {
@@ -79,7 +78,7 @@ const SearchBar = ({ displayLevelMode, setRooms }) => {
     const response = await fetch(`${LinksCtx.rooms}/search`, requestOptions);
     const data = await response.json();
     UserCtx.setUserData({ ...UserCtx, startDate: formFinalValues.startDate, endDate: formFinalValues.endDate });
-    setRooms(data._embedded.uiRoomList);
+    setRooms(data._embedded?.uiRoomList || ['empty']);
   };
 
   const handleChange = (value, name) => {

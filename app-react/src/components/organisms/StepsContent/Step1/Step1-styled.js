@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import RoomPhoto from 'assets/img/room1.png';
 import { StyledIconBase } from '@styled-icons/styled-icon';
 
 export const ContentLeftTitle = styled.div`

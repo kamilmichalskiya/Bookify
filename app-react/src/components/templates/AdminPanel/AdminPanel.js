@@ -5,8 +5,10 @@ import auth from 'helpers/auth';
 import Footer from 'components/molecules/Footer/Footer';
 import Tabs from 'components/organisms/Tabs/Tabs';
 import { LinksContext } from 'providers/LinksProvider';
+import Loader from 'components/atoms/Loader/Loader';
 
 const AdminPanel = ({ history }) => {
+  const [isLoading, setIsLoading] = useState(true);
   const [rooms, setRooms] = useState([]);
   const [offers, setOffers] = useState([]);
   const [employees, setEmployees] = useState([]);
@@ -41,7 +43,14 @@ const AdminPanel = ({ history }) => {
     } else {
       console.error('AdminPanel: Missing links for API requests!');
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [LinksCtx]);
+
+  useEffect(() => {
+    if (rooms?.length !== 0 && offers?.length !== 0 && employees?.length !== 0) {
+      setIsLoading(false);
+    }
+  }, [rooms, offers, employees]);
 
   const logout = () => {
     auth.logout(() => {
@@ -68,6 +77,7 @@ const AdminPanel = ({ history }) => {
   return (
     <>
       <Wrapper>
+        {isLoading ? <Loader isLoading={isLoading} /> : ''}
         <Header>
           <Logo>Bookify</Logo>
           <IconExit onClick={logout} />

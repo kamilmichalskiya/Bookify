@@ -81,7 +81,7 @@ const EditOffer = ({ offer, setShowModal, updateData }) => {
         updateOffer();
       }
     }
-  }, [LinksCtx.offers, formErrors, formValues, isSubmit, offer, setShowModal]);
+  }, [LinksCtx.offers, formErrors, formValues, isSubmit, offer, setShowModal, updateData]);
 
   const validate = (values) => {
     const errors = {};

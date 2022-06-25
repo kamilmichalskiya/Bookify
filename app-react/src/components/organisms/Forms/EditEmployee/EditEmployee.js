@@ -85,7 +85,7 @@ const EditEmployee = ({ employee, setShowModal, updateData }) => {
         updateEmployee();
       }
     }
-  }, [LinksCtx.employees, formErrors, formValues, isSubmit, employee, setShowModal]);
+  }, [LinksCtx.employees, formErrors, formValues, isSubmit, employee, setShowModal, updateData]);
 
   const validate = (values) => {
     const errors = {};
