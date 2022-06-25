@@ -27,7 +27,7 @@ const SearchBar = ({ displayLevelMode, setRooms }) => {
     adult: 1,
     kids: 0,
     addOns: [],
-    roomTypes: [{ value: 'Standard', label: 'Standard' }],
+    roomTypes: [],
   };
   const [userSelection, setUserSelection] = useState(initialValues);
 
