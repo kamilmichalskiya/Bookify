@@ -152,7 +152,7 @@ const EditRoom = ({ room, setShowModal, updateData }) => {
         updateRoom(formFinalValues);
       }
     }
-  }, [LinksCtx.rooms, formErrors, formValues, isSubmit, room, setShowModal]);
+  }, [LinksCtx.rooms, formErrors, formValues, isSubmit, room, setShowModal, updateData]);
 
   const validate = (values) => {
     const errors = {};

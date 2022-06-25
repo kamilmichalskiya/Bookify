@@ -34,6 +34,7 @@ const Step4 = ({ totalPrice }) => {
       }
     };
     createReservation();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

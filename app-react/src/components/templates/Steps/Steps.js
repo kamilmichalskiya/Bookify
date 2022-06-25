@@ -25,20 +25,21 @@ import ProgressBar2 from 'assets/img/progressbar2.png';
 import ProgressBar3 from 'assets/img/progressbar3.png';
 import ProgressBar4 from 'assets/img/progressbar5.png';
 import Accordion from 'components/molecules/Accordion/Accordion';
-import { AccountCircle } from '@styled-icons/material/AccountCircle';
 import { KeyboardArrowLeft } from '@styled-icons/material/KeyboardArrowLeft';
 import { Redirect } from 'react-router-dom';
 import { LinksContext } from 'providers/LinksProvider';
 import { UserDataContext } from 'providers/UserDataProvider';
 import { HiOutlineArrowNarrowRight } from 'react-icons/hi';
+import Loader from 'components/atoms/Loader/Loader';
 
 const Steps = () => {
   const LinksCtx = useContext(LinksContext);
   const UserCtx = useContext(UserDataContext);
+  const [isLoading, setIsLoading] = useState(true);
   const [activeStep, setActiveStep] = useState(1);
   const [redirectUrl, setRedirectUrl] = useState(null);
   const [offers, setOffers] = useState([]);
-  const [roomPrice, setRoomPrice] = useState(UserCtx.totalPrice);
+  const [roomPrice] = useState(UserCtx.totalPrice);
   const [offerPrice, setOfferPrice] = useState(0);
   const [totalPrice, setTotalPrice] = useState(0);
 
@@ -48,6 +49,7 @@ const Steps = () => {
       const data = await response.json();
       const offersData = data._embedded.uiOfferList;
       setOffers(offersData);
+      setIsLoading(false);
       console.dir(offersData);
     };
     getRoomOffers();
@@ -55,6 +57,7 @@ const Steps = () => {
 
   useEffect(() => {
     setTotalPrice(UserCtx.totalPrice + offerPrice);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [offerPrice]);
 
   const changeStep = (direction = 'next') => {
@@ -107,6 +110,7 @@ const Steps = () => {
   return (
     <>
       {redirectUrl ? <Redirect push to={{ pathname: redirectUrl }} /> : null}
+      {isLoading ? <Loader isLoading={isLoading} /> : ''}
       <Wrapper>
         <Header>
           <Logo onClick={returnToLandingPage}>Bookify</Logo>
