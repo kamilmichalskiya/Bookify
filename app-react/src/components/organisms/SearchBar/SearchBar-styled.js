@@ -57,6 +57,10 @@ export const SearchBarItemWrapper = styled.div`
   &:hover {
     background-color: #ffffff1a;
     cursor: pointer;
+    input {
+      background-color: #ffffff1a;
+      cursor: pointer;
+    }
   }
   @media ${({ theme }) => theme.breakpoints.md} {
     padding: 8px 20px 8px;
@@ -78,4 +82,28 @@ export const StepperContainer = styled.div`
   align-items: center;
   width: 100%;
   margin: 0px 0px 16px;
+`;
+
+export const SearchBarTextInput = styled.input`
+  font-size: ${({ theme }) => theme.fontSize.xl};
+  background-color: ${({ theme }) => theme.colors.secondary};
+  color: ${({ theme }) => theme.colors.white};
+  margin-left: 20px;
+  padding-left: 10px;
+  border: none;
+  height: 100%;
+  width: 90%;
+  flex-grow: 1;
+  ::placeholder {
+    color: ${({ theme }) => theme.colors.white};
+    font-size: ${({ theme }) => theme.fontSize.xl};
+    letter-spacing: 0.08em;
+  }
+  &:focus {
+    outline: none;
+  }
+  &:hover {
+    background-color: #ffffff1a;
+    cursor: pointer;
+  }
 `;

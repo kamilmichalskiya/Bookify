@@ -25,28 +25,22 @@ class RoomToUiMapperTest {
         final UUID id = UUID.randomUUID();
         roomBE.setId(id);
         roomBE.setArea(100);
-        roomBE.setAddOns(Collections.singleton("TELEPHONE"));
         roomBE.setAccessories(Collections.singleton("TABLE"));
-        roomBE.setBeds(Collections.singletonList("DOUBLE_BED"));
         roomBE.setCapacity(4);
         roomBE.setDescription("Description");
         roomBE.setImage("Image");
-        roomBE.setOfferDetails(Collections.singleton("FREE_WIFI"));
         roomBE.setPrice(100);
-        roomBE.setRoomType(RoomType.BUDGET);
+        roomBE.setRoomType(RoomType.Budget);
 
         final UiRoom room = mapper.map(roomBE);
 
         assertEquals(id, room.getId());
         assertEquals(100, room.getArea());
-        assertEquals(1, room.getAddOns().size());
         assertEquals(1, room.getAccessories().size());
-        assertEquals(1, room.getBeds().size());
         assertEquals(4, room.getCapacity());
         assertEquals("Description", room.getDescription());
         assertEquals("Image", room.getImage());
-        assertEquals(1, room.getOfferDetails().size());
         assertEquals(100, room.getPrice());
-        assertEquals(RoomType.BUDGET, room.getRoomType());
+        assertEquals(RoomType.Budget, room.getRoomType());
     }
 }

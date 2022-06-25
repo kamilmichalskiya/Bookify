@@ -24,10 +24,6 @@ const LinksProvider = ({ children }) => {
 
   const getLinks = async () => {
     let url = '/api';
-    // const { protocol, href } = window.location;
-    // if (href.includes('localhost:3000')) {
-    //   url = `${protocol}//localhost:8080${url}`;
-    // }
     const response = await fetch(url);
     const data = await response.json();
     let newLinksContext = {};

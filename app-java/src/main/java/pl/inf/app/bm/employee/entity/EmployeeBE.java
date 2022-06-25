@@ -33,5 +33,11 @@ public class EmployeeBE {
 
     private String password;
 
-    private boolean isActive;
+    private boolean active;
+
+    @Override
+    public String toString() {
+        return "EmployeeBE{" + "id=" + id + ", name='" + name + '\'' + ", surname='" + surname + '\'' + ", email='" + email +
+               '\'' + ", password='" + password + '\'' + ", active=" + active + '}';
+    }
 }

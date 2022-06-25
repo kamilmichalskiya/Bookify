@@ -1,27 +1,32 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { Wrapper, Footer, GreenTextWrapper } from './LandingPage-styled';
-import Header from 'components/molecules/Header/Header';
+import { Wrapper, Header, Logo, IconStyleWrapper } from './LandingPage-styled';
 import SearchBar from 'components/organisms/SearchBar/SearchBar';
 import List from 'components/organisms/List/List';
+import { Modal } from 'components/molecules/Modal/Modal';
+import Login from 'components/organisms/Login/Login';
+import Footer from 'components/molecules/Footer/Footer';
 import '@fontsource/montserrat';
+import { AccountCircle } from '@styled-icons/material/AccountCircle';
 import { Redirect } from 'react-router-dom';
 import { LinksContext } from 'providers/LinksProvider';
+import { UserDataContext } from 'providers/UserDataProvider';
+import Loader from 'components/atoms/Loader/Loader';
 
-const LandingPage = () => {
+const LandingPage = ({ history }) => {
+  const [isLoading, setIsLoading] = useState(true);
   const [shouldRedirect, setRedirect] = useState(false);
   const [rooms, setRooms] = useState([]);
-  const [userSelection, setUserSelection] = useState({
-    startDate: '',
-    endDate: '',
-    days: 1,
-    adultsNumber: 1,
-    kidsNumber: 0,
-    selectedRoom: {},
-  });
+  const [showModal, setShowModal] = useState(false);
   const LinksCtx = useContext(LinksContext);
+  const UserCtx = useContext(UserDataContext);
 
-  const onRoomDetailsClickHandler = (selectedRoom) => {
-    setUserSelection({ ...userSelection, selectedRoom: selectedRoom });
+  const openModal = () => {
+    setShowModal((prev) => !prev);
+  };
+
+  const onRoomDetailsClickHandler = (selectedRoom, days) => {
+    const totalPrice = selectedRoom.price * days;
+    UserCtx.setUserData({ ...UserCtx, room: selectedRoom, totalPrice: totalPrice });
     setRedirect(true);
   };
 
@@ -31,27 +36,37 @@ const LandingPage = () => {
       const data = await response.json();
       const roomsArray = data._embedded.uiRoomList;
       setRooms(roomsArray);
+      setIsLoading(false);
     };
 
-    if (LinksCtx.rooms && rooms.length === 0) {
+    if (LinksCtx.rooms && rooms?.length === 0) {
       getRooms();
     }
-  }, [LinksCtx, rooms.length]);
+  }, [LinksCtx, rooms]);
 
   return (
     <>
-      {shouldRedirect ? <Redirect push to={{ pathname: '/steps', state: userSelection }} /> : null}
+      {shouldRedirect ? <Redirect push to={{ pathname: '/steps' }} /> : null}
       <Wrapper>
-        <Header title="Bookify"></Header>
-        <SearchBar setUserSelection={setUserSelection}></SearchBar>
-        <List rooms={rooms} onRoomDetailsClickHandler={onRoomDetailsClickHandler} userSelection={userSelection}></List>
-        <Footer>
-          <span>Więcej informacji</span>
-          <span>
-            &copy;2022 <GreenTextWrapper>B</GreenTextWrapper>ookify
-          </span>
-          <span>Polityka prywatności</span>
-        </Footer>
+        {isLoading ? <Loader isLoading={isLoading} /> : ''}
+        <Modal showModal={showModal} setShowModal={setShowModal}>
+          <Login history={history}></Login>
+        </Modal>
+        <Header>
+          <Logo>Bookify</Logo>
+          <IconStyleWrapper onClick={openModal}>
+            <AccountCircle size="60" />
+          </IconStyleWrapper>
+        </Header>
+        <SearchBar displayLevelMode="user" setRooms={setRooms}></SearchBar>
+        {!rooms.includes('empty') ? (
+          <List rooms={rooms} onRoomDetailsClickHandler={onRoomDetailsClickHandler}></List>
+        ) : (
+          <>
+            <h1>Przepraszamy!</h1> <h2>Dla obecnie ustawionych filtrów nie posiadamy wolnych pokoi!</h2>
+          </>
+        )}
+        <Footer></Footer>
       </Wrapper>
     </>
   );

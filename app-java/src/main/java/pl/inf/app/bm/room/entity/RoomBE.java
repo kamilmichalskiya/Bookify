@@ -2,6 +2,7 @@ package pl.inf.app.bm.room.entity;
 
 import lombok.Getter;
 import lombok.Setter;
+import pl.inf.app.bm.reservation.entity.ReservationBE;
 
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
@@ -13,10 +14,12 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 /**
  * Class that represents the room entities in the database
@@ -40,29 +43,35 @@ public class RoomBE {
 
     private int capacity;
 
-    @ElementCollection(fetch = FetchType.EAGER)
-    @CollectionTable(name = "beds", joinColumns = @JoinColumn(name = "room_id"))
-    @Column(name = "bed")
-    private List<String> beds;
+    private int singleBeds;
+
+    private int doubleBeds;
 
     private String description;
 
     private int area;
 
+    @Enumerated(EnumType.STRING)
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "add_ons", joinColumns = @JoinColumn(name = "room_id"))
     @Column(name = "add_on")
-    private Set<String> addOns;
+    private Set<AddOns> addOns = new HashSet<>();
 
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "accessories", joinColumns = @JoinColumn(name = "room_id"))
     @Column(name = "accessory")
-    private Set<String> accessories;
+    private Set<String> accessories = new HashSet<>();
 
-    @ElementCollection(fetch = FetchType.EAGER)
-    @CollectionTable(name = "offer_details", joinColumns = @JoinColumn(name = "room_id"))
-    @Column(name = "offer_detail")
-    private Set<String> offerDetails;
+    @OneToMany(mappedBy = "room")
+    private Set<ReservationBE> reservations = new HashSet<>();
 
-    private boolean isActive;
+    private boolean active;
+
+    @Override
+    public String toString() {
+        return "RoomBE{" + "id=" + id + '\'' + ", roomType=" + roomType + ", price=" + price + ", capacity=" + capacity +
+               ", singleBeds=" + singleBeds + ", doubleBeds=" + doubleBeds + ", description='" + description + '\'' + ", area=" +
+               area + ", addOns=" + addOns + ", accessories=" + accessories + ", reservations=" + reservations.stream().map(
+                ReservationBE::getId).collect(Collectors.toList()) + ", active=" + active + '}';
+    }
 }

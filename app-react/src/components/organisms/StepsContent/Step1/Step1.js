@@ -1,6 +1,5 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import {
-  ContentLeft,
   ContentLeftTitle,
   RoomContainerPhotoWrapper,
   RoomContainerPhoto,
@@ -22,8 +21,10 @@ import { Wifi } from '@styled-icons/fa-solid/Wifi';
 import { Check } from '@styled-icons/material/Check';
 import { KeyboardArrowRight } from '@styled-icons/material/KeyboardArrowRight';
 import { KeyboardArrowLeft } from '@styled-icons/material/KeyboardArrowLeft';
+import { UserDataContext } from 'providers/UserDataProvider';
 
-const Step1 = ({ state }) => {
+const Step1 = () => {
+  const UserCtx = useContext(UserDataContext);
   return (
     <>
       <ContentLeftTitle>Szczegóły pokoju</ContentLeftTitle>
@@ -31,38 +32,38 @@ const Step1 = ({ state }) => {
         <GreenIconStyleWrapper>
           <KeyboardArrowLeft size="36" />
         </GreenIconStyleWrapper>
-        <RoomContainerPhoto></RoomContainerPhoto>
+        <RoomContainerPhoto url={UserCtx.room.image} />
         <GreenIconStyleWrapper>
           <KeyboardArrowRight size="36" />
         </GreenIconStyleWrapper>
       </RoomContainerPhotoWrapper>
-      <RoomDescription>{state.selectedRoom.description}</RoomDescription>
+      <RoomDescription>{UserCtx.room.description}</RoomDescription>
       <RoomMainFeaturesContainer>
         <RoomMainFeatureWrapper>
           <RoomMainFeatureIcon>
             <Resize size="24" />
           </RoomMainFeatureIcon>
-          {state.selectedRoom.area} m<sup>2</sup>
+          {UserCtx.room.area} m<sup>2</sup>
         </RoomMainFeatureWrapper>
-        {state.selectedRoom.beds.includes('DOUBLE_BED') ? (
+        {UserCtx.room.singleBeds ? (
           <>
             <RoomMainFeatureWrapper>
               <RoomMainFeatureIcon>
                 <Bed size="24" />
               </RoomMainFeatureIcon>
-              1 podwójne łóżko
+              {UserCtx.room.singleBeds} podwójne łóżko
             </RoomMainFeatureWrapper>
           </>
         ) : (
           ''
         )}
-        {state.selectedRoom.beds.includes('SINGLE_BED') ? (
+        {UserCtx.room.doubleBeds ? (
           <>
             <RoomMainFeatureWrapper>
               <RoomMainFeatureIcon>
                 <Bed size="24" />
               </RoomMainFeatureIcon>
-              1 pojedyńcze łóżko
+              {UserCtx.room.doubleBeds} pojedyncze łóżko
             </RoomMainFeatureWrapper>
           </>
         ) : (
@@ -72,15 +73,15 @@ const Step1 = ({ state }) => {
           <RoomMainFeatureIcon>
             <Wifi size="24" />
           </RoomMainFeatureIcon>
-          {state.selectedRoom.addOns.map((element) => element).join(' ')}
+          {UserCtx.room.addOns.map((element) => element).join(' ')}
         </RoomMainFeatureWrapper>
       </RoomMainFeaturesContainer>
       <RoomAllFeaturesTitle>
         <GreenTextWrapper>Wyposażenie</GreenTextWrapper>
       </RoomAllFeaturesTitle>
       <RoomAllFeaturesContainer>
-        {state.selectedRoom.accessories.map((element) => (
-          <RoomAllFeatureWrapper>
+        {UserCtx.room.accessories.map((element) => (
+          <RoomAllFeatureWrapper key="element">
             <RoomAllFeatureIcon>
               <Check size="18" />
             </RoomAllFeatureIcon>

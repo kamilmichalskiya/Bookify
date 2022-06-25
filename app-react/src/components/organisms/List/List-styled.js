@@ -2,7 +2,6 @@ import styled from 'styled-components';
 
 export const RoomWrapper = styled.div`
   width: 90%;
-  margin: 0px 20px;
 `;
 
 export const RoomContainer = styled.div`

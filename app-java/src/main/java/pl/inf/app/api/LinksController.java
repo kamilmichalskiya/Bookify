@@ -15,6 +15,7 @@ import java.util.List;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
+import static pl.inf.app.api.LinkRelations.GET_ACTIVE_OFFERS;
 import static pl.inf.app.api.LinkRelations.GET_ALL_EMPLOYEES;
 import static pl.inf.app.api.LinkRelations.GET_ALL_OFFERS;
 import static pl.inf.app.api.LinkRelations.GET_ALL_ROOMS;
@@ -40,6 +41,7 @@ public class LinksController {
                         linkTo(methodOn(RoomController.class).getAll()).withRel(GET_ALL_ROOMS.toString()),
                         linkTo(methodOn(OfferController.class).getAll()).withRel(GET_ALL_OFFERS.toString()),
                         linkTo(methodOn(RoomController.class).searchRooms(null)).withRel(SEARCH_ROOMS.toString()),
+                        linkTo(methodOn(OfferController.class).getActiveOffers()).withRel(GET_ACTIVE_OFFERS.toString()),
                         linkTo(methodOn(LinksController.class).getLinks()).withRel(GET_MAIN_LINKS.toString())));
     }
 }

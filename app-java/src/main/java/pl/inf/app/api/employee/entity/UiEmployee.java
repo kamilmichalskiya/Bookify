@@ -17,4 +17,10 @@ public class UiEmployee {
     private String email;
     private String password;
     private boolean isActive;
+
+    @Override
+    public String toString() {
+        return "UiEmployee{" + "employeeId=" + employeeId + ", name='" + name + '\'' + ", surname='" + surname + '\'' +
+               ", email='" + email + '\'' + ", password='" + password + '\'' + ", isActive=" + isActive + '}';
+    }
 }

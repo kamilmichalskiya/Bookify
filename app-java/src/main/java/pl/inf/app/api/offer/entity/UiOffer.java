@@ -18,4 +18,10 @@ public class UiOffer {
     private float price;
     private String details;
     private boolean isActive;
+
+    @Override
+    public String toString() {
+        return "UiOffer{" + "id=" + id + ", name='" + name + '\'' + ", price=" + price + ", details='" + details + '\'' +
+               ", isActive=" + isActive + '}';
+    }
 }
