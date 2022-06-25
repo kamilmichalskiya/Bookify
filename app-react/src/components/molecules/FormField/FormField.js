@@ -31,11 +31,12 @@ const Wrapper = styled.div`
   `};
 `;
 
-const FormField = ({ onChange, value, label, name, id, type = 'text', disabled = false, options }) => {
+const FormField = ({ onChange, value, label, name, id, type = 'text', disabled = false, options, checked }) => {
   return (
     <Wrapper type={type}>
       <Label htmlFor={id}>{label}</Label>
-      {type === 'text' || type === 'checkbox' ? <Input name={name} id={id} type={type} value={value} onChange={onChange} disabled={disabled} /> : ''}
+      {type === 'text' ? <Input name={name} id={id} type={type} value={value} onChange={onChange} disabled={disabled} /> : ''}
+      {type === 'checkbox' ? <Input name={name} id={id} checked={checked} type={type} onChange={onChange} disabled={disabled} /> : ''}
       {type === 'textarea' ? <TextArea name={name} id={id} type={type} value={value} onChange={onChange} disabled={disabled} /> : ''}
       {type === 'select' ? <Select styles={selectCustomStyles} defaultValue={value} onChange={onChange} disabled={disabled} options={options} /> : ''}
       {type === 'multiSelect' ? (
