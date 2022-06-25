@@ -8,6 +8,7 @@ import Stepper from 'components/molecules/Stepper/Stepper';
 import { roomTypeOptions } from 'data/roomTypeOptions';
 import { addOnOptions } from 'data/addOnOptions';
 import FormField from 'components/molecules/FormField/FormField';
+import { UserDataContext } from 'providers/UserDataProvider';
 import 'react-datepicker/dist/react-datepicker.css';
 import './DatePicker-override.css';
 import pl from 'date-fns/locale/pl';
@@ -20,6 +21,7 @@ const SearchBar = ({ displayLevelMode, setRooms }) => {
   tomorrow.setDate(tomorrow.getDate() + 1);
   const DateOptions = { year: 'numeric', month: 'long', day: 'numeric' };
   const LinksCtx = useContext(LinksContext);
+  const UserCtx = useContext(UserDataContext);
   const initialValues = {
     startDate: today,
     endDate: tomorrow,
@@ -76,7 +78,8 @@ const SearchBar = ({ displayLevelMode, setRooms }) => {
     };
     const response = await fetch(`${LinksCtx.rooms}/search`, requestOptions);
     const data = await response.json();
-    setRooms(data.content);
+    UserCtx.setUserData({ ...UserCtx, startDate: formFinalValues.startDate, endDate: formFinalValues.endDate });
+    setRooms(data._embedded.uiRoomList);
   };
 
   const handleChange = (value, name) => {

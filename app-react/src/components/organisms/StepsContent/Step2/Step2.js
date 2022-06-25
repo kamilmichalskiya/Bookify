@@ -27,14 +27,27 @@ const setBoolCheckboxStateObject = (offers) => {
   return stateObject;
 };
 
-const Step2 = ({ offers }) => {
+const Step2 = ({ offers, setOfferPrice }) => {
+  const UserCtx = useContext(UserDataContext);
   const [offersSelected, setOffersSelected] = useState(setBoolCheckboxStateObject(offers));
   const [totalPrice, setTotalPrice] = useState(0);
-  const UserCtx = useContext(UserDataContext);
+  const [days, setDays] = useState(1);
 
   const handleOfferSelected = (offer) => {
     setOffersSelected({ ...offersSelected, [offer.name]: !offersSelected[offer.name] });
   };
+
+  useEffect(() => {
+    const calculateDays = (startDate, endDate) => {
+      const nativeStartDate = new Date(startDate);
+      const nativeEndDate = new Date(endDate);
+      let difference = nativeEndDate.getTime() - nativeStartDate.getTime();
+      let days = Math.ceil(difference / (1000 * 3600 * 24));
+      setDays(days);
+    };
+    calculateDays(UserCtx.startDate, UserCtx.endDate);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [offers, offersSelected]);
 
   useEffect(() => {
     const calculateOfferTotalPrice = () => {
@@ -47,10 +60,11 @@ const Step2 = ({ offers }) => {
         }
       }
       UserCtx.setUserData({ ...UserCtx, offers: activeOffers });
-      setTotalPrice(price.toString());
+      setTotalPrice((price * days).toString());
+      setOfferPrice(price * days);
     };
     calculateOfferTotalPrice();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [offers, offersSelected]);
 
   return (

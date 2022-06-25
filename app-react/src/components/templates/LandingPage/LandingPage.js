@@ -22,9 +22,10 @@ const LandingPage = ({ history }) => {
     setShowModal((prev) => !prev);
   };
 
-  const onRoomDetailsClickHandler = (selectedRoom) => {
+  const onRoomDetailsClickHandler = (selectedRoom, days) => {
+    const totalPrice = selectedRoom.price * days;
+    UserCtx.setUserData({ ...UserCtx, room: selectedRoom, totalPrice: totalPrice });
     setRedirect(true);
-    UserCtx.setUserData({ ...UserCtx, room: selectedRoom });
   };
 
   useEffect(() => {

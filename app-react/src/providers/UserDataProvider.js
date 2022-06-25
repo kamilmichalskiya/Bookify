@@ -15,7 +15,7 @@ const setInitialUserData = () => {
     startDate: today,
     endDate: tomorrow,
     totalPrice: 0,
-    paid: true,
+    paid: false,
     customerData: {
       email: '',
       name: '',

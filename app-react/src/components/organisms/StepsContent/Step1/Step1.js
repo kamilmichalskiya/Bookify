@@ -63,7 +63,7 @@ const Step1 = () => {
               <RoomMainFeatureIcon>
                 <Bed size="24" />
               </RoomMainFeatureIcon>
-              {UserCtx.room.doubleBeds} pojedyńcze łóżko
+              {UserCtx.room.doubleBeds} pojedyncze łóżko
             </RoomMainFeatureWrapper>
           </>
         ) : (

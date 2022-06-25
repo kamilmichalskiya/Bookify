@@ -33,11 +33,14 @@ import { UserDataContext } from 'providers/UserDataProvider';
 import { HiOutlineArrowNarrowRight } from 'react-icons/hi';
 
 const Steps = () => {
+  const LinksCtx = useContext(LinksContext);
+  const UserCtx = useContext(UserDataContext);
   const [activeStep, setActiveStep] = useState(1);
   const [redirectUrl, setRedirectUrl] = useState(null);
   const [offers, setOffers] = useState([]);
-  const LinksCtx = useContext(LinksContext);
-  const UserCtx = useContext(UserDataContext);
+  const [roomPrice, setRoomPrice] = useState(UserCtx.totalPrice);
+  const [offerPrice, setOfferPrice] = useState(0);
+  const [totalPrice, setTotalPrice] = useState(0);
 
   useEffect(() => {
     const getRoomOffers = async () => {
@@ -49,6 +52,10 @@ const Steps = () => {
     };
     getRoomOffers();
   }, [LinksCtx.offers]);
+
+  useEffect(() => {
+    setTotalPrice(UserCtx.totalPrice + offerPrice);
+  }, [offerPrice]);
 
   const changeStep = (direction = 'next') => {
     console.log(`Step${activeStep} is Changing with direction ${direction}`);
@@ -72,11 +79,11 @@ const Steps = () => {
       case 1:
         return <Step1 offers={offers}></Step1>;
       case 2:
-        return <Step2 offers={offers}></Step2>;
+        return <Step2 offers={offers} setOfferPrice={setOfferPrice}></Step2>;
       case 3:
         return <Step3 offers={offers}></Step3>;
       case 4:
-        return <Step4 offers={offers}></Step4>;
+        return <Step4 totalPrice={totalPrice}></Step4>;
       default:
         break;
     }
@@ -138,11 +145,11 @@ const Steps = () => {
                 </p>
                 <div style={{ display: 'flex', justifyContent: 'space-between', paddingLeft: '5px' }}>
                   <p style={{ fontSize: '12px' }}>Pokoje i oferta</p>
-                  <p style={{ fontSize: '12px' }}>{UserCtx.totalPrice}zł</p>
+                  <p style={{ fontSize: '12px' }}>{roomPrice}zł</p>
                 </div>
                 <div style={{ display: 'flex', justifyContent: 'space-between', paddingLeft: '5px' }}>
                   <p style={{ fontSize: '12px' }}>Dodatki</p>
-                  <p style={{ fontSize: '12px' }}>276zł</p>
+                  <p style={{ fontSize: '12px' }}>{offerPrice}zł</p>
                 </div>
                 <div style={{ display: 'flex', justifyContent: 'space-between', paddingLeft: '5px' }}>
                   <p style={{ fontSize: '12px', color: '#1ED760' }}>Rabat</p>
@@ -153,7 +160,7 @@ const Steps = () => {
               <div style={{ backgroundColor: '#444444', paddingBottom: '5px', borderRadius: '5px', padding: '10px' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                   <p style={{ fontSize: '16px' }}>SUMA</p>
-                  <p style={{ fontSize: '16px' }}>{UserCtx.totalPrice}zł</p>
+                  <p style={{ fontSize: '16px' }}>{totalPrice}zł</p>
                 </div>
                 <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                   <p style={{ fontSize: '12px' }}>Przedpłata</p>
@@ -161,7 +168,7 @@ const Steps = () => {
                 </div>
                 <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                   <p style={{ fontSize: '12px' }}>Na miejscu</p>
-                  <p style={{ fontSize: '12px' }}>{UserCtx.totalPrice}zł</p>
+                  <p style={{ fontSize: '12px' }}>{totalPrice}zł</p>
                 </div>
               </div>
             </Accordion>
