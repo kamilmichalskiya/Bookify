@@ -18,8 +18,9 @@ export const RoomContainerPhotoWrapper = styled.div`
 export const RoomContainerPhoto = styled.div`
   background-image: url(${({ url }) => url});
   background-size: cover;
-  width: 70%;
+  width: 90%;
   height: 220px;
+  max-width: 325px;
   border-radius: 5px;
 `;
 

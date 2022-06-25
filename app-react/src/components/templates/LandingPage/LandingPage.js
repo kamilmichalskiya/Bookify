@@ -32,7 +32,20 @@ const LandingPage = ({ history }) => {
 
   useEffect(() => {
     const getRooms = async () => {
-      const response = await fetch(LinksCtx.rooms);
+      const requestBody = {
+        startDate: UserCtx.startDate,
+        endDate: UserCtx.endDate,
+        adult: 1,
+        kids: 0,
+        roomTypes: [],
+        addOns: [],
+      };
+      const requestOptions = {
+        method: 'POST',
+        body: JSON.stringify(requestBody),
+        headers: new Headers({ 'content-type': 'application/json' }),
+      };
+      const response = await fetch(`${LinksCtx.rooms}/search`, requestOptions);
       const data = await response.json();
       const roomsArray = data._embedded.uiRoomList;
       setRooms(roomsArray);
@@ -42,6 +55,7 @@ const LandingPage = ({ history }) => {
     if (LinksCtx.rooms && rooms?.length === 0) {
       getRooms();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [LinksCtx, rooms]);
 
   return (

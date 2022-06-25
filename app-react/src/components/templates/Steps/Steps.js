@@ -45,7 +45,7 @@ const Steps = () => {
 
   useEffect(() => {
     const getRoomOffers = async () => {
-      const response = await fetch(LinksCtx.offers);
+      const response = await fetch(`${LinksCtx.offers}/active`);
       const data = await response.json();
       const offersData = data._embedded.uiOfferList;
       setOffers(offersData);
