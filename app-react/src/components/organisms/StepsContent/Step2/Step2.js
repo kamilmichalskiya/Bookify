@@ -95,7 +95,7 @@ const Step2 = ({ offers, setOfferPrice }) => {
               <Info size="18" />
             </IconStyleWrapper>
             <DashedLine></DashedLine>
-            <RowText>{element.price} zł (os./noc)</RowText>
+            <RowText>{element.price}zł (cena za noc)</RowText>
           </RowWrapper>
         ))}
         <SectionSummary>

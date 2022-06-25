@@ -8,7 +8,7 @@ import { addOnOptions } from 'data/addOnOptions';
 import { Label } from 'components/atoms/Label/Label';
 import { convertBase64 } from 'helpers/convertBase64';
 
-const EditRoom = ({ room, setShowModal }) => {
+const EditRoom = ({ room, setShowModal, updateData }) => {
   const initialValues = {
     active: room.active || false,
     image: room.image || '',
@@ -106,6 +106,7 @@ const EditRoom = ({ room, setShowModal }) => {
       if (response.ok) {
         alert('Pokój zaaktualizowany pomyślnie!');
         setShowModal(false);
+        updateData('rooms');
       } else {
         alert(`ERROR: An Error occured: ${status}: ${error}`);
       }
@@ -124,6 +125,7 @@ const EditRoom = ({ room, setShowModal }) => {
       if (response.ok) {
         alert('Pokój stworzony pomyślnie!');
         setShowModal(false);
+        updateData('rooms');
       } else {
         alert(`ERROR: An Error occured: ${status}: ${error}`);
       }

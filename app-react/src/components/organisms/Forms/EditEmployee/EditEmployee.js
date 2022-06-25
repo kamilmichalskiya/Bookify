@@ -4,7 +4,7 @@ import { Header, ContentWrapper, Footer, ErrorText } from './EditEmployee-styled
 import FormField from 'components/molecules/FormField/FormField';
 import { LinksContext } from 'providers/LinksProvider';
 
-const EditEmployee = ({ employee, setShowModal }) => {
+const EditEmployee = ({ employee, setShowModal, updateData }) => {
   let initialValues = {
     active: employee.active || false,
     name: employee.name || '',
@@ -52,6 +52,7 @@ const EditEmployee = ({ employee, setShowModal }) => {
       if (response.ok) {
         alert('Konto pracownika zostało pomyslnie zaaktualizowane!');
         setShowModal(false);
+        updateData('employees');
       } else {
         alert(`ERROR: An Error occured: ${status}: ${error}`);
       }
@@ -70,6 +71,7 @@ const EditEmployee = ({ employee, setShowModal }) => {
       if (response.ok) {
         alert('Konto pracownika zostało pomyslnie stworzone!');
         setShowModal(false);
+        updateData('employees');
       } else {
         alert(`ERROR: An Error occured: ${status}: ${error}`);
       }

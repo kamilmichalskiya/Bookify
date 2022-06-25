@@ -12,28 +12,28 @@ const AdminPanel = ({ history }) => {
   const [employees, setEmployees] = useState([]);
   const LinksCtx = useContext(LinksContext);
 
+  const getRooms = async () => {
+    const response = await fetch(LinksCtx.rooms);
+    const data = await response.json();
+    const roomsArray = data._embedded.uiRoomList;
+    setRooms(roomsArray);
+  };
+
+  const getOffers = async () => {
+    const response = await fetch(LinksCtx.offers);
+    const data = await response.json();
+    const roomsArray = data._embedded.uiOfferList;
+    setOffers(roomsArray);
+  };
+
+  const getEmployees = async () => {
+    const response = await fetch(LinksCtx.employees);
+    const data = await response.json();
+    const employeesArray = data._embedded.uiEmployeeList;
+    setEmployees(employeesArray);
+  };
+
   useEffect(() => {
-    const getRooms = async () => {
-      const response = await fetch(LinksCtx.rooms);
-      const data = await response.json();
-      const roomsArray = data._embedded.uiRoomList;
-      setRooms(roomsArray);
-    };
-
-    const getOffers = async () => {
-      const response = await fetch(LinksCtx.offers);
-      const data = await response.json();
-      const roomsArray = data._embedded.uiOfferList;
-      setOffers(roomsArray);
-    };
-
-    const getEmployees = async () => {
-      const response = await fetch(LinksCtx.employees);
-      const data = await response.json();
-      const employeesArray = data._embedded.uiEmployeeList;
-      setEmployees(employeesArray);
-    };
-
     if (LinksCtx.rooms && LinksCtx.offers && LinksCtx.employees) {
       getRooms();
       getOffers();
@@ -49,6 +49,22 @@ const AdminPanel = ({ history }) => {
     });
   };
 
+  const updateData = (type = 'rooms') => {
+    switch (type) {
+      case 'rooms':
+        getRooms();
+        break;
+      case 'offers':
+        getOffers();
+        break;
+      case 'employees':
+        getEmployees();
+        break;
+      default:
+        break;
+    }
+  };
+
   return (
     <>
       <Wrapper>
@@ -56,7 +72,7 @@ const AdminPanel = ({ history }) => {
           <Logo>Bookify</Logo>
           <IconExit onClick={logout} />
         </Header>
-        <Tabs rooms={rooms} offers={offers} employees={employees}></Tabs>
+        <Tabs rooms={rooms} offers={offers} employees={employees} updateData={updateData}></Tabs>
         <Footer></Footer>
       </Wrapper>
     </>

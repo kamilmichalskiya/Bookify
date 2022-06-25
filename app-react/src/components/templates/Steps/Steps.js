@@ -110,9 +110,6 @@ const Steps = () => {
       <Wrapper>
         <Header>
           <Logo onClick={returnToLandingPage}>Bookify</Logo>
-          <IconStyleWrapper>
-            <AccountCircle size="60" />
-          </IconStyleWrapper>
         </Header>
         {/* search bar */}
         <SearchBarContainer>
@@ -185,7 +182,7 @@ const Steps = () => {
               Wstecz
             </span>
           </IconStyleWrapper>
-          {activeStep < 5 ? (
+          {activeStep < 4 ? (
             <WhiteButton
               onClick={() => {
                 changeStep('next');

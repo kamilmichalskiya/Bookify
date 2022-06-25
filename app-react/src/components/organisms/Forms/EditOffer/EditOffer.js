@@ -4,7 +4,7 @@ import { Header, ContentWrapper, Footer, ErrorText } from './EditOffer-styled';
 import FormField from 'components/molecules/FormField/FormField';
 import { LinksContext } from 'providers/LinksProvider';
 
-const EditOffer = ({ offer, setShowModal }) => {
+const EditOffer = ({ offer, setShowModal, updateData }) => {
   const initialValues = {
     active: offer.active || false,
     name: offer.name || offer.name || '',
@@ -48,6 +48,7 @@ const EditOffer = ({ offer, setShowModal }) => {
       if (response.ok) {
         alert('Oferta zaaktualizowana pomyślnie!');
         setShowModal(false);
+        updateData('offers');
       } else {
         alert(`ERROR: An Error occured: ${status}: ${error}`);
       }
@@ -66,6 +67,7 @@ const EditOffer = ({ offer, setShowModal }) => {
       if (response.ok) {
         alert('Oferta stworzona pomyślnie!');
         setShowModal(false);
+        updateData('offers');
       } else {
         alert(`ERROR: An Error occured: ${status}: ${error}`);
       }
