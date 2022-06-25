@@ -37,7 +37,7 @@ const LandingPage = ({ history }) => {
         endDate: UserCtx.endDate,
         adult: 1,
         kids: 0,
-        roomTypes: ['Standard'],
+        roomTypes: [],
         addOns: [],
       };
       const requestOptions = {
