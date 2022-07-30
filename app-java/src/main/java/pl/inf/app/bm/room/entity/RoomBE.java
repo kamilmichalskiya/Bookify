@@ -34,7 +34,10 @@ public class RoomBE {
     @Column(updatable = false)
     private UUID id;
 
-    private String image;
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "images", joinColumns = @JoinColumn(name = "room_id"))
+    @Column(name = "image_url")
+    private Set<String> images = new HashSet<>();
 
     @Enumerated(EnumType.STRING)
     private RoomType roomType;
