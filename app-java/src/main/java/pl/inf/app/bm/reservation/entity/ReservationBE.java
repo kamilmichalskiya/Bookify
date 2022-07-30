@@ -41,14 +41,14 @@ public class ReservationBE {
 
     private Date endDate;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     private RoomBE room;
 
     private float totalPrice;
 
     private boolean paid;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "reservations_offers", joinColumns = @JoinColumn(name = "reservation_id"),
                inverseJoinColumns = @JoinColumn(name = "offer_id"))
     private Set<OfferBE> offers = new HashSet<>();
