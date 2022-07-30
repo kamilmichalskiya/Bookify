@@ -106,7 +106,7 @@ public class EmployeeController {
      * @param email email to check
      * @return true if email is available to use
      */
-    @PostMapping("/email")
+    @PostMapping("/email/check")
     public ResponseEntity<Boolean> checkMail(@RequestBody final String email) {
         return ResponseEntity.ok(employeeBF.checkMail(email));
     }
