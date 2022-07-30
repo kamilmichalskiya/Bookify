@@ -2,6 +2,7 @@ package pl.inf.app.bm.reservation.boundary;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import pl.inf.app.api.offer.entity.UiOffer;
 import pl.inf.app.api.reservation.entity.UiReservation;
 import pl.inf.app.bm.offer.boundary.OfferBF;
@@ -18,11 +19,14 @@ import java.sql.Date;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
 import static pl.inf.app.error.ErrorType.RESERVATION_CREATING_ERROR;
+import static pl.inf.app.error.ErrorType.RESERVATION_NOT_FOUND;
+import static pl.inf.app.error.ErrorType.RESERVATION_UPDATING_ERROR;
 import static pl.inf.app.error.ErrorType.RESERVATION_VALIDATION_ERROR;
 
 /**
@@ -35,6 +39,31 @@ public class ReservationBF {
     private final ReservationRepositoryBA reservationRepositoryBA;
     private final RoomBF roomBF;
     private final OfferBF offerBF;
+
+    /**
+     * Get reservation from the database for the given id
+     *
+     * @param id     the id of reservation
+     * @param mapper entity mapper
+     * @param <T>    The class type of the mapping target
+     * @return mapped reservation
+     * @throws ProcessException if no reservation with the given id was found
+     */
+    public <T> T getById(final UUID id, final Mapper<ReservationBE, T> mapper) {
+        return reservationRepositoryBA.findById(id).map(mapper::map).orElseThrow(
+                () -> new ProcessException(RESERVATION_NOT_FOUND, id));
+    }
+
+    /**
+     * Retrieve list of all reservations from database
+     *
+     * @param mapper entity mapper
+     * @param <T>    The class type of the mapping target
+     * @return list of mapped reservations
+     */
+    public <T> List<T> getAll(final Mapper<ReservationBE, T> mapper) {
+        return reservationRepositoryBA.findAll().stream().map(mapper::map).collect(Collectors.toList());
+    }
 
     /**
      * Fills and create the reservation
@@ -58,6 +87,24 @@ public class ReservationBF {
 
         return Optional.of(reservationRepositoryBA.save(reservationBE)).map(uiMapper::map).orElseThrow(
                 () -> new ProcessException(RESERVATION_CREATING_ERROR, reservationBE));
+    }
+
+    /**
+     * Fills and update the reservation
+     *
+     * @param uiReservation data to fill the entity
+     * @param uiMapper      mapper for the UI model
+     * @param <T>           The class type of the mapping target
+     * @return updated reservation
+     * @throws ProcessException if we cannot update reservation
+     */
+    @Transactional
+    public <T> T update(final UiReservation uiReservation, final Mapper<ReservationBE, T> uiMapper) {
+        final ReservationBE reservation = reservationRepositoryBA.findById(uiReservation.getId()).orElseThrow(
+                () -> new ProcessException(RESERVATION_NOT_FOUND, uiReservation.getId()));
+        final ReservationBE reservationBE = uiReservationToEntityMapper.map(new Filler<>(uiReservation, reservation));
+        return Optional.of(reservationRepositoryBA.save(reservationBE)).map(uiMapper::map).orElseThrow(
+                () -> new ProcessException(RESERVATION_UPDATING_ERROR, reservationBE));
     }
 
     private boolean validReservation(final ReservationBE reservationBE) {

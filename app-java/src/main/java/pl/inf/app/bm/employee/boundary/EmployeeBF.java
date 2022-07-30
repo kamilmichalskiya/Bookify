@@ -41,7 +41,7 @@ public class EmployeeBF {
     }
 
     /**
-     * Retrieve list of all employees form database
+     * Retrieve list of all employees from database
      *
      * @param mapper entity mapper
      * @return list of mapped employees
