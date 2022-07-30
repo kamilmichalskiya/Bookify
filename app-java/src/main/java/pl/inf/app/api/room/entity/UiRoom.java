@@ -17,7 +17,7 @@ import java.util.UUID;
 @NoArgsConstructor
 public class UiRoom {
     private UUID id;
-    private String image;
+    private Set<String> images;
     private RoomType roomType;
     private float price;
     private int capacity;
@@ -31,7 +31,7 @@ public class UiRoom {
 
     @Override
     public String toString() {
-        return "UiRoom{" + "id=" + id + ", image='" + image + '\'' + ", roomType=" + roomType + ", price=" + price +
+        return "UiRoom{" + "id=" + id + ", image='" + images.size() + '\'' + ", roomType=" + roomType + ", price=" + price +
                ", capacity=" + capacity + ", singleBeds=" + singleBeds + ", doubleBeds=" + doubleBeds + ", description='" +
                description + '\'' + ", area=" + area + ", addOns=" + addOns + ", accessories=" + accessories + ", isActive=" +
                isActive + '}';
