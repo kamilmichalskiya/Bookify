@@ -27,7 +27,9 @@ public enum ErrorType {
 
     INVALID_SEARCH_PARAMS("B010 | Search params are invalid. Search params : {}", UNPROCESSABLE_ENTITY),
     RESERVATION_CREATING_ERROR("B011 | Reservation cannot be created. Reservation : {}", UNPROCESSABLE_ENTITY),
-    RESERVATION_VALIDATION_ERROR("B012 | Reservation is not valid. Reservation : {} | UiReservation : {}", UNPROCESSABLE_ENTITY);
+    RESERVATION_VALIDATION_ERROR("B012 | Reservation is not valid. Reservation : {} | UiReservation : {}", UNPROCESSABLE_ENTITY),
+    RESERVATION_NOT_FOUND("B013 | Reservation not found. Reservation id: {}", NOT_FOUND),
+    RESERVATION_UPDATING_ERROR("B014 | Reservation cannot be updated. Reservation : {}", UNPROCESSABLE_ENTITY);
 
     private final String description;
     private final HttpStatus defaultStatus;
