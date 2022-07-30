@@ -100,4 +100,15 @@ public class EmployeeController {
                 .add(linkTo(methodOn(EmployeeController.class).updateEmployee(id, null)).withSelfRel()));
     }
 
+    /**
+     * Check that the email is available to use
+     *
+     * @param email email to check
+     * @return true if email is available to use
+     */
+    @PostMapping("/email")
+    public ResponseEntity<Boolean> checkMail(@RequestBody final String email) {
+        return ResponseEntity.ok(employeeBF.checkMail(email));
+    }
+
 }
