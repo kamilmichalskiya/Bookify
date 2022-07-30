@@ -82,4 +82,14 @@ public class EmployeeBF {
         return Optional.of(employeeRepositoryBA.save(employeeBE)).map(uiMapper::map).orElseThrow(
                 () -> new ProcessException(EMPLOYEE_UPDATING_ERROR, employeeBE));
     }
+
+    /**
+     * Check that email is not in database
+     *
+     * @param email email to check
+     * @return true if email was not found
+     */
+    public boolean checkMail(final String email) {
+        return !employeeRepositoryBA.existsByEmail(email);
+    }
 }

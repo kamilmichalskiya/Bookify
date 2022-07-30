@@ -8,4 +8,6 @@ import pl.inf.app.bm.employee.entity.EmployeeBE;
  * Class to manage the employee entity in the database
  */
 @Repository
-public interface EmployeeRepositoryBA extends JpaRepository<EmployeeBE, Integer> {}
+public interface EmployeeRepositoryBA extends JpaRepository<EmployeeBE, Integer> {
+    boolean existsByEmail(String email);
+}
