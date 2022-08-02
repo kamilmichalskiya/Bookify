@@ -61,7 +61,6 @@ const Steps = () => {
   }, [offerPrice]);
 
   const changeStep = (direction = 'next') => {
-    console.log(`Step${activeStep} is Changing with direction ${direction}`);
     if (direction === 'next') {
       setActiveStep(activeStep + 1);
     } else if (direction === 'prev') {

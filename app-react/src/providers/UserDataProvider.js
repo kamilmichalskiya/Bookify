@@ -37,6 +37,14 @@ const setInitialUserData = () => {
       name: '',
       surname: '',
     },
+    invoiceData: {
+      companyName: '',
+      nip: '',
+      street: '',
+      postalCode: '',
+      city: '',
+      country: '',
+    },
     room: {},
     offers: {},
   };
