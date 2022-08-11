@@ -15,7 +15,6 @@ import {
   GoogleIconStyleWrapper,
   FacebookIconStyleWrapper,
   AppleIconStyleWrapper,
-  LoginFooter,
 } from './Login-styled';
 import { PersonFill } from '@styled-icons/bootstrap/PersonFill';
 import { Lock } from '@styled-icons/fa-solid/Lock';
@@ -100,11 +99,6 @@ const Login = ({ history }) => {
           </AppleIconStyleWrapper>
         </IconsWrapper>
       </IconsContainer>
-      <LoginFooter>
-        <TextSpan>
-          &copy;2022 <GreenTextWrapper>B</GreenTextWrapper>ookify
-        </TextSpan>
-      </LoginFooter>
     </>
   );
 };

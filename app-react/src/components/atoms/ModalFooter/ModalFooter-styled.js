@@ -15,7 +15,7 @@ export const GreenTextWrapper = styled.span`
 
 export const TextSpan = styled.span`
   letter-spacing: 0.08em;
-  padding: 0 35px;
+  padding: 0 15px;
   text-align: justify;
   color: ${({ theme }) => theme.colors.white};
 `;
