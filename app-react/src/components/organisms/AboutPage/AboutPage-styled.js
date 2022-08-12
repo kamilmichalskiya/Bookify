@@ -35,8 +35,9 @@ export const SectionHeader = styled.span`
 
 export const TextSpan = styled.span`
   letter-spacing: 0.08em;
-  padding: 0 35px;
+  padding: 0 30px;
   text-align: justify;
+  font-size: ${({ theme }) => theme.fontSize.m}
 `;
 
 export const MapWrapper = styled.span`
