@@ -7,6 +7,7 @@ import { roomTypeOptions } from 'data/roomTypeOptions';
 import { addOnOptions } from 'data/addOnOptions';
 import { Label } from 'components/atoms/Label/Label';
 import { convertBase64 } from 'helpers/convertBase64';
+import { toast } from 'react-toastify';
 
 const EditRoom = ({ room, setShowModal, updateData }) => {
   const initialValues = {
@@ -104,11 +105,11 @@ const EditRoom = ({ room, setShowModal, updateData }) => {
       const data = await response.json();
       const { status, error } = data;
       if (response.ok) {
-        alert('Pokój zaaktualizowany pomyślnie!');
+        toast.success('Pokój zaaktualizowany pomyślnie!');
         setShowModal(false);
         updateData('rooms');
       } else {
-        alert(`ERROR: An Error occured: ${status}: ${error}`);
+        toast.error(`ERROR: ${status}: ${error}`);
       }
     };
 
@@ -123,11 +124,11 @@ const EditRoom = ({ room, setShowModal, updateData }) => {
       const data = await response.json();
       const { status, error } = data;
       if (response.ok) {
-        alert('Pokój stworzony pomyślnie!');
+        toast.success('Pokój stworzony pomyślnie!');
         setShowModal(false);
         updateData('rooms');
       } else {
-        alert(`ERROR: An Error occured: ${status}: ${error}`);
+        toast.error(`ERROR: ${status}: ${error}`);
       }
     };
 

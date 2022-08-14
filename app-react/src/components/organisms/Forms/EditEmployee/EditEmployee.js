@@ -3,6 +3,7 @@ import { SaveButton } from 'components/atoms/Button/Button';
 import { Header, ContentWrapper, Footer, ErrorText } from './EditEmployee-styled';
 import FormField from 'components/molecules/FormField/FormField';
 import { LinksContext } from 'providers/LinksProvider';
+import { toast } from 'react-toastify';
 
 const EditEmployee = ({ employee, setShowModal, updateData }) => {
   let initialValues = {
@@ -50,11 +51,11 @@ const EditEmployee = ({ employee, setShowModal, updateData }) => {
       const data = await response.json();
       const { status, error } = data;
       if (response.ok) {
-        alert('Konto pracownika zostało pomyslnie zaaktualizowane!');
+        toast.success('Konto pracownika zostało pomyślnie zaaktualizowane!');
         setShowModal(false);
         updateData('employees');
       } else {
-        alert(`ERROR: An Error occured: ${status}: ${error}`);
+        toast.error(`ERROR: ${status}: ${error}`);
       }
     };
 
@@ -69,11 +70,11 @@ const EditEmployee = ({ employee, setShowModal, updateData }) => {
       const data = await response.json();
       const { status, error } = data;
       if (response.ok) {
-        alert('Konto pracownika zostało pomyslnie stworzone!');
+        toast.success('Konto pracownika zostało pomyślnie stworzone!');
         setShowModal(false);
         updateData('employees');
       } else {
-        alert(`ERROR: An Error occured: ${status}: ${error}`);
+        toast.error(`ERROR: ${status}: ${error}`);
       }
     };
 

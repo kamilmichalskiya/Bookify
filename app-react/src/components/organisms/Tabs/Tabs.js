@@ -8,6 +8,8 @@ import EditRoom from 'components/organisms/Forms/EditRoom/EditRoom';
 import EditOffer from 'components/organisms/Forms/EditOffer/EditOffer';
 import EditEmployee from 'components/organisms/Forms/EditEmployee/EditEmployee';
 import { TertiaryButton } from 'components/atoms/Button/Button';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Tabs = ({ rooms, offers, employees, updateData }) => {
   const [index, setIndex] = useState(0);
@@ -30,6 +32,17 @@ const Tabs = ({ rooms, offers, employees, updateData }) => {
   return (
     <>
       <TabsWrapper>
+        <ToastContainer
+          position="top-right"
+          autoClose={3000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+        />
         <TabsList>
           <TabHeader
             onClick={() => {
