@@ -13,7 +13,11 @@ const getFormatedDates = () => {
   if (day < 10) day = '0' + day;
   if (month < 10) month = '0' + month;
   formattedDates.today = `${yyyy}-${month}-${day}`;
-  if (+day < 10) day = '0' + (+day + 1);
+  if (+day < 10) {
+    day = '0' + (+day + 1);
+  } else if (+day >= 10) {
+    day = +day + 1;
+  }
   formattedDates.tomorrow = `${yyyy}-${month}-${day}`;
   return formattedDates;
 };
