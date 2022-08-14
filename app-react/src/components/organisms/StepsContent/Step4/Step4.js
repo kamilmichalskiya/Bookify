@@ -1,51 +1,21 @@
-import React, { useEffect, useContext } from 'react';
-import { Wrapper, GreenIconStyleWrapper, TextSection, SectionHeader } from './Step4-styled';
-import { CheckCircle } from '@styled-icons/material/CheckCircle';
-import '@fontsource/montserrat';
+import React, { useState, useContext } from 'react';
+import { Wrapper } from './Step4-styled';
 import { UserDataContext } from 'providers/UserDataProvider';
+import ReCAPTCHA from 'react-google-recaptcha';
 
-const Step4 = ({ totalPrice }) => {
+const Step4 = () => {
+  // eslint-disable-next-line no-unused-vars
   const UserCtx = useContext(UserDataContext);
-
-  useEffect(() => {
-    // UserCtx.setUserData({ ...UserCtx, totalPrice: totalPrice });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    const createReservation = async () => {
-      if (UserCtx?.room?._links?.CREATE_RESERVATION?.href) {
-        const reservationUrl = UserCtx.room._links.CREATE_RESERVATION.href;
-        const body = { ...UserCtx, totalPrice: totalPrice };
-        if (body.customerData.email && !body.guestData.email) {
-          body.guestData.email = body.customerData.email;
-        }
-        if (body.customerData.name && !body.guestData.name) {
-          body.guestData.name = body.customerData.name;
-        }
-        if (body.customerData.surname && !body.guestData.surname) {
-          body.guestData.surname = body.customerData.surname;
-        }
-        const requestOptions = {
-          method: 'POST',
-          body: JSON.stringify(body),
-          headers: new Headers({ 'content-type': 'application/json' }),
-        };
-        const response = await fetch(reservationUrl, requestOptions);
-        const data = await response.json();
-        console.dir(data);
-      }
-    };
-    createReservation();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  const [isRecaptchaValid, setIsRecaptchaValid] = useState(false);
+  let recaptchaUrl;
+  if (window.location.hostname === 'localhost') {
+    recaptchaUrl = '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI';
+  } else {
+    recaptchaUrl = '6LdX3nUhAAAAAL32frx95e4pw7i_wNqwh_x-dK2d';
+  }
 
   return (
-    <Wrapper>
-      <GreenIconStyleWrapper>
-        <CheckCircle size="96" />
-      </GreenIconStyleWrapper>
-      <SectionHeader>Dziękujemy!</SectionHeader>
-      <TextSection>Twoja rezerwacja została rozpatrzona pozytywnie a jej potwierdzenie otrzymasz wkrótce na podany adres e-mail!</TextSection>
-      <TextSection>Dziękujemy za skorzystanie z Bookify.</TextSection>
-    </Wrapper>
+    <Wrapper>{isRecaptchaValid ? <h1>Step4 Content</h1> : <ReCAPTCHA sitekey={recaptchaUrl} onChange={() => setIsRecaptchaValid(true)} />}</Wrapper>
   );
 };
 
