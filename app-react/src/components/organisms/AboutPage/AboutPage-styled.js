@@ -37,16 +37,27 @@ export const TextSpan = styled.span`
   letter-spacing: 0.08em;
   padding: 0 30px;
   text-align: justify;
-  font-size: ${({ theme }) => theme.fontSize.m}
+  font-size: ${({ theme }) => theme.fontSize.m};
 `;
 
-export const MapWrapper = styled.span`
-  border-style: solid;
-  border-color: ${({ theme }) => theme.colors.secondary};
+export const MapWrapper = styled.div`
+  border: 3px solid ${({ theme }) => theme.colors.secondary};
   border-radius: 10px;
-  width: 505px;
-  height: 305px;
+  position: relative;
+  padding-bottom: 50%;
+  width: 70%;
   overflow: hidden;
+  iframe,
+  object,
+  embed {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+  }
 `;
 
 export const ModalFooter = styled.div`

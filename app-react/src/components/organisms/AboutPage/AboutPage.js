@@ -1,5 +1,5 @@
 import React from 'react';
-import { Title, SectionHeader, TextSpan, MapWrapper } from './AboutPage-styled';
+import { Title, SectionHeader, TextSpan, MapWrapper, MapTag } from './AboutPage-styled';
 import '@fontsource/montserrat';
 
 const AboutPage = () => {
@@ -21,13 +21,14 @@ const AboutPage = () => {
       <SectionHeader>Adres</SectionHeader>
       <TextSpan>Bohdana Stefanowskiego 18/22, 90-001 Łódź.</TextSpan>
       <MapWrapper>
-        <iframe
-          title="map"
-          width="500"
-          height="300"
-          loading="lazy"
-          src="https://www.google.com/maps/embed/v1/place?q=place_id:ChIJw1ZTudk0GkcRrE85kbbpmYM&key=AIzaSyCvv8EugyNby3WVoh8FGB_fSrJlz0Q9Lpo"
-        ></iframe>
+        {/* <MapTag> */}
+          <iframe
+            title="map"
+            width="500"
+            height="300"
+            src="https://www.google.com/maps/embed/v1/place?q=place_id:ChIJw1ZTudk0GkcRrE85kbbpmYM&key=AIzaSyCvv8EugyNby3WVoh8FGB_fSrJlz0Q9Lpo"
+          ></iframe>
+        {/* </MapTag> */}
       </MapWrapper>
     </>
   );
