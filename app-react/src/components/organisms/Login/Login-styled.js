@@ -155,12 +155,3 @@ export const AppleIconStyleWrapper = styled.div`
     color: black;
   }
 `;
-
-export const LoginFooter = styled.div`
-  display: flex;
-  justify-content: flex-end;
-  align-items: flex-end;
-  width: 100%;
-  padding: 10px;
-  margin-top: 30px;
-`;
