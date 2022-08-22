@@ -87,7 +87,7 @@ const Steps = () => {
       case 3:
         return <Step3 offers={offers}></Step3>;
       case 4:
-        return <Step4></Step4>;
+        return <Step4 changeStep={changeStep}></Step4>;
       case 5:
         return <Step5 totalPrice={totalPrice}></Step5>;
       default:
@@ -127,6 +127,7 @@ const Steps = () => {
         <ContentContainer>
           <ContentLeft>{getStepContent()}</ContentLeft>
           <ContentRight>
+            {/* TO-DO: Create separate component for reservation summary view */}
             <Accordion title="Podsumowanie rezerwacji">
               <DateContainer>
                 <DateRow>
@@ -170,11 +171,11 @@ const Steps = () => {
                 </div>
                 <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                   <p style={{ fontSize: '12px' }}>Przedpłata</p>
-                  <p style={{ fontSize: '12px' }}>0zł</p>
+                  <p style={{ fontSize: '12px' }}>{Math.round(totalPrice * 0.15 * 100) / 100}zł</p>
                 </div>
                 <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                   <p style={{ fontSize: '12px' }}>Na miejscu</p>
-                  <p style={{ fontSize: '12px' }}>{totalPrice}zł</p>
+                  <p style={{ fontSize: '12px' }}>{Math.round(100 * totalPrice - totalPrice * 0.15) / 100}zł</p>
                 </div>
               </div>
             </Accordion>
@@ -182,16 +183,27 @@ const Steps = () => {
         </ContentContainer>
         <BottomMenu>
           <IconStyleWrapper>
-            <span
-              onClick={() => {
-                changeStep('prev');
-              }}
-            >
-              <KeyboardArrowLeft size="36" />
-              Wstecz
-            </span>
+            {activeStep === 5 ? (
+              <span
+                onClick={() => {
+                  returnToLandingPage();
+                }}
+              >
+                <KeyboardArrowLeft size="36" />
+                Wróć do strony głównej
+              </span>
+            ) : (
+              <span
+                onClick={() => {
+                  changeStep('prev');
+                }}
+              >
+                <KeyboardArrowLeft size="36" />
+                Wstecz
+              </span>
+            )}
           </IconStyleWrapper>
-          {activeStep < 5 ? (
+          {activeStep < 4 ? (
             <WhiteButton
               onClick={() => {
                 changeStep('next');

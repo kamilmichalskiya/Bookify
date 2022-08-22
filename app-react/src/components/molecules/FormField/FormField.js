@@ -31,11 +31,15 @@ const Wrapper = styled.div`
   `};
 `;
 
-const FormField = ({ onChange, value, label, name, id, type = 'text', disabled = false, options, checked }) => {
+const FormField = ({ onChange, value, label, name, id, type = 'text', disabled = false, options, checked, onFocus = () => {}, maxLength }) => {
   return (
     <Wrapper type={type}>
       <Label htmlFor={id}>{label}</Label>
-      {type === 'text' ? <Input name={name} id={id} type={type} value={value} onChange={onChange} disabled={disabled} /> : ''}
+      {type === 'text' ? (
+        <Input name={name} id={id} type={type} value={value} onChange={onChange} disabled={disabled} onFocus={onFocus} maxLength={maxLength} />
+      ) : (
+        ''
+      )}
       {type === 'checkbox' ? <Input name={name} id={id} checked={checked} type={type} onChange={onChange} disabled={disabled} /> : ''}
       {type === 'textarea' ? <TextArea name={name} id={id} type={type} value={value} onChange={onChange} disabled={disabled} /> : ''}
       {type === 'select' ? <Select styles={selectCustomStyles} defaultValue={value} onChange={onChange} disabled={disabled} options={options} /> : ''}
@@ -69,11 +73,17 @@ const FormField = ({ onChange, value, label, name, id, type = 'text', disabled =
 };
 
 FormField.propTypes = {
+  onChange: PropTypes.func.isRequired,
+  value: PropTypes.any.isRequired,
   label: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
   type: PropTypes.string,
   disabled: PropTypes.bool,
+  options: PropTypes.array,
+  checked: PropTypes.bool,
+  onFocus: PropTypes.func,
+  maxLength: PropTypes.any,
 };
 
 export default FormField;

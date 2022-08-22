@@ -66,7 +66,9 @@ const UserDataProvider = ({ children }) => {
   }, []);
 
   useEffect(() => {
-    console.log(userData);
+    if (userData) {
+      console.log(userData);
+    }
   }, [userData]);
 
   return (
