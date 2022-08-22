@@ -116,7 +116,7 @@ export const UnorderedList = styled.ul`
   margin-bottom: 0;
 `;
 
-export const ListItem = styled.li` //jak tu zrobić ul li ?
+export const ListItem = styled.li`
   padding-left: 0;
 `;
 
