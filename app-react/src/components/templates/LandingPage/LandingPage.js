@@ -1,13 +1,14 @@
 import React, { useState, useEffect, useContext } from 'react';
+import { Redirect } from 'react-router-dom';
+import { AccountCircle } from '@styled-icons/material/AccountCircle';
 import { Wrapper, Header, Logo, IconStyleWrapper } from './LandingPage-styled';
+import { Pagination } from 'components/atoms/Pagination/Pagination';
 import SearchBar from 'components/organisms/SearchBar/SearchBar';
 import List from 'components/organisms/List/List';
 import { Modal } from 'components/molecules/Modal/Modal';
 import Login from 'components/organisms/Login/Login';
 import Footer from 'components/molecules/Footer/Footer';
 import '@fontsource/montserrat';
-import { AccountCircle } from '@styled-icons/material/AccountCircle';
-import { Redirect } from 'react-router-dom';
 import { LinksContext } from 'providers/LinksProvider';
 import { UserDataContext } from 'providers/UserDataProvider';
 import Loader from 'components/atoms/Loader/Loader';
@@ -17,8 +18,16 @@ const LandingPage = ({ history }) => {
   const [shouldRedirect, setRedirect] = useState(false);
   const [rooms, setRooms] = useState([]);
   const [showModal, setShowModal] = useState(false);
+  const [pageNumber, setPageNumber] = useState(0);
   const LinksCtx = useContext(LinksContext);
   const UserCtx = useContext(UserDataContext);
+  const roomsPerPage = 5;
+  const pagesVisited = pageNumber * roomsPerPage;
+  const pageCount = Math.ceil(rooms.length / roomsPerPage);
+
+  const changePage = ({ selected }) => {
+    setPageNumber(selected);
+  };
 
   const openModal = () => {
     setShowModal((prev) => !prev);
@@ -74,7 +83,10 @@ const LandingPage = ({ history }) => {
         </Header>
         <SearchBar displayLevelMode="user" setRooms={setRooms}></SearchBar>
         {!rooms.includes('empty') ? (
-          <List rooms={rooms} onRoomDetailsClickHandler={onRoomDetailsClickHandler}></List>
+          <>
+            <List rooms={rooms.slice(pagesVisited, pagesVisited + roomsPerPage)} onRoomDetailsClickHandler={onRoomDetailsClickHandler}></List>
+            <Pagination previousLabel={'Wstecz'} nextLabel={'Dalej'} pageCount={pageCount} onPageChange={changePage} />
+          </>
         ) : (
           <>
             <h1>Przepraszamy!</h1> <h2>Dla obecnie ustawionych filtrów nie posiadamy wolnych pokoi!</h2>
