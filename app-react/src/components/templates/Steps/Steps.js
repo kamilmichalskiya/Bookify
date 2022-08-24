@@ -20,10 +20,12 @@ import Step1 from 'components/organisms/StepsContent/Step1/Step1';
 import Step2 from 'components/organisms/StepsContent/Step2/Step2';
 import Step3 from 'components/organisms/StepsContent/Step3/Step3';
 import Step4 from 'components/organisms/StepsContent/Step4/Step4';
+import Step5 from 'components/organisms/StepsContent/Step5/Step5';
 import ProgressBar1 from 'assets/img/progressbar1.png';
 import ProgressBar2 from 'assets/img/progressbar2.png';
 import ProgressBar3 from 'assets/img/progressbar3.png';
-import ProgressBar4 from 'assets/img/progressbar5.png';
+import ProgressBar4 from 'assets/img/progressbar4.png';
+import ProgressBar5 from 'assets/img/progressbar5.png';
 import Accordion from 'components/molecules/Accordion/Accordion';
 import { KeyboardArrowLeft } from '@styled-icons/material/KeyboardArrowLeft';
 import { Redirect } from 'react-router-dom';
@@ -61,7 +63,6 @@ const Steps = () => {
   }, [offerPrice]);
 
   const changeStep = (direction = 'next') => {
-    console.log(`Step${activeStep} is Changing with direction ${direction}`);
     if (direction === 'next') {
       setActiveStep(activeStep + 1);
     } else if (direction === 'prev') {
@@ -77,7 +78,7 @@ const Steps = () => {
     setRedirectUrl('/');
   };
 
-  const displayStepContent = () => {
+  const getStepContent = () => {
     switch (activeStep) {
       case 1:
         return <Step1 offers={offers}></Step1>;
@@ -86,7 +87,9 @@ const Steps = () => {
       case 3:
         return <Step3 offers={offers}></Step3>;
       case 4:
-        return <Step4 totalPrice={totalPrice}></Step4>;
+        return <Step4 changeStep={changeStep}></Step4>;
+      case 5:
+        return <Step5 totalPrice={totalPrice}></Step5>;
       default:
         break;
     }
@@ -102,6 +105,8 @@ const Steps = () => {
         return ProgressBar3;
       case 4:
         return ProgressBar4;
+      case 5:
+        return ProgressBar5;
       default:
         break;
     }
@@ -120,8 +125,9 @@ const Steps = () => {
           <SearchBarImg url={getProgressBartImgUrl()}></SearchBarImg>
         </SearchBarContainer>
         <ContentContainer>
-          <ContentLeft>{displayStepContent()}</ContentLeft>
+          <ContentLeft>{getStepContent()}</ContentLeft>
           <ContentRight>
+            {/* TO-DO: Create separate component for reservation summary view */}
             <Accordion title="Podsumowanie rezerwacji">
               <DateContainer>
                 <DateRow>
@@ -165,11 +171,11 @@ const Steps = () => {
                 </div>
                 <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                   <p style={{ fontSize: '12px' }}>Przedpłata</p>
-                  <p style={{ fontSize: '12px' }}>0zł</p>
+                  <p style={{ fontSize: '12px' }}>{Math.round(totalPrice * 0.15 * 100) / 100}zł</p>
                 </div>
                 <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                   <p style={{ fontSize: '12px' }}>Na miejscu</p>
-                  <p style={{ fontSize: '12px' }}>{totalPrice}zł</p>
+                  <p style={{ fontSize: '12px' }}>{Math.round(100 * totalPrice - totalPrice * 0.15) / 100}zł</p>
                 </div>
               </div>
             </Accordion>
@@ -177,14 +183,25 @@ const Steps = () => {
         </ContentContainer>
         <BottomMenu>
           <IconStyleWrapper>
-            <span
-              onClick={() => {
-                changeStep('prev');
-              }}
-            >
-              <KeyboardArrowLeft size="36" />
-              Wstecz
-            </span>
+            {activeStep === 5 ? (
+              <span
+                onClick={() => {
+                  returnToLandingPage();
+                }}
+              >
+                <KeyboardArrowLeft size="36" />
+                Wróć do strony głównej
+              </span>
+            ) : (
+              <span
+                onClick={() => {
+                  changeStep('prev');
+                }}
+              >
+                <KeyboardArrowLeft size="36" />
+                Wstecz
+              </span>
+            )}
           </IconStyleWrapper>
           {activeStep < 4 ? (
             <WhiteButton

@@ -39,7 +39,9 @@ const SearchBar = ({ displayLevelMode, setRooms }) => {
   }, [userSelection.endDate, userSelection.startDate]);
 
   useEffect(() => {
-    console.log(userSelection);
+    if (userSelection) {
+      console.log(userSelection);
+    }
   }, [userSelection]);
 
   const onSearchButtonClick = async () => {

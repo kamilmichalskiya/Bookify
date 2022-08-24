@@ -8,3 +8,4 @@
 /app-react/.env
 /app-java/target/
 /target/
+/local-deployment/*.jar

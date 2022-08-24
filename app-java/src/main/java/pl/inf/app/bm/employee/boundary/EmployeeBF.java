@@ -41,7 +41,7 @@ public class EmployeeBF {
     }
 
     /**
-     * Retrieve list of all employees form database
+     * Retrieve list of all employees from database
      *
      * @param mapper entity mapper
      * @return list of mapped employees
@@ -81,5 +81,15 @@ public class EmployeeBF {
         final EmployeeBE employeeBE = uiEmployeeToEntityMapper.map(new Filler<>(uiEmployee, employee));
         return Optional.of(employeeRepositoryBA.save(employeeBE)).map(uiMapper::map).orElseThrow(
                 () -> new ProcessException(EMPLOYEE_UPDATING_ERROR, employeeBE));
+    }
+
+    /**
+     * Check that email is not in database
+     *
+     * @param email email to check
+     * @return true if email was not found
+     */
+    public boolean checkMail(final String email) {
+        return !employeeRepositoryBA.existsByEmail(email);
     }
 }

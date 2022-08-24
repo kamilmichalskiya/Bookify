@@ -17,3 +17,10 @@ export const Wrapper = styled.div`
 export const GreenTextWrapper = styled.span`
   color: ${({ theme }) => theme.colors.primary};
 `;
+
+export const About = styled.span`
+  &:hover {
+    cursor: pointer;
+    color: ${({ theme }) => theme.colors.primary};
+  }
+`;

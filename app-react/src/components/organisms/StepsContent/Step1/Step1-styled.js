@@ -3,10 +3,11 @@ import { StyledIconBase } from '@styled-icons/styled-icon';
 
 export const ContentLeftTitle = styled.div`
   width: 100%;
-  font-size: ${({ theme }) => theme.fontSize.xl};
+  font-size: ${({ theme }) => theme.fontSize.xxl};
   font-weight: 700;
-  padding: 15px 0px;
+  padding: 25px 0px;
   letter-spacing: 0.08em;
+  border-bottom: 1px solid ${({ theme }) => theme.colors.white};
 `;
 
 export const RoomContainerPhotoWrapper = styled.div`

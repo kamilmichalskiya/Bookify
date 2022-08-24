@@ -8,11 +8,30 @@ import EditRoom from 'components/organisms/Forms/EditRoom/EditRoom';
 import EditOffer from 'components/organisms/Forms/EditOffer/EditOffer';
 import EditEmployee from 'components/organisms/Forms/EditEmployee/EditEmployee';
 import { TertiaryButton } from 'components/atoms/Button/Button';
+import { Pagination } from 'components/atoms/Pagination/Pagination';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Tabs = ({ rooms, offers, employees, updateData }) => {
   const [index, setIndex] = useState(0);
   const [showModal, setShowModal] = useState(false);
   const [activeItem, setActiveItem] = useState({});
+  const [roomPageNumber, setRoomPageNumber] = useState(0);
+  const [offerPageNumber, setOfferPageNumber] = useState(0);
+  const [employeePageNumber, setEmployeePageNumber] = useState(0);
+  const itemsPerPage = 2;
+
+  const changeRoomPage = ({ selected }) => {
+    setRoomPageNumber(selected);
+  };
+
+  const changeOfferPage = ({ selected }) => {
+    setOfferPageNumber(selected);
+  };
+
+  const changeEmployeePage = ({ selected }) => {
+    setEmployeePageNumber(selected);
+  };
 
   const openModal = (type = 'rooms', items) => {
     console.log(type, items);
@@ -30,6 +49,17 @@ const Tabs = ({ rooms, offers, employees, updateData }) => {
   return (
     <>
       <TabsWrapper>
+        <ToastContainer
+          position="top-right"
+          autoClose={3000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+        />
         <TabsList>
           <TabHeader
             onClick={() => {
@@ -61,21 +91,46 @@ const Tabs = ({ rooms, offers, employees, updateData }) => {
             <SearchBar displayLevelMode="admin"></SearchBar>
             <TertiaryButton onClick={() => openModal('rooms')}>Dodaj</TertiaryButton>
           </NavigationBar>
-          <AdminList type="rooms" items={rooms} openModal={openModal}></AdminList>
+          <AdminList
+            type="rooms"
+            items={rooms.slice(roomPageNumber * itemsPerPage, roomPageNumber * itemsPerPage + itemsPerPage)}
+            openModal={openModal}
+          ></AdminList>
+          <Pagination previousLabel={'Wstecz'} nextLabel={'Dalej'} pageCount={Math.ceil(rooms.length / itemsPerPage)} onPageChange={changeRoomPage} />
         </TabContent>
         <TabContent hidden={index !== 1}>
           <NavigationBar>
             <SearchBar displayLevelMode="admin"></SearchBar>
             <TertiaryButton onClick={() => openModal('offers')}>Dodaj</TertiaryButton>
           </NavigationBar>
-          <AdminList type="offers" items={offers} openModal={openModal}></AdminList>
+          <AdminList
+            type="offers"
+            items={offers.slice(offerPageNumber * itemsPerPage, offerPageNumber * itemsPerPage + itemsPerPage)}
+            openModal={openModal}
+          ></AdminList>
+          <Pagination
+            previousLabel={'Wstecz'}
+            nextLabel={'Dalej'}
+            pageCount={Math.ceil(offers.length / itemsPerPage)}
+            onPageChange={changeOfferPage}
+          />
         </TabContent>
         <TabContent hidden={index !== 2}>
           <NavigationBar>
             <SearchBar displayLevelMode="admin"></SearchBar>
             <TertiaryButton onClick={() => openModal('employees')}>Dodaj</TertiaryButton>
           </NavigationBar>
-          <AdminList type="employees" items={employees} openModal={openModal}></AdminList>
+          <AdminList
+            type="employees"
+            items={employees.slice(employeePageNumber * itemsPerPage, employeePageNumber * itemsPerPage + itemsPerPage)}
+            openModal={openModal}
+          ></AdminList>
+          <Pagination
+            previousLabel={'Wstecz'}
+            nextLabel={'Dalej'}
+            pageCount={Math.ceil(employees.length / itemsPerPage)}
+            onPageChange={changeEmployeePage}
+          />
         </TabContent>
       </TabsWrapper>
       <Modal showModal={showModal} setShowModal={setShowModal}>

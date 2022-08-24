@@ -15,7 +15,7 @@ import java.util.UUID;
 @Repository
 public interface RoomRepositoryBA extends JpaRepository<RoomBE, UUID> {
 
-    @EntityGraph(attributePaths = {"reservations", "addOns", "accessories"})
+    @EntityGraph(attributePaths = {"reservations", "addOns", "accessories", "images"})
     List<RoomBE> findByActiveTrue();
 
     @EntityGraph(attributePaths = {"reservations", "addOns", "accessories"})

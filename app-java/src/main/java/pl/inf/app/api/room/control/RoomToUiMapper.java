@@ -14,7 +14,7 @@ public class RoomToUiMapper implements Mapper<RoomBE, UiRoom> {
     public UiRoom map(final RoomBE source) {
         final UiRoom uiRoom = new UiRoom();
         uiRoom.setId(source.getId());
-        uiRoom.setImage(source.getImage());
+        uiRoom.setImages(source.getImages());
         uiRoom.setRoomType(source.getRoomType());
         uiRoom.setPrice(source.getPrice());
         uiRoom.setSingleBeds(source.getSingleBeds());

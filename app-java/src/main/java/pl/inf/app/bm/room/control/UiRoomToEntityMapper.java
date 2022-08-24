@@ -18,7 +18,7 @@ public class UiRoomToEntityMapper implements Mapper<Filler<UiRoom, RoomBE>, Room
         final RoomBE target = filler.getTarget();
         final UiRoom source = filler.getSource();
 
-        target.setImage(source.getImage());
+        target.setImages(source.getImages());
         target.setRoomType(source.getRoomType());
         target.setPrice(source.getPrice());
         target.setCapacity(source.getCapacity());

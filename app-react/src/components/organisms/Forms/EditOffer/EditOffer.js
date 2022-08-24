@@ -3,6 +3,7 @@ import { SaveButton } from 'components/atoms/Button/Button';
 import { Header, ContentWrapper, Footer, ErrorText } from './EditOffer-styled';
 import FormField from 'components/molecules/FormField/FormField';
 import { LinksContext } from 'providers/LinksProvider';
+import { toast } from 'react-toastify';
 
 const EditOffer = ({ offer, setShowModal, updateData }) => {
   const initialValues = {
@@ -46,11 +47,11 @@ const EditOffer = ({ offer, setShowModal, updateData }) => {
       const data = await response.json();
       const { status, error } = data;
       if (response.ok) {
-        alert('Oferta zaaktualizowana pomyślnie!');
+        toast.success('Oferta zaaktualizowana pomyślnie!');
         setShowModal(false);
         updateData('offers');
       } else {
-        alert(`ERROR: An Error occured: ${status}: ${error}`);
+        toast.error(`ERROR: ${status}: ${error}`);
       }
     };
 
@@ -65,11 +66,11 @@ const EditOffer = ({ offer, setShowModal, updateData }) => {
       const data = await response.json();
       const { status, error } = data;
       if (response.ok) {
-        alert('Oferta stworzona pomyślnie!');
+        toast.success('Oferta stworzona pomyślnie!');
         setShowModal(false);
         updateData('offers');
       } else {
-        alert(`ERROR: An Error occured: ${status}: ${error}`);
+        toast.error(`ERROR: ${status}: ${error}`);
       }
     };
 

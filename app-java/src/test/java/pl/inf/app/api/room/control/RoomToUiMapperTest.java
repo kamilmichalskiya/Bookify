@@ -28,7 +28,7 @@ class RoomToUiMapperTest {
         roomBE.setAccessories(Collections.singleton("TABLE"));
         roomBE.setCapacity(4);
         roomBE.setDescription("Description");
-        roomBE.setImage("Image");
+        roomBE.setImages(Collections.singleton("Image"));
         roomBE.setPrice(100);
         roomBE.setRoomType(RoomType.Budget);
 
@@ -39,7 +39,7 @@ class RoomToUiMapperTest {
         assertEquals(1, room.getAccessories().size());
         assertEquals(4, room.getCapacity());
         assertEquals("Description", room.getDescription());
-        assertEquals("Image", room.getImage());
+        assertEquals(1, room.getImages().size());
         assertEquals(100, room.getPrice());
         assertEquals(RoomType.Budget, room.getRoomType());
     }
