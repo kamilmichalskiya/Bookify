@@ -27,7 +27,7 @@ import auth from 'helpers/auth';
 import '@fontsource/montserrat';
 import { LinksContext } from 'providers/LinksProvider';
 
-const Login = ({ history }) => {
+const Login = () => {
   const LinksCtx = useContext(LinksContext);
   const [userEmail, setUserEmail] = useState('');
   const [userPassword, setUserPassword] = useState('');
@@ -46,7 +46,6 @@ const Login = ({ history }) => {
   };
 
   const onSubmit = async () => {
-    history.push('/admin');
     const requestBody = {
       username: userEmail,
       password: userPassword,
