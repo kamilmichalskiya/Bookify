@@ -13,7 +13,7 @@ import { LinksContext } from 'providers/LinksProvider';
 import { UserDataContext } from 'providers/UserDataProvider';
 import Loader from 'components/atoms/Loader/Loader';
 
-const LandingPage = ({ history }) => {
+const LandingPage = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [shouldRedirect, setRedirect] = useState(false);
   const [rooms, setRooms] = useState([]);
@@ -73,7 +73,7 @@ const LandingPage = ({ history }) => {
       <Wrapper>
         {isLoading ? <Loader isLoading={isLoading} /> : ''}
         <Modal showModal={showModal} setShowModal={setShowModal}>
-          <Login history={history}></Login>
+          <Login></Login>
         </Modal>
         <Header>
           <Logo>Bookify</Logo>
