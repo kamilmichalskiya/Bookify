@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import {
   LoginTitle,
   TextSpan,
@@ -22,10 +22,13 @@ import { EyeOutline } from '@styled-icons/evaicons-outline/EyeOutline';
 import { Google } from '@styled-icons/fa-brands/Google';
 import { FacebookF } from '@styled-icons/fa-brands/FacebookF';
 import { Apple } from '@styled-icons/fa-brands/Apple';
+// eslint-disable-next-line no-unused-vars
 import auth from 'helpers/auth';
 import '@fontsource/montserrat';
+import { LinksContext } from 'providers/LinksProvider';
 
 const Login = ({ history }) => {
+  const LinksCtx = useContext(LinksContext);
   const [userEmail, setUserEmail] = useState('');
   const [userPassword, setUserPassword] = useState('');
   const [passwordShown, setPasswordShown] = useState(false);
@@ -42,10 +45,20 @@ const Login = ({ history }) => {
     setPasswordShown(!passwordShown);
   };
 
-  const onSubmit = () => {
-    auth.login(userEmail, userPassword, () => {
-      history.push('/admin');
-    });
+  const onSubmit = async () => {
+    history.push('/admin');
+    const requestBody = {
+      username: userEmail,
+      password: userPassword,
+    };
+    const requestOptions = {
+      method: 'POST',
+      body: JSON.stringify(requestBody),
+      headers: new Headers({ 'content-type': 'application/json' }),
+    };
+    const response = await fetch(`${LinksCtx.links}/login`, requestOptions);
+    const data = await response.json();
+    console.log(JSON.stringify(data));
   };
 
   return (
