@@ -1,11 +1,10 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { SaveButton } from 'components/atoms/Button/Button';
-import { Header, ContentWrapper, Footer, ErrorText, DarkEyeStyleWrapper } from './EditEmployee-styled';
+import { Header, ContentWrapper, Footer, ErrorText } from './EditEmployee-styled';
 import FormField from 'components/molecules/FormField/FormField';
 import PasswordFormField from 'components/molecules/PasswordFormField/PasswordFormField';
 import { LinksContext } from 'providers/LinksProvider';
 import { toast } from 'react-toastify';
-import { EyeOutline } from '@styled-icons/evaicons-outline/EyeOutline';
 
 const EditEmployee = ({ employee, setShowModal, updateData }) => {
   let initialValues = {
@@ -14,6 +13,7 @@ const EditEmployee = ({ employee, setShowModal, updateData }) => {
     surname: employee.surname || '',
     email: employee.email || '',
     password: employee.password || '',
+    confirmPassword: employee.confirmPassword || '',
   };
   if (employee.employeeId) {
     initialValues.employeeId = employee.employeeId;
@@ -22,7 +22,6 @@ const EditEmployee = ({ employee, setShowModal, updateData }) => {
   const [formErrors, setFormErrors] = useState({});
   const [isSubmit, setIsSubmit] = useState(false);
   const LinksCtx = useContext(LinksContext);
-  const [passwordShown, setPasswordShown] = useState(false);
 
   const handleChange = (e) => {
     let { name, value, type, checked } = e.target;
@@ -95,7 +94,7 @@ const EditEmployee = ({ employee, setShowModal, updateData }) => {
     const errors = {};
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
     if (!values.name) {
-      errors.name = 'Imie jest wymagane!';
+      errors.name = 'Imię jest wymagane!';
     }
     if (!values.surname) {
       errors.surname = 'Nazwisko jest wymagane!';
@@ -105,12 +104,11 @@ const EditEmployee = ({ employee, setShowModal, updateData }) => {
     } else if (!regex.test(values.email)) {
       errors.email = 'Adres e-mail musi mieć poprawny format!';
     }
+    if (values.password !== values.confirmPassword) {
+      errors.confirmPassword = 'Hasła nie są identyczne!';
+    }
 
     return errors;
-  };
-
-  const togglePassword = () => {
-    setPasswordShown(!passwordShown);
   };
 
   return (
@@ -158,10 +156,24 @@ const EditEmployee = ({ employee, setShowModal, updateData }) => {
           placeholder="Adres e-mail"
         ></FormField>
         <ErrorText>{formErrors.email}</ErrorText>
-        <PasswordFormField placeholder="Hasło"></PasswordFormField>
+        <PasswordFormField
+          onChange={handleChange}
+          value={formValues.password}
+          label="Hasło"
+          name="password"
+          id="employeePassword"
+          placeholder="Hasło"
+        ></PasswordFormField>
         <ErrorText>{formErrors.password}</ErrorText>
-        <PasswordFormField placeholder="Potwierdź hasło"></PasswordFormField>
-        <ErrorText>{formErrors.password}</ErrorText>
+        <PasswordFormField
+          onChange={handleChange}
+          value={formValues.confirmPassword}
+          label="Potwierdź Hasło"
+          name="confirmPassword"
+          id="employeeConfirmPassword"
+          placeholder="Potwierdź hasło"
+        ></PasswordFormField>
+        <ErrorText>{formErrors.confirmPassword}</ErrorText>
       </ContentWrapper>
       <Footer>
         <div></div>
