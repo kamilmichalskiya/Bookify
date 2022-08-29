@@ -158,16 +158,6 @@ const EditEmployee = ({ employee, setShowModal, updateData }) => {
           placeholder="Adres e-mail"
         ></FormField>
         <ErrorText>{formErrors.email}</ErrorText>
-
-        {/* <FormField
-          onChange={handleChange}
-          value={formValues.password}
-          label="Hasło"
-          name="password"
-          id="employeePassword"
-          type={passwordShown ? 'text' : 'password'}
-        ></FormField> */}
-
         <PasswordFormField placeholder="Hasło"></PasswordFormField>
         <ErrorText>{formErrors.password}</ErrorText>
         <PasswordFormField placeholder="Potwierdź hasło"></PasswordFormField>

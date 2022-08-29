@@ -18,7 +18,7 @@ const Wrapper = styled.div`
     flex-direction: row-reverse;
     align-items: center;
     justify-content: flex-end;
-    margin: 15px;
+    margin-top: 15px;
     width: 350px;
     ${Input} {
       width: 24px;
