@@ -1,9 +1,11 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { SaveButton } from 'components/atoms/Button/Button';
-import { Header, ContentWrapper, Footer, ErrorText } from './EditEmployee-styled';
+import { Header, ContentWrapper, Footer, ErrorText, DarkEyeStyleWrapper } from './EditEmployee-styled';
 import FormField from 'components/molecules/FormField/FormField';
+import PasswordFormField from 'components/molecules/PasswordFormField/PasswordFormField';
 import { LinksContext } from 'providers/LinksProvider';
 import { toast } from 'react-toastify';
+import { EyeOutline } from '@styled-icons/evaicons-outline/EyeOutline';
 
 const EditEmployee = ({ employee, setShowModal, updateData }) => {
   let initialValues = {
@@ -20,6 +22,7 @@ const EditEmployee = ({ employee, setShowModal, updateData }) => {
   const [formErrors, setFormErrors] = useState({});
   const [isSubmit, setIsSubmit] = useState(false);
   const LinksCtx = useContext(LinksContext);
+  const [passwordShown, setPasswordShown] = useState(false);
 
   const handleChange = (e) => {
     let { name, value, type, checked } = e.target;
@@ -51,7 +54,7 @@ const EditEmployee = ({ employee, setShowModal, updateData }) => {
       const data = await response.json();
       const { status, error } = data;
       if (response.ok) {
-        toast.success('Konto pracownika zostało pomyślnie zaaktualizowane!');
+        toast.success('Konto pracownika zostało pomyślnie zaktualizowane!');
         setShowModal(false);
         updateData('employees');
       } else {
@@ -106,6 +109,10 @@ const EditEmployee = ({ employee, setShowModal, updateData }) => {
     return errors;
   };
 
+  const togglePassword = () => {
+    setPasswordShown(!passwordShown);
+  };
+
   return (
     <form onSubmit={handleSubmit}>
       <Header>{employee?.employeeId ? 'Edytuj Pracownika' : 'Stwórz Pracownika'}</Header>
@@ -126,18 +133,44 @@ const EditEmployee = ({ employee, setShowModal, updateData }) => {
             name="employeeId"
             id="employeeId"
             type="text"
-            disabled={true}
+            disabled={false}
           ></FormField>
         ) : (
           ''
         )}
-        <FormField onChange={handleChange} value={formValues.name} label="Imie" name="name" id="employeeName" type="text"></FormField>
+        <FormField onChange={handleChange} value={formValues.name} name="name" id="employeeName" type="text" placeholder="Imię"></FormField>
         <ErrorText>{formErrors.name}</ErrorText>
-        <FormField onChange={handleChange} value={formValues.surname} label="Nazwisko" name="surname" id="employeeSurname" type="text"></FormField>
+        <FormField
+          onChange={handleChange}
+          value={formValues.surname}
+          name="surname"
+          id="employeeSurname"
+          type="text"
+          placeholder="Nazwisko"
+        ></FormField>
         <ErrorText>{formErrors.surname}</ErrorText>
-        <FormField onChange={handleChange} value={formValues.email} label="Adres e-mail" name="email" id="employeeEmail" type="text"></FormField>
+        <FormField
+          onChange={handleChange}
+          value={formValues.email}
+          name="email"
+          id="employeeEmail"
+          type="text"
+          placeholder="Adres e-mail"
+        ></FormField>
         <ErrorText>{formErrors.email}</ErrorText>
-        <FormField onChange={handleChange} value={formValues.password} label="Hasło" name="password" id="employeePassword" type="text"></FormField>
+
+        {/* <FormField
+          onChange={handleChange}
+          value={formValues.password}
+          label="Hasło"
+          name="password"
+          id="employeePassword"
+          type={passwordShown ? 'text' : 'password'}
+        ></FormField> */}
+
+        <PasswordFormField placeholder="Hasło"></PasswordFormField>
+        <ErrorText>{formErrors.password}</ErrorText>
+        <PasswordFormField placeholder="Potwierdź hasło"></PasswordFormField>
         <ErrorText>{formErrors.password}</ErrorText>
       </ContentWrapper>
       <Footer>

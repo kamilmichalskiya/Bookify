@@ -12,15 +12,14 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  ${Label} {
-    margin: 10px 0;
-  }
   ${({ type }) =>
     type === 'checkbox' &&
     `
     flex-direction: row-reverse;
     align-items: center;
     justify-content: flex-end;
+    margin: 15px;
+    width: 350px;
     ${Input} {
       width: 24px;
       height: 24px;
@@ -31,16 +30,50 @@ const Wrapper = styled.div`
   `};
 `;
 
-const FormField = ({ onChange, value, label, name, id, type = 'text', disabled = false, options, checked, onFocus = () => {}, maxLength }) => {
+const FormField = ({
+  onChange,
+  value,
+  label,
+  name,
+  id,
+  type = 'text',
+  disabled = false,
+  options,
+  checked,
+  onFocus = () => {},
+  maxLength,
+  placeholder,
+}) => {
   return (
     <Wrapper type={type}>
-      <Label htmlFor={id}>{label}</Label>
       {type === 'text' ? (
+        <Input
+          name={name}
+          id={id}
+          type={type}
+          value={value}
+          onChange={onChange}
+          disabled={disabled}
+          onFocus={onFocus}
+          maxLength={maxLength}
+          placeholder={placeholder}
+        />
+      ) : (
+        ''
+      )}
+      {type === 'password' ? (
         <Input name={name} id={id} type={type} value={value} onChange={onChange} disabled={disabled} onFocus={onFocus} maxLength={maxLength} />
       ) : (
         ''
       )}
-      {type === 'checkbox' ? <Input name={name} id={id} checked={checked} type={type} onChange={onChange} disabled={disabled} /> : ''}
+      {type === 'checkbox' ? (
+        <>
+          <Label htmlFor={id}>{label}</Label>
+          <Input name={name} id={id} checked={checked} type={type} onChange={onChange} disabled={disabled} />
+        </>
+      ) : (
+        ''
+      )}
       {type === 'textarea' ? <TextArea name={name} id={id} type={type} value={value} onChange={onChange} disabled={disabled} /> : ''}
       {type === 'select' ? <Select styles={selectCustomStyles} defaultValue={value} onChange={onChange} disabled={disabled} options={options} /> : ''}
       {type === 'multiSelect' ? (
