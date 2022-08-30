@@ -22,11 +22,10 @@ const Root = () => {
           <UserDataProvider>
             <Wrapper>
               <Switch>
-                {/* <ProtectedRoute exact path="/admin" component={AdminPanel} /> */}
-                <Route exact path="/admin" component={AdminPanel} />
-                <Route exact path="/employee" component={EmployeePanel} />
-                <Route exact path="/steps" render={(props) => <Steps {...props} />}></Route>
-                <Route exact path="/" component={LandingPage} />
+                <Route path="/admin" component={AdminPanel} />
+                <Route path="/employee" component={EmployeePanel} />
+                <Route path="/steps" render={(props) => <Steps {...props} />}></Route>
+                <Route path="/" component={LandingPage} />
               </Switch>
             </Wrapper>
           </UserDataProvider>

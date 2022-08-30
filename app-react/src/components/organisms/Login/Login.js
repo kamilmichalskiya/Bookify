@@ -45,18 +45,24 @@ const Login = () => {
     setPasswordShown(!passwordShown);
   };
 
-  const onSubmit = async () => {
-    const requestBody = {
-      username: userEmail,
-      password: userPassword,
-    };
+  const onSubmit = async (event) => {
+    event.preventDefault();
+    // const formData = {
+    //   username: userEmail,
+    //   password: userPassword,
+    // };
+    const requestBody = new FormData(event.target);
     const requestOptions = {
       method: 'POST',
-      body: JSON.stringify(requestBody),
-      headers: new Headers({ 'content-type': 'application/json' }),
+      body: new URLSearchParams(requestBody),
+      // headers: new Headers({ 'content-type': 'application/json' }),
     };
-    const response = await fetch(`${LinksCtx.links}/login`, requestOptions);
+    const authUrl = `${'http://localhost:8080/api'.substr(0, 22)}perform_login`;
+    const response = await fetch(authUrl, requestOptions);
     const data = await response.json();
+    if (response.redirected) {
+      window.location = response.url;
+    }
     console.log(JSON.stringify(data));
   };
 
@@ -66,12 +72,12 @@ const Login = () => {
         Witaj w <GreenTextWrapper>B</GreenTextWrapper>ookify!
       </LoginTitle>
       <TextSpan>Zaloguj się, aby uzyskać dostęp do wszystkich funkcjonalności.</TextSpan>
-      <form>
+      <form onSubmit={onSubmit}>
         <UserInputWrapper>
           <DarkIconStyleWrapper>
             <PersonFill size="18" />
           </DarkIconStyleWrapper>
-          <UserInput type="email" name="email" autoComplete="email" placeholder="Adres email" value={userEmail} onChange={onEmailChange} />
+          <UserInput type="email" name="username" autoComplete="username" placeholder="Adres email" value={userEmail} onChange={onEmailChange} />
         </UserInputWrapper>
         <UserInputWrapper>
           <DarkIconStyleWrapper>
@@ -79,8 +85,8 @@ const Login = () => {
           </DarkIconStyleWrapper>
           <UserInput
             type={passwordShown ? 'text' : 'password'}
-            name="current-password"
-            autoComplete="current-password"
+            name="password"
+            autoComplete="password"
             placeholder="Hasło"
             value={userPassword}
             onChange={onPasswordChange}
@@ -89,7 +95,9 @@ const Login = () => {
             <EyeOutline size="24" />
           </DarkEyeStyleWrapper>
         </UserInputWrapper>
-        <PrimaryButton onClick={onSubmit}>Zaloguj się</PrimaryButton>
+        <PrimaryButton type="submit" name="submit">
+          Zaloguj się
+        </PrimaryButton>
       </form>
       <DividerWrapper>
         <Line></Line>LUB<Line></Line>
