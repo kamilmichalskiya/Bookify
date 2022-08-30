@@ -59,11 +59,9 @@ const Login = () => {
     };
     const authUrl = `${'http://localhost:8080/api'.substr(0, 22)}perform_login`;
     const response = await fetch(authUrl, requestOptions);
-    const data = await response.json();
     if (response.redirected) {
       window.location = response.url;
     }
-    console.log(JSON.stringify(data));
   };
 
   return (
