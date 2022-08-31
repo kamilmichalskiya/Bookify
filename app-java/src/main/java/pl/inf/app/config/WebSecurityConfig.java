@@ -3,6 +3,7 @@ package pl.inf.app.config;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -34,8 +35,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         // @formatter:off
         http.csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/admin").hasAuthority(ROLE_ADMIN.getAuthority())
-                .antMatchers("/employee").hasAuthority(ROLE_EMPLOYEE.getAuthority())
+                .antMatchers("/api/rooms/search", "/api/offers/active").permitAll()
+                .antMatchers(HttpMethod.POST, "/api/reservations/*").permitAll()
+                .antMatchers("/swagger-ui/**").hasAnyAuthority(ROLE_ADMIN.getAuthority(), ROLE_EMPLOYEE.getAuthority())
+                .antMatchers("/admin", "/api/employees/**", "/api/offers/**", "/api/rooms/**").hasAuthority(ROLE_ADMIN.getAuthority())
+                .antMatchers("/employee", "/api/reservations/**").hasAuthority(ROLE_EMPLOYEE.getAuthority())
                 .anyRequest().permitAll()
                 .and()
                 .formLogin()
