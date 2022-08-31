@@ -14,15 +14,16 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 60%;
+  width: 100%;
+  max-width: 400px;
   ${({ type }) =>
     type === 'checkbox' &&
     `
     flex-direction: row-reverse;
     align-items: center;
-    justify-content: flex-end;
+    justify-content: center;
     margin-top: 15px;
-    width: 350px;
+    max-width: 350px;
     ${Input} {
       width: 24px;
       height: 24px;

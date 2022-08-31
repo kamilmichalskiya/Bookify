@@ -30,7 +30,7 @@ export const Footer = styled.div`
 
 export const ErrorText = styled.p`
   font-size: 1rem;
-  margin: 0 0 5px 0;
+  margin: 0 0 5px;
   color: ${({ theme }) => theme.colors.error};
 `;
 

@@ -19,6 +19,7 @@ export const PasswordInput = styled.input`
   margin-left: 10px;
   border: none;
   height: 100%;
+  width: 90%;
   flex-grow: 1;
   ::placeholder {
     color: ${({ theme }) => theme.colors.placeholder};
