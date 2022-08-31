@@ -83,8 +83,8 @@ public class EmployeeBE implements UserDetails {
 
     @RequiredArgsConstructor
     public enum Role implements GrantedAuthority {
-        EMPLOYEE("EMPLOYEE"),
-        ADMIN("ADMIN");
+        ROLE_EMPLOYEE("ROLE_EMPLOYEE"),
+        ROLE_ADMIN("ROLE_ADMIN");
 
         @Getter
         private final String authority;

@@ -22,8 +22,6 @@ import { EyeOutline } from '@styled-icons/evaicons-outline/EyeOutline';
 import { Google } from '@styled-icons/fa-brands/Google';
 import { FacebookF } from '@styled-icons/fa-brands/FacebookF';
 import { Apple } from '@styled-icons/fa-brands/Apple';
-// eslint-disable-next-line no-unused-vars
-import auth from 'helpers/auth';
 import '@fontsource/montserrat';
 import { LinksContext } from 'providers/LinksProvider';
 
@@ -47,23 +45,16 @@ const Login = () => {
 
   const onSubmit = async (event) => {
     event.preventDefault();
-    // const formData = {
-    //   username: userEmail,
-    //   password: userPassword,
-    // };
     const requestBody = new FormData(event.target);
     const requestOptions = {
       method: 'POST',
       body: new URLSearchParams(requestBody),
-      // headers: new Headers({ 'content-type': 'application/json' }),
     };
-    const authUrl = `${'http://localhost:8080/api'.substr(0, 22)}perform_login`;
+    const authUrl = LinksCtx.login;
     const response = await fetch(authUrl, requestOptions);
-    const data = await response.json();
     if (response.redirected) {
       window.location = response.url;
     }
-    console.log(JSON.stringify(data));
   };
 
   return (
@@ -100,7 +91,7 @@ const Login = () => {
         </PrimaryButton>
       </form>
       <DividerWrapper>
-        <Line></Line>LUB<Line></Line>
+        <Line/>LUB<Line/>
       </DividerWrapper>
       <IconsContainer>
         <IconsWrapper>

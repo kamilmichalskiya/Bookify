@@ -20,6 +20,8 @@ import static pl.inf.app.api.LinkRelations.GET_ALL_EMPLOYEES;
 import static pl.inf.app.api.LinkRelations.GET_ALL_OFFERS;
 import static pl.inf.app.api.LinkRelations.GET_ALL_ROOMS;
 import static pl.inf.app.api.LinkRelations.GET_MAIN_LINKS;
+import static pl.inf.app.api.LinkRelations.LOGIN;
+import static pl.inf.app.api.LinkRelations.LOGOUT;
 import static pl.inf.app.api.LinkRelations.SEARCH_ROOMS;
 
 /**
@@ -36,12 +38,16 @@ public class LinksController {
      */
     @GetMapping
     public ResponseEntity<List<Link>> getLinks() {
+        // @formatter:off
         return ResponseEntity.ok(
                 Arrays.asList(linkTo(methodOn(EmployeeController.class).getAll()).withRel(GET_ALL_EMPLOYEES.toString()),
                         linkTo(methodOn(RoomController.class).getAll()).withRel(GET_ALL_ROOMS.toString()),
                         linkTo(methodOn(OfferController.class).getAll()).withRel(GET_ALL_OFFERS.toString()),
                         linkTo(methodOn(RoomController.class).searchRooms(null)).withRel(SEARCH_ROOMS.toString()),
                         linkTo(methodOn(OfferController.class).getActiveOffers()).withRel(GET_ACTIVE_OFFERS.toString()),
+                        linkTo(LinksController.class).slash("perform_login").withRel(LOGIN.toString()),
+                        linkTo(LinksController.class).slash("perform_logout").withRel(LOGOUT.toString()),
                         linkTo(methodOn(LinksController.class).getLinks()).withRel(GET_MAIN_LINKS.toString())));
+        // @formatter:on
     }
 }

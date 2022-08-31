@@ -1,51 +1,66 @@
 package pl.inf.app.config;
 
+import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import pl.inf.app.bm.employee.control.EmployeeRepositoryBA;
+
+import static pl.inf.app.bm.employee.entity.EmployeeBE.Role.ROLE_ADMIN;
+import static pl.inf.app.bm.employee.entity.EmployeeBE.Role.ROLE_EMPLOYEE;
 
 @Configuration
 @EnableWebSecurity
+@RequiredArgsConstructor
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    public WebSecurityConfig() {
-        super();
-    }
+    private final EmployeeRepositoryBA employeeRepository;
 
     @Override
     protected void configure(final AuthenticationManagerBuilder auth) throws Exception {
-        // @formatter:off
-        auth.inMemoryAuthentication()
-                .withUser("user1").password("{noop}user1Pass").roles("USER")
-                .and()
-                .withUser("user2").password("{noop}user2Pass").roles("USER")
-                .and()
-                .withUser("admin").password("{noop}admin0Pass").roles("ADMIN");
-        // @formatter:on
+        auth.userDetailsService(email -> employeeRepository.findByEmail(email)
+                .orElseThrow(() -> new UsernameNotFoundException(String.format("User with email %s not found", email))))
+                .passwordEncoder(passwordEncoder());
     }
 
     @Override
     protected void configure(final HttpSecurity http) throws Exception {
         // @formatter:off
-        http
-                .csrf().disable()
+        http.csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/admin").hasRole("ADMIN")
-                .antMatchers("/employee").hasRole("USER")
+                .antMatchers("/admin").hasAuthority(ROLE_ADMIN.getAuthority())
+                .antMatchers("/employee").hasAuthority(ROLE_EMPLOYEE.getAuthority())
                 .anyRequest().permitAll()
                 .and()
                 .formLogin()
-                .loginPage("/")
-                .loginProcessingUrl("/perform_login")
-                .defaultSuccessUrl("/admin",true)
-                .failureUrl("/employee")
+                .loginPage("/?login=true")
+                .loginProcessingUrl("/api/perform_login")
+                .successHandler((request, response, authentication) -> {
+                    if (authentication.getAuthorities().stream().anyMatch(ROLE_ADMIN::equals)) {
+                        response.sendRedirect("/admin");
+                    } else if (authentication.getAuthorities().stream().anyMatch(ROLE_EMPLOYEE::equals)) {
+                        response.sendRedirect("/employee");
+                    } else {
+                        response.sendRedirect("/");
+                    }
+                })
+                .failureUrl("/?error=true")
                 .and()
                 .logout()
-                .logoutUrl("/perform_logout")
+                .logoutUrl("/api/perform_logout")
+                .logoutSuccessHandler((request, response, authentication) -> response.sendRedirect("/"))
                 .deleteCookies("JSESSIONID");
         // @formatter:on
     }
 
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 }
