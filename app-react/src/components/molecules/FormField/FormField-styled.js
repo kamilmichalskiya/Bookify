@@ -9,26 +9,8 @@ export const PasswordInputWrapper = styled.div`
   margin: 5px 0;
   height: 55px;
   width: 100%;
-  padding: 10px 15px;
+  padding: 10px 15px 10px 0;
   border-radius: 5px;
-`;
-
-export const PasswordInput = styled.input`
-  font-size: ${({ theme }) => theme.fontSize.l};
-  background-color: ${({ theme }) => theme.colors.white};
-  margin-left: 10px;
-  border: none;
-  height: 100%;
-  width: 90%;
-  flex-grow: 1;
-  ::placeholder {
-    color: ${({ theme }) => theme.colors.placeholder};
-    font-size: ${({ theme }) => theme.fontSize.m};
-    letter-spacing: 0.08em;
-  }
-  &:focus {
-    outline: none;
-  }
 `;
 
 export const DarkEyeStyleWrapper = styled.div`

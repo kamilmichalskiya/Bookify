@@ -8,7 +8,7 @@ import CreatableSelect from 'react-select/creatable';
 import { selectCustomStyles } from 'assets/styles/selectCustomStyles';
 import Stepper from 'components/molecules/Stepper/Stepper';
 import { EyeOutline } from '@styled-icons/evaicons-outline/EyeOutline';
-import { PasswordInputWrapper, PasswordInput, DarkEyeStyleWrapper } from './FormField-styled';
+import { PasswordInputWrapper, DarkEyeStyleWrapper } from './FormField-styled';
 
 const Wrapper = styled.div`
   display: flex;
@@ -74,7 +74,7 @@ const FormField = ({
       {type === 'password' ? (
         <>
           <PasswordInputWrapper>
-            <PasswordInput type={passwordShown ? 'text' : 'password'} name={name} placeholder={placeholder} value={value} onChange={onChange} />
+            <Input type={passwordShown ? 'text' : 'password'} name={name} placeholder={placeholder} value={value} onChange={onChange} />
             <DarkEyeStyleWrapper onClick={togglePassword}>
               <EyeOutline size="24" />
             </DarkEyeStyleWrapper>
