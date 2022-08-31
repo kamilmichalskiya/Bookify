@@ -5,7 +5,8 @@ export const Input = styled.input`
   background-color: ${({ theme }) => theme.colors.white};
   margin: 5px 0;
   height: 55px;
-  width: 350px;
+  width: 100%;
+  max-width: 100%;
   padding: 10px 25px;
   border: none;
   border-radius: 5px;
@@ -13,7 +14,6 @@ export const Input = styled.input`
   ${({ type }) =>
     type === 'file' &&
     `border-radius: 4px;
-    width: 100%;
     max-width: 350px;
     background-color: #fff;
     `};

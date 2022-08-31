@@ -2,7 +2,6 @@ import React, { useState, useEffect, useContext } from 'react';
 import { SaveButton } from 'components/atoms/Button/Button';
 import { Header, ContentWrapper, Footer, ErrorText } from './EditEmployee-styled';
 import FormField from 'components/molecules/FormField/FormField';
-import PasswordFormField from 'components/molecules/PasswordFormField/PasswordFormField';
 import { LinksContext } from 'providers/LinksProvider';
 import { toast } from 'react-toastify';
 
@@ -156,23 +155,23 @@ const EditEmployee = ({ employee, setShowModal, updateData }) => {
           placeholder="Adres e-mail"
         ></FormField>
         <ErrorText>{formErrors.email}</ErrorText>
-        <PasswordFormField
+        <FormField
           onChange={handleChange}
           value={formValues.password}
-          label="Hasło"
           name="password"
           id="employeePassword"
+          type="password"
           placeholder="Hasło"
-        ></PasswordFormField>
+        ></FormField>
         <ErrorText>{formErrors.password}</ErrorText>
-        <PasswordFormField
+        <FormField
           onChange={handleChange}
           value={formValues.confirmPassword}
-          label="Potwierdź Hasło"
           name="confirmPassword"
           id="employeeConfirmPassword"
+          type="password"
           placeholder="Potwierdź hasło"
-        ></PasswordFormField>
+        ></FormField>
         <ErrorText>{formErrors.confirmPassword}</ErrorText>
       </ContentWrapper>
       <Footer>

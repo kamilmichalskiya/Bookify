@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { Label } from 'components/atoms/Label/Label';
@@ -7,11 +7,14 @@ import Select from 'react-select';
 import CreatableSelect from 'react-select/creatable';
 import { selectCustomStyles } from 'assets/styles/selectCustomStyles';
 import Stepper from 'components/molecules/Stepper/Stepper';
+import { EyeOutline } from '@styled-icons/evaicons-outline/EyeOutline';
+import { PasswordInputWrapper, PasswordInput, DarkEyeStyleWrapper } from './FormField-styled';
 
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
+  width: 60%;
   ${({ type }) =>
     type === 'checkbox' &&
     `
@@ -44,6 +47,12 @@ const FormField = ({
   maxLength,
   placeholder,
 }) => {
+  const [passwordShown, setPasswordShown] = useState(false);
+
+  const togglePassword = () => {
+    setPasswordShown(!passwordShown);
+  };
+
   return (
     <Wrapper type={type}>
       {type === 'text' ? (
@@ -62,7 +71,14 @@ const FormField = ({
         ''
       )}
       {type === 'password' ? (
-        <Input name={name} id={id} type={type} value={value} onChange={onChange} disabled={disabled} onFocus={onFocus} maxLength={maxLength} />
+        <>
+          <PasswordInputWrapper>
+            <PasswordInput type={passwordShown ? 'text' : 'password'} name={name} placeholder={placeholder} value={value} onChange={onChange} />
+            <DarkEyeStyleWrapper onClick={togglePassword}>
+              <EyeOutline size="24" />
+            </DarkEyeStyleWrapper>
+          </PasswordInputWrapper>
+        </>
       ) : (
         ''
       )}

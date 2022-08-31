@@ -1,19 +1,19 @@
 import styled from 'styled-components';
 import { StyledIconBase } from '@styled-icons/styled-icon';
 
-export const UserInputWrapper = styled.div`
+export const PasswordInputWrapper = styled.div`
   background-color: ${({ theme }) => theme.colors.white};
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin: 5px 0;
   height: 55px;
-  width: 350px;
+  width: 100%;
   padding: 10px 15px;
   border-radius: 5px;
 `;
 
-export const UserInput = styled.input`
+export const PasswordInput = styled.input`
   font-size: ${({ theme }) => theme.fontSize.l};
   background-color: ${({ theme }) => theme.colors.white};
   margin-left: 10px;
