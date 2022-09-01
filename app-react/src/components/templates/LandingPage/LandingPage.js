@@ -12,6 +12,8 @@ import '@fontsource/montserrat';
 import { LinksContext } from 'providers/LinksProvider';
 import { UserDataContext } from 'providers/UserDataProvider';
 import Loader from 'components/atoms/Loader/Loader';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const LandingPage = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -38,6 +40,24 @@ const LandingPage = () => {
     UserCtx.setUserData({ ...UserCtx, room: selectedRoom, totalPrice: totalPrice });
     setRedirect(true);
   };
+
+  useEffect(() => {
+    const queryParams = window.location.search;
+    if (queryParams) {
+      switch (queryParams) {
+        case '?login=true':
+          setShowModal(true);
+          toast.error('Podane dane logowania są nieprawidłowe.');
+          break;
+        case '?error=true':
+          setShowModal(true);
+          toast.error('Wystąpił błąd. Upewnij się że twoje konto ma odpowiednie uprawnienia.');
+          break;
+        default:
+          break;
+      }
+    }
+  }, []);
 
   useEffect(() => {
     const getRooms = async () => {
@@ -73,6 +93,17 @@ const LandingPage = () => {
       <Wrapper>
         {isLoading ? <Loader isLoading={isLoading} /> : ''}
         <Modal showModal={showModal} setShowModal={setShowModal}>
+          <ToastContainer
+            position="top-right"
+            autoClose={3000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+          />
           <Login></Login>
         </Modal>
         <Header>
