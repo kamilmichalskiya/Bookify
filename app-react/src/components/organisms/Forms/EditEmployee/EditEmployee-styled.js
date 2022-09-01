@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { StyledIconBase } from '@styled-icons/styled-icon';
 
 export const Header = styled.div`
   width: 100%;
@@ -9,8 +10,12 @@ export const Header = styled.div`
 
 export const ContentWrapper = styled.div`
   width: 100%;
-  margin: 15px 0px;
+  margin: 0;
   font-size: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
 `;
 
 export const Footer = styled.div`
@@ -25,5 +30,26 @@ export const Footer = styled.div`
 
 export const ErrorText = styled.p`
   font-size: 1rem;
+  margin: 0 0 5px;
   color: ${({ theme }) => theme.colors.error};
+`;
+
+export const IconStyleWrapper = styled.div`
+  ${StyledIconBase} {
+    color: ${({ theme }) => theme.colors.white};
+  }
+  &:hover {
+    opacity: 0.9;
+    cursor: pointer;
+  }
+`;
+
+export const DarkEyeStyleWrapper = styled(IconStyleWrapper)`
+  ${StyledIconBase} {
+    color: ${({ theme }) => theme.colors.placeholder};
+  }
+  &:hover {
+    opacity: 0.9;
+    cursor: pointer;
+  }
 `;

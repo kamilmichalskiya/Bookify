@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { Label } from 'components/atoms/Label/Label';
@@ -7,20 +7,23 @@ import Select from 'react-select';
 import CreatableSelect from 'react-select/creatable';
 import { selectCustomStyles } from 'assets/styles/selectCustomStyles';
 import Stepper from 'components/molecules/Stepper/Stepper';
+import { EyeOutline } from '@styled-icons/evaicons-outline/EyeOutline';
+import { PasswordInputWrapper, DarkEyeStyleWrapper } from './FormField-styled';
 
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  ${Label} {
-    margin: 10px 0;
-  }
+  align-items: center;
+  width: 100%;
+  max-width: 400px;
   ${({ type }) =>
     type === 'checkbox' &&
     `
     flex-direction: row-reverse;
     align-items: center;
-    justify-content: flex-end;
+    justify-content: center;
+    margin-top: 15px;
+    max-width: 350px;
     ${Input} {
       width: 24px;
       height: 24px;
@@ -31,16 +34,63 @@ const Wrapper = styled.div`
   `};
 `;
 
-const FormField = ({ onChange, value, label, name, id, type = 'text', disabled = false, options, checked, onFocus = () => {}, maxLength }) => {
+const FormField = ({
+  onChange,
+  value,
+  label,
+  name,
+  id,
+  type = 'text',
+  disabled = false,
+  options,
+  checked,
+  onFocus = () => {},
+  maxLength,
+  placeholder,
+}) => {
+  const [passwordShown, setPasswordShown] = useState(false);
+
+  const togglePassword = () => {
+    setPasswordShown(!passwordShown);
+  };
+
   return (
     <Wrapper type={type}>
-      <Label htmlFor={id}>{label}</Label>
       {type === 'text' ? (
-        <Input name={name} id={id} type={type} value={value} onChange={onChange} disabled={disabled} onFocus={onFocus} maxLength={maxLength} />
+        <Input
+          name={name}
+          id={id}
+          type={type}
+          value={value}
+          onChange={onChange}
+          disabled={disabled}
+          onFocus={onFocus}
+          maxLength={maxLength}
+          placeholder={placeholder}
+        />
       ) : (
         ''
       )}
-      {type === 'checkbox' ? <Input name={name} id={id} checked={checked} type={type} onChange={onChange} disabled={disabled} /> : ''}
+      {type === 'password' ? (
+        <>
+          <PasswordInputWrapper>
+            <Input type={passwordShown ? 'text' : 'password'} name={name} placeholder={placeholder} value={value} onChange={onChange} />
+            <DarkEyeStyleWrapper onClick={togglePassword}>
+              <EyeOutline size="24" />
+            </DarkEyeStyleWrapper>
+          </PasswordInputWrapper>
+        </>
+      ) : (
+        ''
+      )}
+      {type === 'checkbox' ? (
+        <>
+          <Label htmlFor={id}>{label}</Label>
+          <Input name={name} id={id} checked={checked} type={type} onChange={onChange} disabled={disabled} />
+        </>
+      ) : (
+        ''
+      )}
       {type === 'textarea' ? <TextArea name={name} id={id} type={type} value={value} onChange={onChange} disabled={disabled} /> : ''}
       {type === 'select' ? <Select styles={selectCustomStyles} defaultValue={value} onChange={onChange} disabled={disabled} options={options} /> : ''}
       {type === 'multiSelect' ? (
