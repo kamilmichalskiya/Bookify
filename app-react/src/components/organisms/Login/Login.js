@@ -22,8 +22,6 @@ import { EyeOutline } from '@styled-icons/evaicons-outline/EyeOutline';
 import { Google } from '@styled-icons/fa-brands/Google';
 import { FacebookF } from '@styled-icons/fa-brands/FacebookF';
 import { Apple } from '@styled-icons/fa-brands/Apple';
-// eslint-disable-next-line no-unused-vars
-import auth from 'helpers/auth';
 import '@fontsource/montserrat';
 import { LinksContext } from 'providers/LinksProvider';
 
@@ -45,19 +43,18 @@ const Login = () => {
     setPasswordShown(!passwordShown);
   };
 
-  const onSubmit = async () => {
-    const requestBody = {
-      username: userEmail,
-      password: userPassword,
-    };
+  const onSubmit = async (event) => {
+    event.preventDefault();
+    const requestBody = new FormData(event.target);
     const requestOptions = {
       method: 'POST',
-      body: JSON.stringify(requestBody),
-      headers: new Headers({ 'content-type': 'application/json' }),
+      body: new URLSearchParams(requestBody),
     };
-    const response = await fetch(`${LinksCtx.links}/login`, requestOptions);
-    const data = await response.json();
-    console.log(JSON.stringify(data));
+    const authUrl = LinksCtx.login;
+    const response = await fetch(authUrl, requestOptions);
+    if (response.redirected) {
+      window.location = response.url;
+    }
   };
 
   return (
@@ -66,12 +63,12 @@ const Login = () => {
         Witaj w <GreenTextWrapper>B</GreenTextWrapper>ookify!
       </LoginTitle>
       <TextSpan>Zaloguj się, aby uzyskać dostęp do wszystkich funkcjonalności.</TextSpan>
-      <form>
+      <form onSubmit={onSubmit}>
         <UserInputWrapper>
           <DarkIconStyleWrapper>
             <PersonFill size="18" />
           </DarkIconStyleWrapper>
-          <UserInput type="email" name="email" autoComplete="email" placeholder="Adres email" value={userEmail} onChange={onEmailChange} />
+          <UserInput type="email" name="username" autoComplete="username" placeholder="Adres email" value={userEmail} onChange={onEmailChange} />
         </UserInputWrapper>
         <UserInputWrapper>
           <DarkIconStyleWrapper>
@@ -79,8 +76,8 @@ const Login = () => {
           </DarkIconStyleWrapper>
           <UserInput
             type={passwordShown ? 'text' : 'password'}
-            name="current-password"
-            autoComplete="current-password"
+            name="password"
+            autoComplete="password"
             placeholder="Hasło"
             value={userPassword}
             onChange={onPasswordChange}
@@ -89,10 +86,12 @@ const Login = () => {
             <EyeOutline size="24" />
           </DarkEyeStyleWrapper>
         </UserInputWrapper>
-        <PrimaryButton onClick={onSubmit}>Zaloguj się</PrimaryButton>
+        <PrimaryButton type="submit" name="submit">
+          Zaloguj się
+        </PrimaryButton>
       </form>
       <DividerWrapper>
-        <Line></Line>LUB<Line></Line>
+        <Line/>LUB<Line/>
       </DividerWrapper>
       <IconsContainer>
         <IconsWrapper>
