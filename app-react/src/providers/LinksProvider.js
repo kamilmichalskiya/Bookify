@@ -16,6 +16,7 @@ export const LinksContext = React.createContext({
   login: '',
   logout: '',
   links: '/api',
+  getLinks: () => {},
 });
 
 const LinksProvider = ({ children }) => {
