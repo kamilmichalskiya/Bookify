@@ -5,14 +5,17 @@ const linkNames = {
   employees: 'GET_ALL_EMPLOYEES',
   offers: 'GET_ALL_OFFERS',
   links: 'GET_MAIN_LINKS',
+  login: 'LOGIN',
+  logout: 'LOGOUT',
 };
 
 export const LinksContext = React.createContext({
   rooms: '',
   employees: '',
   offers: '',
+  login: '',
+  logout: '',
   links: '/api',
-  getLinks: () => {},
 });
 
 const LinksProvider = ({ children }) => {
@@ -42,6 +45,12 @@ const LinksProvider = ({ children }) => {
             break;
           case linkNames.links:
             newLinksContext.links = href;
+            break;
+          case linkNames.login:
+            newLinksContext.login = href;
+            break;
+          case linkNames.logout:
+            newLinksContext.logout = href;
             break;
           default:
             break;

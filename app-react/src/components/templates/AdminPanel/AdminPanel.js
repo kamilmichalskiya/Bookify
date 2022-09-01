@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Wrapper, Header, IconExit, Logo } from './AdminPanel-styled';
 import '@fontsource/montserrat';
-import auth from 'helpers/auth';
 import Footer from 'components/molecules/Footer/Footer';
 import Tabs from 'components/organisms/Tabs/Tabs';
 import { LinksContext } from 'providers/LinksProvider';
@@ -52,10 +51,13 @@ const AdminPanel = ({ history }) => {
     }
   }, [rooms, offers, employees]);
 
-  const logout = () => {
-    auth.logout(() => {
-      history.push('/');
+  const logout = async () => {
+    const response = await fetch(LinksCtx.logout,{
+      method: 'GET',
     });
+    if (response.redirected) {
+      history.push('/');
+    }
   };
 
   const updateData = (type = 'rooms') => {
@@ -82,8 +84,8 @@ const AdminPanel = ({ history }) => {
           <Logo>Bookify</Logo>
           <IconExit onClick={logout} />
         </Header>
-        <Tabs rooms={rooms} offers={offers} employees={employees} updateData={updateData}></Tabs>
-        <Footer></Footer>
+        <Tabs rooms={rooms} offers={offers} employees={employees} updateData={updateData}/>
+        <Footer/>
       </Wrapper>
     </>
   );

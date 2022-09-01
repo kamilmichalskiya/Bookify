@@ -30,7 +30,6 @@ public class ReservationToUiMapper implements Mapper<ReservationBE, UiReservatio
         final UiRoom uiRoom = new UiRoom();
         final RoomBE room = source.getRoom();
         uiRoom.setId(room.getId());
-        uiRoom.setImages(room.getImages());
         uiRoom.setRoomType(room.getRoomType());
         uiRoom.setCapacity(room.getCapacity());
         uiRoom.setPrice(room.getPrice());

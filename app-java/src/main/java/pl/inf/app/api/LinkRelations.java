@@ -9,6 +9,9 @@ import lombok.Getter;
 public enum LinkRelations {
     GET_MAIN_LINKS("Get main endpoint links"),
 
+    LOGIN("Login"),
+    LOGOUT("Logout"),
+
     GET_ROOM("Get room"),
     GET_ALL_ROOMS("Get all rooms"),
     CREATE_ROOM("Add new room"),

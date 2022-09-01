@@ -4,8 +4,6 @@ import { GlobalStyle } from 'assets/styles/GlobalStyle';
 import { theme } from 'assets/styles/theme';
 import { Wrapper } from './Root.styles';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-// eslint-disable-next-line no-unused-vars
-import { ProtectedRoute } from 'helpers/protectedRoute';
 import LandingPage from 'components/templates/LandingPage/LandingPage';
 import AdminPanel from 'components/templates/AdminPanel/AdminPanel';
 import EmployeePanel from 'components/templates/EmployeePanel/EmployeePanel';
@@ -24,7 +22,7 @@ const Root = () => {
               <Switch>
                 <Route path="/admin" component={AdminPanel} />
                 <Route path="/employee" component={EmployeePanel} />
-                <Route path="/steps" render={(props) => <Steps {...props} />}></Route>
+                <Route path="/steps" render={(props) => <Steps {...props} />}/>
                 <Route path="/" component={LandingPage} />
               </Switch>
             </Wrapper>
