@@ -1,0 +1,15 @@
+/* TODO: rewrite to styled components & theme.js references */
+/* RoomGalery styles override */
+.image-gallery-svg {
+  color: #1ED760;
+}
+
+.image-gallery-bullet.active {
+  background: #1ED760 !important;
+  border: 1px solid #1ED760 !important;
+}
+
+.image-gallery-bullet:hover {
+  background: #E9E9E9 !important;
+  border: 1px solid #E9E9E9 !important;
+}

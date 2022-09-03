@@ -50,7 +50,7 @@ const List = ({ rooms, onRoomDetailsClickHandler }) => {
     <RoomWrapper>
       {rooms.map((room) => (
         <RoomContainer key={room.id}>
-          <Photo url={room.image}></Photo>
+          <Photo url={room.images && room.images[0]}></Photo>
           <RoomContainerContext>
             <RoomContainerContextTitle>
               Pokój {room.roomType} ({room.capacity} osobowy)

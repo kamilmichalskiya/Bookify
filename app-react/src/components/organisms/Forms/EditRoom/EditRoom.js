@@ -1,18 +1,19 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { SaveButton } from 'components/atoms/Button/Button';
-import { Header, ContentWrapper, Footer, ErrorText, ImageContainer, Image, DeleteImageButton } from './EditRoom-styled';
-import FormField from 'components/molecules/FormField/FormField';
+import { Header, ContentWrapper, Footer, ErrorText, ImageContainer, DeleteImageButton } from './EditRoom-styled';
 import { LinksContext } from 'providers/LinksProvider';
 import { roomTypeOptions } from 'data/roomTypeOptions';
 import { addOnOptions } from 'data/addOnOptions';
 import { Label } from 'components/atoms/Label/Label';
 import { convertBase64 } from 'helpers/convertBase64';
 import { toast } from 'react-toastify';
+import FormField from 'components/molecules/FormField/FormField';
+import RoomGalery from 'components/molecules/RoomGalery/RoomGalery';
 
 const EditRoom = ({ room, setShowModal, updateData }) => {
   const initialValues = {
     active: room.active || false,
-    image: room.image || '',
+    images: room.images || '',
     roomType: room.roomType ? { label: room.roomType, value: room.roomType } : '',
     price: room.price || '',
     capacity: room.capacity || 0,
@@ -160,8 +161,8 @@ const EditRoom = ({ room, setShowModal, updateData }) => {
 
   const validate = (values) => {
     const errors = {};
-    if (!values.image) {
-      errors.image = 'Zdjęcie jest wymagane!';
+    if (!values.images || values.images.length === 0) {
+      errors.images = 'Minimum jedno zdjęcie jest wymagane!';
     }
     if (!values.roomType) {
       errors.roomType = 'Rodzaj pokoju jest wymagany!';
@@ -190,16 +191,19 @@ const EditRoom = ({ room, setShowModal, updateData }) => {
     return errors;
   };
 
-  const removeImage = (e) => {
+  const removeImage = (e, index = 1) => {
     e.preventDefault();
-    setFormValues({ ...formValues, image: '' });
+    const newImages = formValues.images.splice(index);
+    setFormValues({ ...formValues, images: newImages });
   };
 
   const addImage = async (e) => {
     e.preventDefault();
     const files = e.target.files;
     const base64 = await convertBase64(files[0]);
-    setFormValues({ ...formValues, image: base64 });
+    const newImages = formValues.images;
+    newImages.push(base64);
+    setFormValues({ ...formValues, images: newImages });
   };
 
   return (
@@ -215,21 +219,23 @@ const EditRoom = ({ room, setShowModal, updateData }) => {
           disabled={false}
           options=""
           checked={formValues.active ? 'checked' : ''}
+          value=""
         />
-        {formValues.image ? (
+        {formValues.images.length > 0 ? (
           <>
             <Label>Zdjęcie pokoju:</Label>
             <ImageContainer>
-              <Image src={formValues.image} alt="roomImage1"></Image>
+              <RoomGalery images={formValues.images} options={{ showNav: false }} />
               <DeleteImageButton onClick={removeImage} title="Usuń zdjęcie">
                 X
               </DeleteImageButton>
             </ImageContainer>
+            <FormField onChange={addImage} value="" label="Wgraj więcej zdjęć" name="images" id="roomImages" type="file" />
           </>
         ) : (
-          <FormField onChange={addImage} value={formValues.image} label="Wgraj zdjęcie" name="image" id="roomImage" type="file" />
+          <FormField onChange={addImage} value="" label="Wgraj zdjęcie" name="images" id="roomImages" type="file" />
         )}
-        <ErrorText>{formErrors.image}</ErrorText>
+        <ErrorText>{formErrors.images}</ErrorText>
         <FormField
           onChange={handleChange}
           value={formValues.roomType}

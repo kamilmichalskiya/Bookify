@@ -56,6 +56,7 @@ const FormField = ({
 
   return (
     <Wrapper type={type}>
+      <Label htmlFor={id}>{label}</Label>
       {type === 'text' ? (
         <Input
           name={name}
@@ -85,7 +86,6 @@ const FormField = ({
       )}
       {type === 'checkbox' ? (
         <>
-          <Label htmlFor={id}>{label}</Label>
           <Input name={name} id={id} checked={checked} type={type} onChange={onChange} disabled={disabled} />
         </>
       ) : (
@@ -130,9 +130,9 @@ FormField.propTypes = {
   id: PropTypes.string.isRequired,
   type: PropTypes.string,
   disabled: PropTypes.bool,
-  options: PropTypes.array,
-  checked: PropTypes.bool,
+  checked: PropTypes.string,
   onFocus: PropTypes.func,
+  options: PropTypes.any,
   maxLength: PropTypes.any,
 };
 

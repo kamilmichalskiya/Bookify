@@ -22,8 +22,6 @@ const Step4 = ({ changeStep }) => {
   let recaptchaUrl;
   if (window.location.hostname === 'localhost') {
     recaptchaUrl = '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI';
-  } else {
-    recaptchaUrl = '6LdX3nUhAAAAAL32frx95e4pw7i_wNqwh_x-dK2d';
   }
 
   const handleInputFocus = (e) => {
