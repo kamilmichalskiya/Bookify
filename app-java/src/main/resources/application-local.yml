@@ -3,3 +3,5 @@ spring:
     url: jdbc:postgresql://localhost:5432/bookify
     username: postgres
     password: postgres
+notification:
+  service: console

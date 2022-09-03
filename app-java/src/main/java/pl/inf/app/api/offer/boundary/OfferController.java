@@ -45,9 +45,12 @@ public class OfferController {
      */
     @GetMapping
     public ResponseEntity<CollectionModel<EntityModel<UiOffer>>> getAll() {
-        return ResponseEntity.ok(CollectionModel.of(offerBF.getAll(offerToUiMapper).stream().map(offer -> EntityModel.of(offer)
-                .add(linkTo(methodOn(OfferController.class).getById(offer.getId())).withRel(GET_OFFER.toString()))
-                .add(linkTo(methodOn(OfferController.class).updateOffer(offer.getId(), null)).withRel(UPDATE_OFFER.toString())))
+        return ResponseEntity.ok(CollectionModel.of(offerBF.getAll(offerToUiMapper)
+                .stream()
+                .map(offer -> EntityModel.of(offer)
+                        .add(linkTo(methodOn(OfferController.class).getById(offer.getId())).withRel(GET_OFFER.toString()))
+                        .add(linkTo(methodOn(OfferController.class).updateOffer(offer.getId(), null)).withRel(
+                                UPDATE_OFFER.toString())))
                 .collect(Collectors.toList()))
                 .add(linkTo(methodOn(OfferController.class).createOffer(null)).withRel(CREATE_OFFER.toString()))
                 .add(linkTo(methodOn(OfferController.class).getAll()).withSelfRel()));
@@ -60,7 +63,8 @@ public class OfferController {
      */
     @GetMapping("/active")
     public ResponseEntity<CollectionModel<EntityModel<UiOffer>>> getActiveOffers() {
-        return ResponseEntity.ok(CollectionModel.of(offerBF.getActiveOffers(offerToUiMapper).stream()
+        return ResponseEntity.ok(CollectionModel.of(offerBF.getActiveOffers(offerToUiMapper)
+                .stream()
                 .map(offer -> EntityModel.of(offer)
                         .add(linkTo(methodOn(OfferController.class).getById(offer.getId())).withRel(GET_OFFER.toString())))
                 .collect(Collectors.toList())).add(linkTo(methodOn(OfferController.class).getActiveOffers()).withSelfRel()));
