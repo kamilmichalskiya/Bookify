@@ -1,10 +1,12 @@
 package pl.inf.app.bm.reservation.boundary;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.inf.app.api.offer.entity.UiOffer;
 import pl.inf.app.api.reservation.entity.UiReservation;
+import pl.inf.app.bm.notification.entity.NotificationEvent;
 import pl.inf.app.bm.offer.boundary.OfferBF;
 import pl.inf.app.bm.offer.entity.OfferBE;
 import pl.inf.app.bm.reservation.control.ReservationRepositoryBA;
@@ -35,8 +37,11 @@ import static pl.inf.app.error.ErrorType.RESERVATION_VALIDATION_ERROR;
 @Service
 @RequiredArgsConstructor
 public class ReservationBF {
+    private final String SUBJECT = "Bookify - rezerwacja pokoju";
+
     private final UiReservationToEntityMapper uiReservationToEntityMapper;
     private final ReservationRepositoryBA reservationRepositoryBA;
+    private final ApplicationEventPublisher eventPublisher;
     private final RoomBF roomBF;
     private final OfferBF offerBF;
 
@@ -77,16 +82,25 @@ public class ReservationBF {
     public <T> T create(final UUID roomId, final UiReservation uiReservation, final Mapper<ReservationBE, T> uiMapper) {
         final ReservationBE reservationBE = uiReservationToEntityMapper.map(new Filler<>(uiReservation, new ReservationBE()));
         reservationBE.setRoom(roomBF.getActiveById(roomId, roomBE -> roomBE));
-        reservationBE.setOffers(Optional.ofNullable(uiReservation).map(UiReservation::getOffers).map(
-                uiOffers -> uiOffers.stream().map(UiOffer::getId).collect(Collectors.toList()))
-                .map(idList -> offerBF.getOffersById(idList, HashSet::new)).orElse(null));
+        reservationBE.setOffers(Optional.ofNullable(uiReservation)
+                .map(UiReservation::getOffers)
+                .map(uiOffers -> uiOffers.stream().map(UiOffer::getId).collect(Collectors.toList()))
+                .map(idList -> offerBF.getOffersById(idList, HashSet::new))
+                .orElse(null));
 
         if (!validReservation(reservationBE)) {
             throw new ProcessException(RESERVATION_VALIDATION_ERROR, reservationBE, uiReservation);
         }
 
-        return Optional.of(reservationRepositoryBA.save(reservationBE)).map(uiMapper::map).orElseThrow(
-                () -> new ProcessException(RESERVATION_CREATING_ERROR, reservationBE));
+        return Optional.of(reservationRepositoryBA.save(reservationBE)).map(reservation -> {
+            final NotificationEvent notificationEvent = NotificationEvent.builder()
+                    .to(reservation.getCustomerData().getEmail())
+                    .subject(SUBJECT)
+                    .text(getBody(reservation))
+                    .build();
+            eventPublisher.publishEvent(notificationEvent);
+            return reservation;
+        }).map(uiMapper::map).orElseThrow(() -> new ProcessException(RESERVATION_CREATING_ERROR, reservationBE));
     }
 
     /**
@@ -113,5 +127,12 @@ public class ReservationBF {
                 OfferBE::isActive) && roomBF.notMatchesBooking(reservationBE.getStartDate(), reservationBE.getEndDate(),
                 reservationBE.getRoom()) && !reservationBE.getStartDate().before(nowDate) && reservationBE.getEndDate().after(
                 reservationBE.getStartDate());
+    }
+
+    private String getBody(final ReservationBE reservation) {
+        return String.format("Dokonano rezerwacji (id: %s) pokoju %s w dniach od %s do %s za kwotę %s zł\n\n" +
+                             "Dziękujemy Zespół Bookify\n\n" + "Poniższa wiadomość jest wyłącznie wiadomością testową",
+                reservation.getId(), reservation.getRoom().getId(), reservation.getStartDate(), reservation.getEndDate(),
+                reservation.getTotalPrice());
     }
 }

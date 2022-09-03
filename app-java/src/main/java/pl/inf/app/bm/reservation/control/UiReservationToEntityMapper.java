@@ -23,9 +23,11 @@ public class UiReservationToEntityMapper implements Mapper<Filler<UiReservation,
         final UiReservation source = filler.getSource();
 
         if (source.getStartDate() != null && source.getEndDate() != null) {
-            target.setStartDate(new Date(
-                    source.getStartDate().toLocalDate().atStartOfDay().toInstant(OffsetDateTime.now().getOffset())
-                            .toEpochMilli()));
+            target.setStartDate(new Date(source.getStartDate()
+                    .toLocalDate()
+                    .atStartOfDay()
+                    .toInstant(OffsetDateTime.now().getOffset())
+                    .toEpochMilli()));
             target.setEndDate(new Date(
                     source.getEndDate().toLocalDate().atStartOfDay().toInstant(OffsetDateTime.now().getOffset()).toEpochMilli()));
         }

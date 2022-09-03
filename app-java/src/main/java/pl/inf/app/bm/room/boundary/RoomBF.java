@@ -113,9 +113,13 @@ public class RoomBF {
     public <T> List<T> search(final UiSearchParams searchParams, final Mapper<RoomBE, T> uiMapper) {
         if (!searchParams.areValid()) throw new ProcessException(INVALID_SEARCH_PARAMS, searchParams);
 
-        return roomRepository.findByActiveTrue().stream().filter(roomBE -> matchesRoomType(searchParams, roomBE)).filter(
-                roomBE -> matchesCapacity(searchParams, roomBE)).filter(roomBE -> matchAddOns(searchParams, roomBE)).filter(
-                roomBE -> notMatchesBooking(searchParams.getStartDate(), searchParams.getEndDate(), roomBE)).map(uiMapper::map)
+        return roomRepository.findByActiveTrue()
+                .stream()
+                .filter(roomBE -> matchesRoomType(searchParams, roomBE))
+                .filter(roomBE -> matchesCapacity(searchParams, roomBE))
+                .filter(roomBE -> matchAddOns(searchParams, roomBE))
+                .filter(roomBE -> notMatchesBooking(searchParams.getStartDate(), searchParams.getEndDate(), roomBE))
+                .map(uiMapper::map)
                 .collect(Collectors.toList());
     }
 
