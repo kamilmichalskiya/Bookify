@@ -22,7 +22,7 @@ const Root = () => {
               <Switch>
                 <Route path="/admin" component={AdminPanel} />
                 <Route path="/employee" component={EmployeePanel} />
-                <Route path="/steps" render={(props) => <Steps {...props} />}/>
+                <Route path="/steps" render={(props) => <Steps {...props} />} />
                 <Route path="/" component={LandingPage} />
               </Switch>
             </Wrapper>

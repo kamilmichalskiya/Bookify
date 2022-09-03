@@ -3,7 +3,7 @@ import ImageGallery from 'react-image-gallery';
 import 'react-image-gallery/styles/css/image-gallery.css';
 import './RoomGalery.css';
 
-const RoomGalery = ({ images, options }) => {
+const RoomGalery = ({ images, options, roomImageSwipeCallback }) => {
   const itemsConfig = [];
   images.forEach((image) => {
     itemsConfig.push({ original: image });
@@ -15,6 +15,7 @@ const RoomGalery = ({ images, options }) => {
     showThumbnails: false,
     items: itemsConfig,
     ...options,
+    onSlide: roomImageSwipeCallback,
   };
 
   return <ImageGallery {...properties} />;

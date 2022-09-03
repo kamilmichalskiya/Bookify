@@ -52,7 +52,7 @@ const AdminPanel = ({ history }) => {
   }, [rooms, offers, employees]);
 
   const logout = async () => {
-    const response = await fetch(LinksCtx.logout,{
+    const response = await fetch(LinksCtx.logout, {
       method: 'GET',
     });
     if (response.redirected) {
@@ -84,8 +84,8 @@ const AdminPanel = ({ history }) => {
           <Logo>Bookify</Logo>
           <IconExit onClick={logout} />
         </Header>
-        <Tabs rooms={rooms} offers={offers} employees={employees} updateData={updateData}/>
-        <Footer/>
+        <Tabs rooms={rooms} offers={offers} employees={employees} updateData={updateData} />
+        <Footer />
       </Wrapper>
     </>
   );

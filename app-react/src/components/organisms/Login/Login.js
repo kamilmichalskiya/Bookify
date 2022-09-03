@@ -91,7 +91,9 @@ const Login = () => {
         </PrimaryButton>
       </form>
       <DividerWrapper>
-        <Line/>LUB<Line/>
+        <Line />
+        LUB
+        <Line />
       </DividerWrapper>
       <IconsContainer>
         <IconsWrapper>

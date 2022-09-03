@@ -48,7 +48,12 @@ const EditRoom = ({ room, setShowModal, updateData }) => {
   const [formValues, setFormValues] = useState(initialValues);
   const [formErrors, setFormErrors] = useState({});
   const [isSubmit, setIsSubmit] = useState(false);
+  const [roomImageIndex, setRoomImageIndex] = useState(0);
   const LinksCtx = useContext(LinksContext);
+
+  const roomImageSwipeCallback = (index) => {
+    setRoomImageIndex(index);
+  };
 
   const handleChange = (e) => {
     if (e.type === 'roomType') {
@@ -191,10 +196,14 @@ const EditRoom = ({ room, setShowModal, updateData }) => {
     return errors;
   };
 
-  const removeImage = (e, index = 1) => {
+  const removeImage = (e) => {
     e.preventDefault();
-    const newImages = formValues.images.splice(index);
-    setFormValues({ ...formValues, images: newImages });
+    if (formValues.images.length >= roomImageIndex) {
+      const newImages = formValues.images;
+      newImages.splice(roomImageIndex, 1);
+      setFormValues({ ...formValues, images: newImages });
+      setRoomImageIndex(roomImageIndex - 1);
+    }
   };
 
   const addImage = async (e) => {
@@ -204,6 +213,7 @@ const EditRoom = ({ room, setShowModal, updateData }) => {
     const newImages = formValues.images;
     newImages.push(base64);
     setFormValues({ ...formValues, images: newImages });
+    setRoomImageIndex(roomImageIndex + 1);
   };
 
   return (
@@ -225,7 +235,7 @@ const EditRoom = ({ room, setShowModal, updateData }) => {
           <>
             <Label>Zdjęcie pokoju:</Label>
             <ImageContainer>
-              <RoomGalery images={formValues.images} options={{ showNav: false }} />
+              <RoomGalery images={formValues.images} options={{ showNav: false }} roomImageSwipeCallback={roomImageSwipeCallback} />
               <DeleteImageButton onClick={removeImage} title="Usuń zdjęcie">
                 X
               </DeleteImageButton>
