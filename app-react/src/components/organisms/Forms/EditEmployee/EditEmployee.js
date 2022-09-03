@@ -135,25 +135,11 @@ const EditEmployee = ({ employee, setShowModal, updateData }) => {
         ) : (
           ''
         )}
-        <FormField onChange={handleChange} value={formValues.name} name="name" id="employeeName" type="text" placeholder="Imię"></FormField>
+        <FormField onChange={handleChange} value={formValues.name} name="name" id="employeeName" type="text" label="Imię"></FormField>
         <ErrorText>{formErrors.name}</ErrorText>
-        <FormField
-          onChange={handleChange}
-          value={formValues.surname}
-          name="surname"
-          id="employeeSurname"
-          type="text"
-          placeholder="Nazwisko"
-        ></FormField>
+        <FormField onChange={handleChange} value={formValues.surname} name="surname" id="employeeSurname" type="text" label="Nazwisko"></FormField>
         <ErrorText>{formErrors.surname}</ErrorText>
-        <FormField
-          onChange={handleChange}
-          value={formValues.email}
-          name="email"
-          id="employeeEmail"
-          type="text"
-          placeholder="Adres e-mail"
-        ></FormField>
+        <FormField onChange={handleChange} value={formValues.email} name="email" id="employeeEmail" type="text" label="Adres e-mail"></FormField>
         <ErrorText>{formErrors.email}</ErrorText>
         <FormField
           onChange={handleChange}
@@ -161,7 +147,7 @@ const EditEmployee = ({ employee, setShowModal, updateData }) => {
           name="password"
           id="employeePassword"
           type="password"
-          placeholder="Hasło"
+          label="Hasło"
         ></FormField>
         <ErrorText>{formErrors.password}</ErrorText>
         <FormField
@@ -170,7 +156,7 @@ const EditEmployee = ({ employee, setShowModal, updateData }) => {
           name="confirmPassword"
           id="employeeConfirmPassword"
           type="password"
-          placeholder="Potwierdź hasło"
+          label="Potwierdź hasło"
         ></FormField>
         <ErrorText>{formErrors.confirmPassword}</ErrorText>
       </ContentWrapper>

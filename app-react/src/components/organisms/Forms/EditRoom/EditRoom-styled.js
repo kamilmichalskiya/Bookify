@@ -32,6 +32,7 @@ export const ImageContainer = styled.div`
   position: relative;
   width: 100%;
   max-width: 350px;
+  max-height: 350px;
   margin: 20px 0;
 `;
 

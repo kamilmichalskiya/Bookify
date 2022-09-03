@@ -47,11 +47,10 @@ const LandingPage = () => {
       switch (queryParams) {
         case '?login=true':
           setShowModal(true);
-          toast.error('Podane dane logowania są nieprawidłowe.');
           break;
         case '?error=true':
           setShowModal(true);
-          toast.error('Wystąpił błąd. Upewnij się że twoje konto ma odpowiednie uprawnienia.');
+          toast.error('Podane dane logowania są nieprawidłowe.');
           break;
         default:
           break;
