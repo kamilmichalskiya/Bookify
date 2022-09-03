@@ -48,9 +48,12 @@ public class RoomController {
      */
     @GetMapping
     public ResponseEntity<CollectionModel<EntityModel<UiRoom>>> getAll() {
-        return ResponseEntity.ok(CollectionModel.of(roomBF.getAll(roomToUiMapper).stream().map(uiRoom -> EntityModel.of(uiRoom)
-                .add(linkTo(methodOn(RoomController.class).getById(uiRoom.getId())).withRel(GET_ROOM.toString()))
-                .add(linkTo(methodOn(RoomController.class).updateRoom(uiRoom.getId(), null)).withRel(UPDATE_ROOM.toString())))
+        return ResponseEntity.ok(CollectionModel.of(roomBF.getAll(roomToUiMapper)
+                .stream()
+                .map(uiRoom -> EntityModel.of(uiRoom)
+                        .add(linkTo(methodOn(RoomController.class).getById(uiRoom.getId())).withRel(GET_ROOM.toString()))
+                        .add(linkTo(methodOn(RoomController.class).updateRoom(uiRoom.getId(), null)).withRel(
+                                UPDATE_ROOM.toString())))
                 .collect(Collectors.toList()))
                 .add(linkTo(methodOn(RoomController.class).createRoom(null)).withRel(CREATE_ROOM.toString()))
                 .add(linkTo(methodOn(RoomController.class).getAll()).withSelfRel()));
@@ -107,12 +110,13 @@ public class RoomController {
      */
     @PostMapping("/search")
     public ResponseEntity<CollectionModel<EntityModel<UiRoom>>> searchRooms(@RequestBody final UiSearchParams searchParams) {
-        return ResponseEntity.ok(CollectionModel.of(roomBF.search(searchParams, roomToUiMapper).stream()
+        return ResponseEntity.ok(CollectionModel.of(roomBF.search(searchParams, roomToUiMapper)
+                .stream()
                 .map(uiRoom -> EntityModel.of(uiRoom)
                         .add(linkTo(methodOn(RoomController.class).getById(uiRoom.getId())).withRel(GET_ROOM.toString()))
-                        .add(linkTo(methodOn(ReservationController.class).createReservation(uiRoom.getId(), null))
-                                .withRel(CREATE_RESERVATION.toString()))).collect(Collectors.toList()))
-                .add(linkTo(methodOn(RoomController.class).searchRooms(null)).withSelfRel()));
+                        .add(linkTo(methodOn(ReservationController.class).createReservation(uiRoom.getId(), null)).withRel(
+                                CREATE_RESERVATION.toString())))
+                .collect(Collectors.toList())).add(linkTo(methodOn(RoomController.class).searchRooms(null)).withSelfRel()));
     }
 
 }
