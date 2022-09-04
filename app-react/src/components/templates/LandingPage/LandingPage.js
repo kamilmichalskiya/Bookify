@@ -12,6 +12,8 @@ import { LinksContext } from 'providers/LinksProvider';
 import { UserDataContext } from 'providers/UserDataProvider';
 import Loader from 'components/atoms/Loader/Loader';
 import Steps from '../Steps/Steps';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const LandingPage = ({ history, employeeConfig = {} }) => {
   const [isLoading, setIsLoading] = useState(true);
@@ -42,6 +44,23 @@ const LandingPage = ({ history, employeeConfig = {} }) => {
     UserCtx.setUserData({ ...UserCtx, room: selectedRoom, totalPrice: totalPrice });
     setRedirect(true);
   };
+
+  useEffect(() => {
+    const queryParams = window.location.search;
+    if (queryParams) {
+      switch (queryParams) {
+        case '?login=true':
+          setShowModal(true);
+          break;
+        case '?error=true':
+          setShowModal(true);
+          toast.error('Podane dane logowania są nieprawidłowe.');
+          break;
+        default:
+          break;
+      }
+    }
+  }, []);
 
   useEffect(() => {
     const getRooms = async () => {
@@ -78,6 +97,17 @@ const LandingPage = ({ history, employeeConfig = {} }) => {
       ) : (
         <Wrapper>
           {isLoading ? <Loader isLoading={isLoading} /> : ''}
+          <ToastContainer
+            position="top-right"
+            autoClose={3000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+          />
           <Modal showModal={showModal} setShowModal={setShowModal}>
             <Login history={history}></Login>
           </Modal>

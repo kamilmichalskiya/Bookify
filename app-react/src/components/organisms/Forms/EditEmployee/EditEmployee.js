@@ -12,6 +12,7 @@ const EditEmployee = ({ employee, setShowModal, updateData }) => {
     surname: employee.surname || '',
     email: employee.email || '',
     password: employee.password || '',
+    confirmPassword: employee.confirmPassword || '',
   };
   if (employee.employeeId) {
     initialValues.employeeId = employee.employeeId;
@@ -33,9 +34,9 @@ const EditEmployee = ({ employee, setShowModal, updateData }) => {
     console.log(formValues);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setFormErrors(validate(formValues));
+    setFormErrors(await validate(formValues));
     setIsSubmit(true);
   };
 
@@ -51,7 +52,7 @@ const EditEmployee = ({ employee, setShowModal, updateData }) => {
       const data = await response.json();
       const { status, error } = data;
       if (response.ok) {
-        toast.success('Konto pracownika zostało pomyślnie zaaktualizowane!');
+        toast.success('Konto pracownika zostało pomyślnie zaktualizowane!');
         setShowModal(false);
         updateData('employees');
       } else {
@@ -88,19 +89,41 @@ const EditEmployee = ({ employee, setShowModal, updateData }) => {
     }
   }, [LinksCtx.employees, formErrors, formValues, isSubmit, employee, setShowModal, updateData]);
 
-  const validate = (values) => {
+  const checkEmail = async (email) => {
+    const checkEmailUrl = `${LinksCtx.employees}/email/check`; // api/employees/email/check
+    const requestOptions = {
+      method: 'POST',
+      body: email,
+      headers: new Headers({ 'content-type': 'application/json' }),
+    };
+    const response = await fetch(checkEmailUrl, requestOptions);
+    const data = await response.json();
+    if (response.ok && data === false) {
+      return 'Konto o podanym adresie email już istnieje!';
+      // setFormErrors({ ...formErrors, email: 'Konto o podanym adresie email już istnieje!' });
+    }
+    return '';
+  };
+
+  const validate = async (values) => {
     const errors = {};
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
     if (!values.name) {
-      errors.name = 'Imie jest wymagane!';
+      errors.name = 'Imię jest wymagane!';
     }
     if (!values.surname) {
       errors.surname = 'Nazwisko jest wymagane!';
     }
+    const usedEmail = await checkEmail(values.email);
     if (!values.email) {
       errors.email = 'Adres e-mail jest wymagany!';
     } else if (!regex.test(values.email)) {
       errors.email = 'Adres e-mail musi mieć poprawny format!';
+    } else if (usedEmail) {
+      errors.email = usedEmail;
+    }
+    if (values.password !== values.confirmPassword) {
+      errors.confirmPassword = 'Hasła nie są identyczne!';
     }
 
     return errors;
@@ -126,19 +149,35 @@ const EditEmployee = ({ employee, setShowModal, updateData }) => {
             name="employeeId"
             id="employeeId"
             type="text"
-            disabled={true}
+            disabled={false}
           ></FormField>
         ) : (
           ''
         )}
-        <FormField onChange={handleChange} value={formValues.name} label="Imie" name="name" id="employeeName" type="text"></FormField>
+        <FormField onChange={handleChange} value={formValues.name} name="name" id="employeeName" type="text" label="Imię"></FormField>
         <ErrorText>{formErrors.name}</ErrorText>
-        <FormField onChange={handleChange} value={formValues.surname} label="Nazwisko" name="surname" id="employeeSurname" type="text"></FormField>
+        <FormField onChange={handleChange} value={formValues.surname} name="surname" id="employeeSurname" type="text" label="Nazwisko"></FormField>
         <ErrorText>{formErrors.surname}</ErrorText>
-        <FormField onChange={handleChange} value={formValues.email} label="Adres e-mail" name="email" id="employeeEmail" type="text"></FormField>
+        <FormField onChange={handleChange} value={formValues.email} name="email" id="employeeEmail" type="text" label="Adres e-mail"></FormField>
         <ErrorText>{formErrors.email}</ErrorText>
-        <FormField onChange={handleChange} value={formValues.password} label="Hasło" name="password" id="employeePassword" type="text"></FormField>
+        <FormField
+          onChange={handleChange}
+          value={formValues.password}
+          name="password"
+          id="employeePassword"
+          type="password"
+          label="Hasło"
+        ></FormField>
         <ErrorText>{formErrors.password}</ErrorText>
+        <FormField
+          onChange={handleChange}
+          value={formValues.confirmPassword}
+          name="confirmPassword"
+          id="employeeConfirmPassword"
+          type="password"
+          label="Potwierdź hasło"
+        ></FormField>
+        <ErrorText>{formErrors.confirmPassword}</ErrorText>
       </ContentWrapper>
       <Footer>
         <div></div>

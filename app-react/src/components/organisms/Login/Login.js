@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import {
   LoginTitle,
   TextSpan,
@@ -22,10 +22,11 @@ import { EyeOutline } from '@styled-icons/evaicons-outline/EyeOutline';
 import { Google } from '@styled-icons/fa-brands/Google';
 import { FacebookF } from '@styled-icons/fa-brands/FacebookF';
 import { Apple } from '@styled-icons/fa-brands/Apple';
-import auth from 'helpers/auth';
 import '@fontsource/montserrat';
+import { LinksContext } from 'providers/LinksProvider';
 
-const Login = ({ history }) => {
+const Login = () => {
+  const LinksCtx = useContext(LinksContext);
   const [userEmail, setUserEmail] = useState('');
   const [userPassword, setUserPassword] = useState('');
   const [passwordShown, setPasswordShown] = useState(false);
@@ -42,10 +43,18 @@ const Login = ({ history }) => {
     setPasswordShown(!passwordShown);
   };
 
-  const onSubmit = () => {
-    auth.login(userEmail, userPassword, () => {
-      history.push('/admin');
-    });
+  const onSubmit = async (event) => {
+    event.preventDefault();
+    const requestBody = new FormData(event.target);
+    const requestOptions = {
+      method: 'POST',
+      body: new URLSearchParams(requestBody),
+    };
+    const authUrl = LinksCtx.login;
+    const response = await fetch(authUrl, requestOptions);
+    if (response.redirected) {
+      window.location = response.url;
+    }
   };
 
   return (
@@ -54,12 +63,12 @@ const Login = ({ history }) => {
         Witaj w <GreenTextWrapper>B</GreenTextWrapper>ookify!
       </LoginTitle>
       <TextSpan>Zaloguj się, aby uzyskać dostęp do wszystkich funkcjonalności.</TextSpan>
-      <form>
+      <form onSubmit={onSubmit}>
         <UserInputWrapper>
           <DarkIconStyleWrapper>
             <PersonFill size="18" />
           </DarkIconStyleWrapper>
-          <UserInput type="email" name="email" autoComplete="email" placeholder="Adres email" value={userEmail} onChange={onEmailChange} />
+          <UserInput type="email" name="username" autoComplete="username" placeholder="Adres email" value={userEmail} onChange={onEmailChange} />
         </UserInputWrapper>
         <UserInputWrapper>
           <DarkIconStyleWrapper>
@@ -67,8 +76,8 @@ const Login = ({ history }) => {
           </DarkIconStyleWrapper>
           <UserInput
             type={passwordShown ? 'text' : 'password'}
-            name="current-password"
-            autoComplete="current-password"
+            name="password"
+            autoComplete="password"
             placeholder="Hasło"
             value={userPassword}
             onChange={onPasswordChange}
@@ -77,10 +86,14 @@ const Login = ({ history }) => {
             <EyeOutline size="24" />
           </DarkEyeStyleWrapper>
         </UserInputWrapper>
-        <PrimaryButton onClick={onSubmit}>Zaloguj się</PrimaryButton>
+        <PrimaryButton type="submit" name="submit">
+          Zaloguj się
+        </PrimaryButton>
       </form>
       <DividerWrapper>
-        <Line></Line>LUB<Line></Line>
+        <Line />
+        LUB
+        <Line />
       </DividerWrapper>
       <IconsContainer>
         <IconsWrapper>

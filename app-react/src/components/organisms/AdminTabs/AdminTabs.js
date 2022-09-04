@@ -19,7 +19,7 @@ const Tabs = ({ rooms, offers, employees, updateData }) => {
   const [roomPageNumber, setRoomPageNumber] = useState(0);
   const [offerPageNumber, setOfferPageNumber] = useState(0);
   const [employeePageNumber, setEmployeePageNumber] = useState(0);
-  const itemsPerPage = 2;
+  const itemsPerPage = 5;
 
   const changeRoomPage = ({ selected }) => {
     setRoomPageNumber(selected);

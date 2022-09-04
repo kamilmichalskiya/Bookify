@@ -45,10 +45,11 @@ public class EmployeeController {
     @GetMapping
     public ResponseEntity<CollectionModel<EntityModel<UiEmployee>>> getAll() {
         return ResponseEntity.ok(CollectionModel.of(employeeBF.getAll(employeeToUiMapper).stream().map(employee -> EntityModel.of(
-                employee).add(linkTo(methodOn(EmployeeController.class).getById(employee.getEmployeeId()))
-                .withRel(GET_EMPLOYEE.toString()))
-                .add(linkTo(methodOn(EmployeeController.class).updateEmployee(employee.getEmployeeId(), null))
-                        .withRel(UPDATE_EMPLOYEE.toString()))).collect(Collectors.toList()))
+                employee)
+                .add(linkTo(methodOn(EmployeeController.class).getById(employee.getEmployeeId())).withRel(
+                        GET_EMPLOYEE.toString()))
+                .add(linkTo(methodOn(EmployeeController.class).updateEmployee(employee.getEmployeeId(), null)).withRel(
+                        UPDATE_EMPLOYEE.toString()))).collect(Collectors.toList()))
                 .add(linkTo(methodOn(EmployeeController.class).createEmployee(null)).withRel(CREATE_EMPLOYEE.toString()))
                 .add(linkTo(methodOn(EmployeeController.class).getAll()).withSelfRel()));
     }
@@ -75,10 +76,11 @@ public class EmployeeController {
     @PostMapping
     public ResponseEntity<EntityModel<UiEmployee>> createEmployee(@RequestBody final UiEmployee uiEmployee) {
         final UiEmployee employee = employeeBF.create(uiEmployee, employeeToUiMapper);
-        return ResponseEntity.ok(EntityModel.of(employee).add(
-                linkTo(methodOn(EmployeeController.class).getById(employee.getEmployeeId())).withRel(GET_EMPLOYEE.toString()))
-                .add(linkTo(methodOn(EmployeeController.class).updateEmployee(employee.getEmployeeId(), null))
-                        .withRel(UPDATE_EMPLOYEE.toString()))
+        return ResponseEntity.ok(EntityModel.of(employee)
+                .add(linkTo(methodOn(EmployeeController.class).getById(employee.getEmployeeId())).withRel(
+                        GET_EMPLOYEE.toString()))
+                .add(linkTo(methodOn(EmployeeController.class).updateEmployee(employee.getEmployeeId(), null)).withRel(
+                        UPDATE_EMPLOYEE.toString()))
                 .add(linkTo(methodOn(EmployeeController.class).createEmployee(null)).withSelfRel()));
     }
 
@@ -95,8 +97,8 @@ public class EmployeeController {
         uiEmployee.setEmployeeId(id);
         final UiEmployee employee = employeeBF.update(uiEmployee, employeeToUiMapper);
         return ResponseEntity.ok(EntityModel.of(employee)
-                .add(linkTo(methodOn(EmployeeController.class).getById(employee.getEmployeeId()))
-                        .withRel(GET_EMPLOYEE.toString()))
+                .add(linkTo(methodOn(EmployeeController.class).getById(employee.getEmployeeId())).withRel(
+                        GET_EMPLOYEE.toString()))
                 .add(linkTo(methodOn(EmployeeController.class).updateEmployee(id, null)).withSelfRel()));
     }
 
