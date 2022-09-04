@@ -10,6 +10,7 @@ import pl.inf.app.api.employee.boundary.EmployeeController;
 import pl.inf.app.api.offer.boundary.OfferController;
 import pl.inf.app.api.reservation.boundary.ReservationController;
 import pl.inf.app.api.room.boundary.RoomController;
+import pl.inf.app.config.logger.boundary.LogBF;
 
 import java.util.Arrays;
 import java.util.List;
@@ -40,6 +41,7 @@ public class LinksController {
      */
     @GetMapping
     public ResponseEntity<List<Link>> getLinks() {
+        LogBF.logCustom("Retrieve entry links");
         // @formatter:off
         return ResponseEntity.ok(
                 Arrays.asList(linkTo(methodOn(EmployeeController.class).getAll()).withRel(GET_ALL_EMPLOYEES.toString()),

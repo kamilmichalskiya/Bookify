@@ -1,4 +1,4 @@
-package pl.inf.app.config;
+package pl.inf.app.config.swagger;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

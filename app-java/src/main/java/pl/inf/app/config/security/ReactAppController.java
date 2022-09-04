@@ -1,4 +1,4 @@
-package pl.inf.app.config;
+package pl.inf.app.config.security;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

@@ -29,7 +29,6 @@ public class ProcessException extends RuntimeException {
 
     @Override
     public String toString() {
-
         return "ProcessException: " + "httpStatus=" + httpStatus + ", description=" + description + ", params=" + Arrays.toString(
                 params);
     }
