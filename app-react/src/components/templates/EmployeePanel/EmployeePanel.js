@@ -10,6 +10,7 @@ const EmployeePanel = ({ history }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [reservations, setReservations] = useState([]);
   const [offers, setOffers] = useState([]);
+  const [roomsOccupation, setRoomsOccupation] = useState([]);
   const [isUserPanel, setIsUserPanel] = useState(false);
   const LinksCtx = useContext(LinksContext);
 
@@ -17,15 +18,32 @@ const EmployeePanel = ({ history }) => {
     if (LinksCtx.reservations && LinksCtx.offers) {
       getReservations();
       getOffers();
+      getRoomsOccupation();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [LinksCtx.reservations]);
+
+  useEffect(() => {
+    if (LinksCtx.reservations && LinksCtx.offers && isUserPanel === false) {
+      getReservations();
+      getOffers();
+      getRoomsOccupation();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isUserPanel]);
 
   useEffect(() => {
     if (reservations?.length !== 0) {
       setIsLoading(false);
     }
   }, [reservations]);
+
+  const getRoomsOccupation = async () => {
+    const response = await fetch(`${LinksCtx.reservations}/occupation`);
+    const data = await response.json();
+    setRoomsOccupation(data);
+    console.log(data);
+  };
 
   const getReservations = async () => {
     const response = await fetch(LinksCtx.reservations);
@@ -58,12 +76,12 @@ const EmployeePanel = ({ history }) => {
   };
 
   const logout = async () => {
-    const response = await fetch(LinksCtx.logout, {
-      method: 'GET',
-    });
-    if (response.redirected) {
-      history.push('/');
-    }
+    // const response = await fetch(LinksCtx.logout, {
+    //   method: 'GET',
+    // });
+    // if (response.redirected) {
+    history.push('/');
+    // }
   };
 
   return (
@@ -81,6 +99,8 @@ const EmployeePanel = ({ history }) => {
             <EmployeeTabs
               reservations={reservations}
               offers={offers}
+              roomsOccupation={roomsOccupation}
+              getRoomsOccupation={getRoomsOccupation}
               updateReservations={updateReservations}
               createNewReservation={createNewReservation}
             />
