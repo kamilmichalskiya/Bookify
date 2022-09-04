@@ -3,9 +3,6 @@ package pl.inf.app.config.logger.boundary;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.request.RequestContextHolder;
 import pl.inf.app.config.logger.control.LogRepositoryBA;
@@ -30,6 +27,7 @@ import static pl.inf.app.config.logger.entity.LogType.UPDATE;
 public class LogBF {
     private static final String ANONYMOUS_USER = "ANONYMOUS";
     private static final String BASIC_FORMAT = "%s";
+    private static final String UNKNOWN = "UNKNOWN";
     private static Logger LOGGER;
     private static LogRepositoryBA logRepository;
 
@@ -46,14 +44,11 @@ public class LogBF {
      */
     private static void log(final String message, final LogType type, final Object... params) {
         final LogBE logBE = new LogBE();
-        final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        final Object principal = authentication.getPrincipal();
-        final String username = principal instanceof UserDetails ? ((UserDetails) principal).getUsername() : ANONYMOUS_USER;
-        logBE.setUsername(username);
+        logBE.setUsername(ANONYMOUS_USER);
         logBE.setLogDate(Timestamp.from(Instant.now()));
         logBE.setMessage(String.format(message, params));
         logBE.setType(type);
-        logBE.setUserRole(authentication.getAuthorities().stream().findFirst().map(Object::toString).orElse("UNKNOWN"));
+        logBE.setUserRole(UNKNOWN);
         logBE.setSession(RequestContextHolder.currentRequestAttributes().getSessionId());
         logRepository.save(logBE);
     }

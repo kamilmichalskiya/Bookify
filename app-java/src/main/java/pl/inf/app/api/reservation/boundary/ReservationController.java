@@ -15,10 +15,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import pl.inf.app.api.reservation.control.ReservationToUiMapper;
 import pl.inf.app.api.reservation.entity.UiReservation;
-import pl.inf.app.config.logger.boundary.LogBF;
 import pl.inf.app.bm.reservation.boundary.ReservationBF;
+import pl.inf.app.config.logger.boundary.LogBF;
 
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -57,6 +58,18 @@ public class ReservationController {
                 .add(linkTo(methodOn(ReservationController.class).createReservation(null, null)).withRel(
                         CREATE_RESERVATION.toString()))
                 .add(linkTo(methodOn(ReservationController.class).getAll()).withSelfRel()));
+    }
+
+    /**
+     * Get rooms occupation from database
+     *
+     * @return list of rooms occupation
+     */
+    @GetMapping("/occupation")
+    public ResponseEntity<Map<Integer, List<UiReservation>>> getRoomsOccupation() {
+        final Map<Integer, List<UiReservation>> occupation = reservationBF.getOccupation(reservationToUiMapper);
+        LogBF.logCustom("Retrieve list of rooms occupation. Size : %d", occupation.size());
+        return ResponseEntity.ok(occupation);
     }
 
     /**

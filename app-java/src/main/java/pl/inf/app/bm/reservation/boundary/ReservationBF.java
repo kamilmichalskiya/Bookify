@@ -5,6 +5,7 @@ import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.inf.app.api.offer.entity.UiOffer;
+import pl.inf.app.api.reservation.control.ReservationToUiMapper;
 import pl.inf.app.api.reservation.entity.UiReservation;
 import pl.inf.app.bm.notification.entity.NotificationEvent;
 import pl.inf.app.bm.offer.boundary.OfferBF;
@@ -22,6 +23,7 @@ import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -134,5 +136,15 @@ public class ReservationBF {
                              "Dziękujemy Zespół Bookify\n\n" + "Poniższa wiadomość jest wyłącznie wiadomością testową",
                 reservation.getId(), reservation.getRoom().getId(), reservation.getStartDate(), reservation.getEndDate(),
                 reservation.getTotalPrice());
+    }
+
+    /**
+     * Retrieve list of rooms reservations
+     *
+     * @return list of rooms reservations
+     */
+    public Map<Integer, List<UiReservation>> getOccupation(final ReservationToUiMapper reservationToUiMapper) {
+        return reservationRepositoryBA.findAll().stream().map(reservationToUiMapper::map).collect(
+                Collectors.groupingBy(reservationBE -> reservationBE.getRoom().getRoomNumber()));
     }
 }
