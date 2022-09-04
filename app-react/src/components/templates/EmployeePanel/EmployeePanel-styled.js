@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { StyledIconBase } from '@styled-icons/styled-icon';
 import { MdExitToApp } from 'react-icons/md';
 
 export const Wrapper = styled.div`
@@ -10,13 +9,7 @@ export const Wrapper = styled.div`
   min-height: 100vh;
   box-shadow: 0px 0px 45px rgba(0, 0, 0, 0.1);
   font-size: ${({ theme }) => theme.fontSize.m};
-`;
-
-export const Container = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
+  background-color: ${({ theme }) => theme.colors.tertiary};
 `;
 
 export const Header = styled.div`
@@ -47,16 +40,6 @@ export const Logo = styled.span`
     color: ${({ theme }) => theme.colors.primary};
   }
   &:hover {
-    cursor: pointer;
-  }
-`;
-
-export const IconStyleWrapper = styled.div`
-  ${StyledIconBase} {
-    color: ${({ theme }) => theme.colors.white};
-  }
-  &:hover {
-    opacity: 0.9;
     cursor: pointer;
   }
 `;

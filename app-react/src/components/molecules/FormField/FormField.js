@@ -74,14 +74,14 @@ const FormField = ({ onChange, value, label, name, id, type = 'text', disabled =
 
 FormField.propTypes = {
   onChange: PropTypes.func.isRequired,
-  value: PropTypes.any.isRequired,
+  value: PropTypes.any,
   label: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
   type: PropTypes.string,
   disabled: PropTypes.bool,
   options: PropTypes.array,
-  checked: PropTypes.bool,
+  checked: PropTypes.any,
   onFocus: PropTypes.func,
   maxLength: PropTypes.any,
 };

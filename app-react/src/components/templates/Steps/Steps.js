@@ -28,18 +28,16 @@ import ProgressBar4 from 'assets/img/progressbar4.png';
 import ProgressBar5 from 'assets/img/progressbar5.png';
 import Accordion from 'components/molecules/Accordion/Accordion';
 import { KeyboardArrowLeft } from '@styled-icons/material/KeyboardArrowLeft';
-import { Redirect } from 'react-router-dom';
 import { LinksContext } from 'providers/LinksProvider';
 import { UserDataContext } from 'providers/UserDataProvider';
 import { HiOutlineArrowNarrowRight } from 'react-icons/hi';
 import Loader from 'components/atoms/Loader/Loader';
 
-const Steps = () => {
+const Steps = ({ returnToLandingPage, employeeConfig }) => {
   const LinksCtx = useContext(LinksContext);
   const UserCtx = useContext(UserDataContext);
   const [isLoading, setIsLoading] = useState(true);
   const [activeStep, setActiveStep] = useState(1);
-  const [redirectUrl, setRedirectUrl] = useState(null);
   const [offers, setOffers] = useState([]);
   const [roomPrice] = useState(UserCtx.totalPrice);
   const [offerPrice, setOfferPrice] = useState(0);
@@ -74,10 +72,6 @@ const Steps = () => {
     }
   };
 
-  const returnToLandingPage = () => {
-    setRedirectUrl('/');
-  };
-
   const getStepContent = () => {
     switch (activeStep) {
       case 1:
@@ -89,7 +83,7 @@ const Steps = () => {
       case 4:
         return <Step4 changeStep={changeStep}></Step4>;
       case 5:
-        return <Step5 totalPrice={totalPrice}></Step5>;
+        return <Step5 totalPrice={totalPrice} employeeConfig={employeeConfig}></Step5>;
       default:
         break;
     }
@@ -114,7 +108,6 @@ const Steps = () => {
 
   return (
     <>
-      {redirectUrl ? <Redirect push to={{ pathname: redirectUrl }} /> : null}
       {isLoading ? <Loader isLoading={isLoading} /> : ''}
       <Wrapper>
         <Header>

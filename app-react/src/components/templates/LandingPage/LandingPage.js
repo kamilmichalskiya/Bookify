@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { Redirect } from 'react-router-dom';
 import { AccountCircle } from '@styled-icons/material/AccountCircle';
-import { Wrapper, Header, Logo, IconStyleWrapper } from './LandingPage-styled';
+import { Wrapper, Header, Logo, IconStyleWrapper, IconExit } from './LandingPage-styled';
 import { Pagination } from 'components/atoms/Pagination/Pagination';
 import SearchBar from 'components/organisms/SearchBar/SearchBar';
 import List from 'components/organisms/List/List';
@@ -12,8 +11,9 @@ import '@fontsource/montserrat';
 import { LinksContext } from 'providers/LinksProvider';
 import { UserDataContext } from 'providers/UserDataProvider';
 import Loader from 'components/atoms/Loader/Loader';
+import Steps from '../Steps/Steps';
 
-const LandingPage = ({ history }) => {
+const LandingPage = ({ history, employeeConfig = {} }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [shouldRedirect, setRedirect] = useState(false);
   const [rooms, setRooms] = useState([]);
@@ -31,6 +31,10 @@ const LandingPage = ({ history }) => {
 
   const openModal = () => {
     setShowModal((prev) => !prev);
+  };
+
+  const returnToLandingPage = () => {
+    setRedirect(false);
   };
 
   const onRoomDetailsClickHandler = (selectedRoom, days) => {
@@ -69,31 +73,40 @@ const LandingPage = ({ history }) => {
 
   return (
     <>
-      {shouldRedirect ? <Redirect push to={{ pathname: '/steps' }} /> : null}
-      <Wrapper>
-        {isLoading ? <Loader isLoading={isLoading} /> : ''}
-        <Modal showModal={showModal} setShowModal={setShowModal}>
-          <Login history={history}></Login>
-        </Modal>
-        <Header>
-          <Logo>Bookify</Logo>
-          <IconStyleWrapper onClick={openModal}>
-            <AccountCircle size="60" />
-          </IconStyleWrapper>
-        </Header>
-        <SearchBar displayLevelMode="user" setRooms={setRooms}></SearchBar>
-        {!rooms.includes('empty') ? (
-          <>
-            <List rooms={rooms.slice(pagesVisited, pagesVisited + roomsPerPage)} onRoomDetailsClickHandler={onRoomDetailsClickHandler}></List>
-            <Pagination previousLabel={'Wstecz'} nextLabel={'Dalej'} pageCount={pageCount} onPageChange={changePage} />
-          </>
-        ) : (
-          <>
-            <h1>Przepraszamy!</h1> <h2>Dla obecnie ustawionych filtrów nie posiadamy wolnych pokoi!</h2>
-          </>
-        )}
-        <Footer></Footer>
-      </Wrapper>
+      {shouldRedirect ? (
+        <Steps returnToLandingPage={returnToLandingPage} employeeConfig={employeeConfig} />
+      ) : (
+        <Wrapper>
+          {isLoading ? <Loader isLoading={isLoading} /> : ''}
+          <Modal showModal={showModal} setShowModal={setShowModal}>
+            <Login history={history}></Login>
+          </Modal>
+          <Header>
+            <Logo>Bookify</Logo>
+            {employeeConfig.isEmployeeView ? (
+              <IconExit onClick={employeeConfig.returnToEmployeePanel} title="Wróć do panelu pracownika" />
+            ) : (
+              <>
+                <IconStyleWrapper onClick={openModal}>
+                  <AccountCircle size="60" />
+                </IconStyleWrapper>
+              </>
+            )}
+          </Header>
+          <SearchBar displayLevelMode="user" setRooms={setRooms}></SearchBar>
+          {!rooms.includes('empty') ? (
+            <>
+              <List rooms={rooms.slice(pagesVisited, pagesVisited + roomsPerPage)} onRoomDetailsClickHandler={onRoomDetailsClickHandler}></List>
+              <Pagination previousLabel={'Wstecz'} nextLabel={'Dalej'} pageCount={pageCount} onPageChange={changePage} />
+            </>
+          ) : (
+            <>
+              <h1>Przepraszamy!</h1> <h2>Dla obecnie ustawionych filtrów nie posiadamy wolnych pokoi!</h2>
+            </>
+          )}
+          <Footer></Footer>
+        </Wrapper>
+      )}
     </>
   );
 };

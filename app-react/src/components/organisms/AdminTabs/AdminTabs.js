@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { TabsWrapper, TabsList, TabContent, TabHeader, NavigationBar, ModalContainer } from './Tabs-styled';
+import { TabsWrapper, TabsList, TabContent, TabHeader, NavigationBar, ModalContainer } from './AdminTabs-styled';
 import PropTypes from 'prop-types';
 import AdminList from 'components/organisms/AdminList/AdminList';
 import SearchBar from 'components/organisms/SearchBar/SearchBar';
