@@ -34,9 +34,9 @@ const EditEmployee = ({ employee, setShowModal, updateData }) => {
     console.log(formValues);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setFormErrors(validate(formValues));
+    setFormErrors(await validate(formValues));
     setIsSubmit(true);
   };
 
@@ -89,7 +89,23 @@ const EditEmployee = ({ employee, setShowModal, updateData }) => {
     }
   }, [LinksCtx.employees, formErrors, formValues, isSubmit, employee, setShowModal, updateData]);
 
-  const validate = (values) => {
+  const checkEmail = async (email) => {
+    const checkEmailUrl = `${LinksCtx.employees}/email/check`; // api/employees/email/check
+    const requestOptions = {
+      method: 'POST',
+      body: email,
+      headers: new Headers({ 'content-type': 'application/json' }),
+    };
+    const response = await fetch(checkEmailUrl, requestOptions);
+    const data = await response.json();
+    if (response.ok && data === false) {
+      return 'Konto o podanym adresie email już istnieje!';
+      // setFormErrors({ ...formErrors, email: 'Konto o podanym adresie email już istnieje!' });
+    }
+    return '';
+  };
+
+  const validate = async (values) => {
     const errors = {};
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
     if (!values.name) {
@@ -98,10 +114,13 @@ const EditEmployee = ({ employee, setShowModal, updateData }) => {
     if (!values.surname) {
       errors.surname = 'Nazwisko jest wymagane!';
     }
+    const usedEmail = await checkEmail(values.email);
     if (!values.email) {
       errors.email = 'Adres e-mail jest wymagany!';
     } else if (!regex.test(values.email)) {
       errors.email = 'Adres e-mail musi mieć poprawny format!';
+    } else if (usedEmail) {
+      errors.email = usedEmail;
     }
     if (values.password !== values.confirmPassword) {
       errors.confirmPassword = 'Hasła nie są identyczne!';
