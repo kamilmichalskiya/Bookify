@@ -65,7 +65,7 @@ public class ReservationController {
      *
      * @return list of rooms occupation
      */
-    @GetMapping
+    @GetMapping("/occupation")
     public ResponseEntity<Map<Integer, List<UiReservation>>> getRoomsOccupation() {
         final Map<Integer, List<UiReservation>> occupation = reservationBF.getOccupation(reservationToUiMapper);
         LogBF.logCustom("Retrieve list of rooms occupation. Size : %d", occupation.size());
