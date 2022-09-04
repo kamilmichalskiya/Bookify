@@ -15,8 +15,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import pl.inf.app.api.reservation.control.ReservationToUiMapper;
 import pl.inf.app.api.reservation.entity.UiReservation;
+import pl.inf.app.config.logger.boundary.LogBF;
 import pl.inf.app.bm.reservation.boundary.ReservationBF;
 
+import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -45,14 +47,13 @@ public class ReservationController {
      */
     @GetMapping
     public ResponseEntity<CollectionModel<EntityModel<UiReservation>>> getAll() {
-        return ResponseEntity.ok(CollectionModel.of(reservationBF.getAll(reservationToUiMapper)
-                .stream()
-                .map(reservation -> EntityModel.of(reservation)
-                        .add(linkTo(methodOn(ReservationController.class).getById(reservation.getId())).withRel(
-                                GET_RESERVATION.toString()))
-                        .add(linkTo(methodOn(ReservationController.class).updateReservation(reservation.getId(), null)).withRel(
-                                UPDATE_RESERVATION.toString())))
-                .collect(Collectors.toList()))
+        final List<UiReservation> reservationList = reservationBF.getAll(reservationToUiMapper);
+        LogBF.logCustom("Retrieve list of reservations. Size : %d", reservationList.size());
+        return ResponseEntity.ok(CollectionModel.of(reservationList.stream().map(reservation -> EntityModel.of(reservation)
+                .add(linkTo(methodOn(ReservationController.class).getById(reservation.getId())).withRel(
+                        GET_RESERVATION.toString()))
+                .add(linkTo(methodOn(ReservationController.class).updateReservation(reservation.getId(), null)).withRel(
+                        UPDATE_RESERVATION.toString()))).collect(Collectors.toList()))
                 .add(linkTo(methodOn(ReservationController.class).createReservation(null, null)).withRel(
                         CREATE_RESERVATION.toString()))
                 .add(linkTo(methodOn(ReservationController.class).getAll()).withSelfRel()));
@@ -66,7 +67,9 @@ public class ReservationController {
      */
     @GetMapping("/{id}")
     public ResponseEntity<EntityModel<UiReservation>> getById(@PathVariable final UUID id) {
-        return ResponseEntity.ok(EntityModel.of(reservationBF.getById(id, reservationToUiMapper))
+        final UiReservation reservation = reservationBF.getById(id, reservationToUiMapper);
+        LogBF.logGet(reservation);
+        return ResponseEntity.ok(EntityModel.of(reservation)
                 .add(linkTo(methodOn(ReservationController.class).updateReservation(id, null)).withRel(
                         UPDATE_RESERVATION.toString()))
                 .add(linkTo(methodOn(ReservationController.class).updateReservation(id, null)).withRel(
@@ -85,6 +88,7 @@ public class ReservationController {
     public ResponseEntity<EntityModel<UiReservation>> createReservation(@PathVariable final UUID roomId,
                                                                         @RequestBody final UiReservation uiReservation) {
         final UiReservation reservation = reservationBF.create(roomId, uiReservation, reservationToUiMapper);
+        LogBF.logCreate(reservation);
         return ResponseEntity.ok(EntityModel.of(reservation)
                 .add(linkTo(methodOn(ReservationController.class).getById(reservation.getId())).withRel(
                         GET_RESERVATION.toString()))
@@ -105,6 +109,7 @@ public class ReservationController {
                                                                         @RequestBody final UiReservation uiReservation) {
         uiReservation.setId(reservationId);
         final UiReservation reservation = reservationBF.update(uiReservation, reservationToUiMapper);
+        LogBF.logUpdate(reservation);
         return ResponseEntity.ok(EntityModel.of(reservation)
                 .add(linkTo(methodOn(ReservationController.class).getById(reservation.getId())).withRel(
                         GET_RESERVATION.toString()))
