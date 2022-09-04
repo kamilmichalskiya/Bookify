@@ -21,6 +21,7 @@ public class RoomToUiMapper implements Mapper<RoomBE, UiRoom> {
         uiRoom.setDoubleBeds(source.getDoubleBeds());
         uiRoom.setCapacity(source.getCapacity());
         uiRoom.setDescription(source.getDescription());
+        uiRoom.setRoomNumber(source.getRoomNumber());
         uiRoom.setArea(source.getArea());
         uiRoom.setAddOns(source.getAddOns());
         uiRoom.setAccessories(source.getAccessories());
