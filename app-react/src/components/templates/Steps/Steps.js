@@ -164,11 +164,11 @@ const Steps = ({ returnToLandingPage, employeeConfig }) => {
                 </div>
                 <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                   <p style={{ fontSize: '12px' }}>Przedpłata</p>
-                  <p style={{ fontSize: '12px' }}>{Math.round(totalPrice * 0.15 * 100) / 100}zł</p>
+                  <p style={{ fontSize: '12px' }}>{totalPrice}zł</p>
                 </div>
                 <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                   <p style={{ fontSize: '12px' }}>Na miejscu</p>
-                  <p style={{ fontSize: '12px' }}>{Math.round(100 * totalPrice - totalPrice * 0.15) / 100}zł</p>
+                  <p style={{ fontSize: '12px' }}>0 zł</p>
                 </div>
               </div>
             </Accordion>
