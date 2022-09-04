@@ -19,6 +19,7 @@ public class UiRoom {
     private UUID id;
     private Set<String> images;
     private RoomType roomType;
+    private int roomNumber;
     private float price;
     private int capacity;
     private int singleBeds;
