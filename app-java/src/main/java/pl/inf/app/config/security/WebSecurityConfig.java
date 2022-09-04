@@ -1,4 +1,4 @@
-package pl.inf.app.config;
+package pl.inf.app.config.security;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -58,8 +58,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .logout()
                 .logoutUrl("/api/perform_logout")
-                .logoutSuccessHandler((request, response, authentication) -> response.sendRedirect("/"))
-                .deleteCookies("JSESSIONID");
+                .logoutSuccessHandler((request, response, authentication) -> response.sendRedirect("/"));
         // @formatter:on
     }
 

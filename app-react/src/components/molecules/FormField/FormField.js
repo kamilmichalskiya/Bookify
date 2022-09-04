@@ -124,7 +124,7 @@ const FormField = ({
 
 FormField.propTypes = {
   onChange: PropTypes.func.isRequired,
-  value: PropTypes.any.isRequired,
+  value: PropTypes.any,
   label: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,

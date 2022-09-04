@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import pl.inf.app.config.logger.boundary.LogBF;
 
 /**
  * Custom exception converter to return response to user when a process exception occurred.
@@ -25,6 +26,7 @@ public class GlobalAdviceController {
         final HttpStatus status =
                 exception.getHttpStatus() != null ? exception.getHttpStatus() : HttpStatus.INTERNAL_SERVER_ERROR;
         logger.error(exception.getDescription(), exception.getParams());
+        LogBF.logError(exception);
         return ResponseEntity.status(status).body(exception.toString());
     }
 }
