@@ -9,8 +9,11 @@ export const Header = styled.div`
 
 export const ContentWrapper = styled.div`
   width: 100%;
-  margin: 15px 0px;
+  margin: 0;
   font-size: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
 `;
 
 export const Footer = styled.div`
@@ -25,6 +28,7 @@ export const Footer = styled.div`
 
 export const ErrorText = styled.p`
   font-size: 1rem;
+  margin: 0 0 5px;
   color: ${({ theme }) => theme.colors.error};
 `;
 

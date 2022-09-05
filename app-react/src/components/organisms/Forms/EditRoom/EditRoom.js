@@ -218,7 +218,7 @@ const EditRoom = ({ room, setShowModal, updateData }) => {
 
   return (
     <form>
-      <Header>{room?.id ? 'Edytuj Pokój' : 'Stwórz Pokój'}</Header>
+      <Header>{room?.id ? 'Edytuj pokój' : 'Stwórz pokój'}</Header>
       <ContentWrapper>
         <FormField
           onChange={handleChange}
@@ -271,7 +271,7 @@ const EditRoom = ({ room, setShowModal, updateData }) => {
         <FormField
           onChange={handleStepperSingleBedChange}
           value={formValues.singleBeds}
-          label="Ilość pojedyńczych łóżek"
+          label="Ilość pojedynczych łóżek"
           name="singleBeds"
           id="roomSingleBeds"
           type="stepper"
@@ -289,7 +289,7 @@ const EditRoom = ({ room, setShowModal, updateData }) => {
         <FormField
           onChange={handleChange}
           value={formValues.description}
-          label="Opis Pokoju"
+          label="Opis pokoju"
           name="description"
           id="roomDescription"
           type="textarea"

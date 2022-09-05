@@ -13,25 +13,20 @@ import { PasswordInputWrapper, DarkEyeStyleWrapper } from './FormField-styled';
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: center;
-  width: 100%;
   max-width: 400px;
   ${({ type }) =>
     type === 'checkbox' &&
     `
     flex-direction: row-reverse;
+    justify-content: flex-end;
     align-items: center;
-    justify-content: center;
     margin-top: 15px;
-    max-width: 350px;
-    ${Input} {
-      width: 24px;
-      height: 24px;
-    }
     ${Label} {
       margin-left: 15px;
+      padding: 8px 0 3px;
     }
   `};
+  ${({ type }) => type !== 'checkbox' && ` width: 100%;`};
 `;
 
 const FormField = ({
@@ -92,14 +87,26 @@ const FormField = ({
         ''
       )}
       {type === 'textarea' ? <TextArea name={name} id={id} type={type} value={value} onChange={onChange} disabled={disabled} /> : ''}
-      {type === 'select' ? <Select styles={selectCustomStyles} defaultValue={value} onChange={onChange} disabled={disabled} options={options} /> : ''}
+      {type === 'select' ? (
+        <Select styles={selectCustomStyles} defaultValue={value} onChange={onChange} disabled={disabled} placeholder="Wybierz..." options={options} />
+      ) : (
+        ''
+      )}
       {type === 'multiSelect' ? (
-        <Select isMulti styles={selectCustomStyles} defaultValue={value} onChange={onChange} disabled={disabled} options={options} />
+        <Select
+          isMulti
+          styles={selectCustomStyles}
+          defaultValue={value}
+          onChange={onChange}
+          disabled={disabled}
+          placeholder="Wybierz..."
+          options={options}
+        />
       ) : (
         ''
       )}
       {type === 'creatableSelect' ? (
-        <CreatableSelect isMulti defaultValue={value} styles={selectCustomStyles} onChange={onChange} options={options} />
+        <CreatableSelect isMulti defaultValue={value} styles={selectCustomStyles} onChange={onChange} placeholder="Wybierz..." options={options} />
       ) : (
         ''
       )}
@@ -112,7 +119,7 @@ const FormField = ({
           value={value}
           onChange={onChange}
           disabled={disabled}
-          placeholder={`Uplaod an ${name}`}
+          placeholder={`Upload an ${name}`}
           accept=".png, .jpg, .jpeg"
         />
       ) : (

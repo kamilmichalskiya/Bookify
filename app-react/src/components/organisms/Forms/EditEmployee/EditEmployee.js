@@ -133,12 +133,12 @@ const EditEmployee = ({ employee, setShowModal, updateData }) => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <Header>{employee?.employeeId ? 'Edytuj Pracownika' : 'Stwórz Pracownika'}</Header>
+      <Header>{employee?.employeeId ? 'Edytuj pracownika' : 'Stwórz pracownika'}</Header>
       <ContentWrapper>
         <FormField
           onChange={handleChange}
           value={formValues.active}
-          label="Pracownik Aktywny"
+          label="Pracownik aktywny"
           name="active"
           id="employeeActive"
           type="checkbox"

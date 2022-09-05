@@ -3,19 +3,21 @@ import styled from 'styled-components';
 export const Input = styled.input`
   font-size: 1rem;
   background-color: ${({ theme }) => theme.colors.white};
-  margin: 5px 0;
-  height: 55px;
+  margin: 0;
+  height: 40px;
   width: 100%;
   max-width: 100%;
   padding: 10px 25px;
   border: none;
   border-radius: 5px;
-  ${({ type }) => type === 'checkbox' && `width: 30px; margin: 10px 0`};
+  ${({ type }) => type === 'checkbox' && `width: 24px; margin: 10px 0;`};
   ${({ type }) =>
     type === 'file' &&
-    `border-radius: 4px;
-    max-width: 350px;
-    background-color: #fff;
+    `
+    border-radius: 4px;
+    background-color: ${({ theme }) => theme.colors.primary};
+    padding: 0;
+    height: 40px;
     `};
   ::placeholder {
     color: ${({ theme }) => theme.colors.placeholder};
@@ -37,6 +39,7 @@ export const TextArea = styled.textarea`
   border: 1px solid ${({ theme }) => theme.colors.white};
   box-sizing: border-box;
   box-shadow: -2px 4px 10px rgba(115, 124, 142, 0.09);
+  border-radius: 5px;
 
   &:focus {
     outline: none;
