@@ -18,7 +18,6 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 import java.sql.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -68,22 +67,16 @@ public class ReservationBE {
 
     private boolean active;
 
-    @Transient
     private String companyName;
 
-    @Transient
     private String nip;
 
-    @Transient
     private String street;
 
-    @Transient
     private String postalCode;
 
-    @Transient
     private String city;
 
-    @Transient
     private String country;
 
     @Override
