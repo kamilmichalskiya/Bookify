@@ -30,6 +30,12 @@ public class UiReservation {
     private Customer customerData;
     private Customer guestData;
     private boolean isActive;
+    private String companyName;
+    private String nip;
+    private String street;
+    private String postalCode;
+    private String city;
+    private String country;
 
     @Override
     public String toString() {

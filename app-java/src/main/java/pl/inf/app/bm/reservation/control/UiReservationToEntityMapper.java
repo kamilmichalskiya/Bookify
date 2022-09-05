@@ -35,6 +35,12 @@ public class UiReservationToEntityMapper implements Mapper<Filler<UiReservation,
         target.setPaid(source.isPaid());
         target.setCustomerData(source.getCustomerData());
         target.setGuestData(source.getGuestData());
+        target.setCompanyName(source.getCompanyName());
+        target.setNip(source.getNip());
+        target.setStreet(source.getStreet());
+        target.setPostalCode(source.getPostalCode());
+        target.setCity(source.getCity());
+        target.setCountry(source.getCountry());
 
         return target;
     }
