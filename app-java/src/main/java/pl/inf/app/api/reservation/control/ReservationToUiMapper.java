@@ -52,6 +52,12 @@ public class ReservationToUiMapper implements Mapper<ReservationBE, UiReservatio
             uiOffer.setActive(offerBE.isActive());
             return uiOffer;
         }).collect(Collectors.toSet()));
+        reservation.setCompanyName(source.getCompanyName());
+        reservation.setNip(source.getNip());
+        reservation.setStreet(source.getStreet());
+        reservation.setPostalCode(source.getPostalCode());
+        reservation.setCity(source.getCity());
+        reservation.setCountry(source.getCountry());
 
         return reservation;
     }

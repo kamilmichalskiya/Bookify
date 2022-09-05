@@ -101,6 +101,7 @@ public class ReservationBF {
                     .text(getBody(reservation))
                     .build();
             eventPublisher.publishEvent(notificationEvent);
+            eventPublisher.publishEvent(reservation);
             return reservation;
         }).map(uiMapper::map).orElseThrow(() -> new ProcessException(RESERVATION_CREATING_ERROR, reservationBE));
     }
@@ -132,9 +133,9 @@ public class ReservationBF {
     }
 
     private String getBody(final ReservationBE reservation) {
-        return String.format("Dokonano rezerwacji (id: %s) pokoju %s w dniach od %s do %s za kwotę %s zł\n\n" +
+        return String.format("Dokonano rezerwacji (id: %s) pokoju nr %s w dniach od %s do %s za kwotę %s zł\n\n" +
                              "Dziękujemy Zespół Bookify\n\n" + "Poniższa wiadomość jest wyłącznie wiadomością testową",
-                reservation.getId(), reservation.getRoom().getId(), reservation.getStartDate(), reservation.getEndDate(),
+                reservation.getId(), reservation.getRoom().getRoomNumber(), reservation.getStartDate(), reservation.getEndDate(),
                 reservation.getTotalPrice());
     }
 

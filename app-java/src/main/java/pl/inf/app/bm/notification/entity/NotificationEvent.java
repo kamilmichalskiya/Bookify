@@ -12,9 +12,10 @@ public class NotificationEvent {
     private final String to;
     private final String subject;
     private final String text;
+    private final byte[] invoice;
 
     @Override
     public String toString() {
-        return String.format("To: %s\nSubject: %s\nText: %s", to, subject, text);
+        return String.format("To: %s\nSubject: %s\nText: %s\nAttachment: %s", to, subject, text, invoice != null);
     }
 }
