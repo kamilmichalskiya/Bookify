@@ -85,8 +85,6 @@ public class ReservationController {
         return ResponseEntity.ok(EntityModel.of(reservation)
                 .add(linkTo(methodOn(ReservationController.class).updateReservation(id, null)).withRel(
                         UPDATE_RESERVATION.toString()))
-                .add(linkTo(methodOn(ReservationController.class).updateReservation(id, null)).withRel(
-                        UPDATE_RESERVATION.toString()))
                 .add(linkTo(methodOn(ReservationController.class).getById(id)).withSelfRel()));
     }
 
