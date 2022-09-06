@@ -21,7 +21,7 @@ export const CollapsibleContentContainer = styled.div`
   position: absolute;
   margin-top: 8px;
   right: 15%;
-  width: 40vw;
+  width: 30vw;
   background: ${({ theme }) => theme.colors.secondary};
   height: 0px;
   overflow: hidden;
