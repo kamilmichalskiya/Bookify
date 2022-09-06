@@ -56,12 +56,11 @@ export const DeleteImageButton = styled.button`
   right: 3px;
   background-color: ${({ theme }) => theme.colors.primary};
   color: ${({ theme }) => theme.colors.white};
-  width: 30px;
-  height: 30px;
+  width: 32px;
+  height: 32px;
   border-radius: 50px;
   font-weight: bold;
   font-size: 1rem;
-  margin: auto;
   &:hover {
     cursor: pointer;
     color: ${({ theme }) => theme.colors.red};
