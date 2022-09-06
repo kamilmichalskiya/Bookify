@@ -7,7 +7,7 @@ import FormField from 'components/molecules/FormField/FormField';
 import { SaveButton } from 'components/atoms/Button/Button';
 import { formatCreditCardNumber, formatCVC, formatExpirationDate } from 'helpers/cardUtils';
 
-const Step4 = ({ changeStep, setValidateStep }) => {
+const Step4 = ({ totalPrice, changeStep, setValidateStep }) => {
   const [cardState, setCardState] = useState({
     cvc: '',
     expiry: '',
@@ -99,7 +99,7 @@ const Step4 = ({ changeStep, setValidateStep }) => {
         <>
           <PaymentHeader>
             W celu złożenia rezerwacji pokoju konieczne będzie złożenie przedpłaty wynoszącej:
-            <GreenTextWrapper> {Math.round(UserCtx.totalPrice * 0.15 * 100) / 100}zł</GreenTextWrapper>
+            <GreenTextWrapper> {totalPrice}zł</GreenTextWrapper>
           </PaymentHeader>
           <h2>Opłać rezerwację przy pomocy karty płatniczej</h2>
           <Card cvc={cardState.cvc} expiry={cardState.expiry} focused={cardState.focus} name={cardState.name} number={cardState.number} />

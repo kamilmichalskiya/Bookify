@@ -21,13 +21,9 @@ const Wrapper = styled.div`
     flex-direction: row-reverse;
     justify-content: flex-end;
     align-items: center;
-     &:checked {
-      background-color: green;
-      border-color: green;
-    }
     ${Label} {
       margin-left: 15px;
-      padding: 8px 0 3px;
+      padding: 3px 0 3px;
     }
   `};
   ${({ type }) => type !== 'checkbox' && ` width: 100%;`};
@@ -48,11 +44,7 @@ const FormField = ({
   placeholder,
 }) => {
   const [passwordShown, setPasswordShown] = useState(false);
-  const [checkboxChecked, setcheckboxChecked] = useState(false);
 
-  const checkHandler = (e) => {
-    setcheckboxChecked(e.currentTarget.checkboxChecked);
-  };
   const togglePassword = () => {
     setPasswordShown(!passwordShown);
   };
@@ -115,7 +107,7 @@ const FormField = ({
       {type === 'stepper' ? <Stepper title="" value={value} updateValue={onChange} minValue={0}></Stepper> : ''}
       {type === 'file' ? (
         <>
-          <FileButton for={id}>Wybierz</FileButton>
+          <FileButton htmlFor={id}>Wybierz</FileButton>
           <Input
             name={name}
             id={id}
