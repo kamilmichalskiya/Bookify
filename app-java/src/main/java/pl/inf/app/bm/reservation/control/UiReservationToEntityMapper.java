@@ -3,12 +3,14 @@ package pl.inf.app.bm.reservation.control;
 import org.springframework.stereotype.Component;
 import pl.inf.app.api.reservation.entity.InvoiceData;
 import pl.inf.app.api.reservation.entity.UiReservation;
+import pl.inf.app.bm.offer.entity.OfferBE;
 import pl.inf.app.bm.reservation.entity.ReservationBE;
 import pl.inf.app.utils.Filler;
 import pl.inf.app.utils.Mapper;
 
 import java.sql.Date;
 import java.time.OffsetDateTime;
+import java.util.stream.Collectors;
 
 /**
  * Fills the database employee model according to the UI employee model
@@ -46,6 +48,12 @@ public class UiReservationToEntityMapper implements Mapper<Filler<UiReservation,
             target.setCity(invoiceData.getCity());
             target.setCountry(invoiceData.getCountry());
         }
+
+        target.setOffers(source.getOffers().stream().map(uiOffer -> {
+            final OfferBE offerBE = new OfferBE();
+            offerBE.setId(uiOffer.getId());
+            return offerBE;
+        }).collect(Collectors.toSet()));
 
         return target;
     }

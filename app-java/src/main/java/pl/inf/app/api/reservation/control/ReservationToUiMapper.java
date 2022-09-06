@@ -28,16 +28,14 @@ public class ReservationToUiMapper implements Mapper<ReservationBE, UiReservatio
         reservation.setGuestData(source.getGuestData());
         reservation.setActive(source.isActive());
 
-        final InvoiceData invoiceData = reservation.getInvoiceData();
-        if (invoiceData != null) {
-            invoiceData.setCompanyName(source.getCompanyName());
-            invoiceData.setNip(source.getNip());
-            invoiceData.setStreet(source.getStreet());
-            invoiceData.setPostalCode(source.getPostalCode());
-            invoiceData.setCity(source.getCity());
-            invoiceData.setCountry(source.getCountry());
-            reservation.setInvoiceData(invoiceData);
-        }
+        final InvoiceData invoiceData = new InvoiceData();
+        invoiceData.setCompanyName(source.getCompanyName());
+        invoiceData.setNip(source.getNip());
+        invoiceData.setStreet(source.getStreet());
+        invoiceData.setPostalCode(source.getPostalCode());
+        invoiceData.setCity(source.getCity());
+        invoiceData.setCountry(source.getCountry());
+        reservation.setInvoiceData(invoiceData);
 
         final RoomBE room = source.getRoom();
         if (room != null) {
