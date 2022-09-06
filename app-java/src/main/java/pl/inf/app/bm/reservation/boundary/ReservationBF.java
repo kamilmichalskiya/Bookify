@@ -69,7 +69,9 @@ public class ReservationBF {
      * @return list of mapped reservations
      */
     public <T> List<T> getAll(final Mapper<ReservationBE, T> mapper) {
-        return reservationRepositoryBA.findAll().stream().map(mapper::map).collect(Collectors.toList());
+        final Date date = new Date(LocalDate.now().atStartOfDay().toInstant(OffsetDateTime.now().getOffset()).toEpochMilli());
+        return reservationRepositoryBA.findByActiveTrueAndEndDateGreaterThanEqual(date).stream().map(mapper::map).collect(
+                Collectors.toList());
     }
 
     /**
@@ -89,6 +91,8 @@ public class ReservationBF {
                 .map(uiOffers -> uiOffers.stream().map(UiOffer::getId).collect(Collectors.toList()))
                 .map(idList -> offerBF.getOffersById(idList, HashSet::new))
                 .orElse(null));
+        reservationBE.setActive(true);
+        reservationBE.setPaid(true);
 
         if (!validReservation(reservationBE)) {
             throw new ProcessException(RESERVATION_VALIDATION_ERROR, reservationBE, uiReservation);
@@ -145,7 +149,10 @@ public class ReservationBF {
      * @return list of rooms reservations
      */
     public Map<Integer, List<UiReservation>> getOccupation(final ReservationToUiMapper reservationToUiMapper) {
-        return reservationRepositoryBA.findAll().stream().map(reservationToUiMapper::map).collect(
-                Collectors.groupingBy(reservationBE -> reservationBE.getRoom().getRoomNumber()));
+        final Date date = new Date(LocalDate.now().atStartOfDay().toInstant(OffsetDateTime.now().getOffset()).toEpochMilli());
+        return reservationRepositoryBA.findByActiveTrueAndEndDateGreaterThanEqual(date)
+                .stream()
+                .map(reservationToUiMapper::map)
+                .collect(Collectors.groupingBy(reservationBE -> reservationBE.getRoom().getRoomNumber()));
     }
 }
