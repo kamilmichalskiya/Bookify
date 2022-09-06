@@ -13,6 +13,7 @@ export const Input = styled.input`
   ${({ type }) => type === 'checkbox' && `
     width: 24px; 
     margin: 10px 0;
+    accent-color: #1ED760;
     `};
   ${({ type }) => type === 'file' && `display: none;`};
   ::placeholder {

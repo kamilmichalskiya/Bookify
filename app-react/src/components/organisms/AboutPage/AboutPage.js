@@ -12,9 +12,9 @@ const AboutPage = () => {
       </TextSpan>
       <SectionHeader>Godziny przyjazdu i wyjazdu</SectionHeader>
       <TextSpan>
-        Przyjazd: 14:00
+        Przyjazd: 15:00
         <br />
-        Wyjazd: 10:00
+        Wyjazd: 12:00
       </TextSpan>
       <SectionHeader>Parking</SectionHeader>
       <TextSpan>Parking dodatkowo płatny – bez rezerwacji miejsca.</TextSpan>

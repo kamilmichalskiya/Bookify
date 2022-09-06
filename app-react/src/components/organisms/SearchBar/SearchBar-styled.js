@@ -55,10 +55,10 @@ export const SearchBarItemWrapper = styled.div`
   padding: 8px;
   font-size: ${({ theme }) => theme.fontSize.s};
   &:hover {
-    background-color: #ffffff1a;
+    background-color: #4d4d4d;
     cursor: pointer;
     input {
-      background-color: #ffffff1a;
+      background-color: #4d4d4d;
       cursor: pointer;
     }
   }
@@ -78,8 +78,9 @@ export const SearchBarItemValue = styled.div`
 `;
 
 export const StepperContainer = styled.div`
-  display: table;
-  align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
   width: 100%;
   margin: 0px 0px 16px;
 `;
