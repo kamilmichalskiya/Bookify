@@ -38,6 +38,7 @@ const Steps = ({ returnToLandingPage, employeeConfig }) => {
   const UserCtx = useContext(UserDataContext);
   const [isLoading, setIsLoading] = useState(true);
   const [activeStep, setActiveStep] = useState(1);
+  const [validateStep, setValidateStep] = useState(false);
   const [offers, setOffers] = useState([]);
   const [roomPrice] = useState(UserCtx.totalPrice);
   const [offerPrice, setOfferPrice] = useState(0);
@@ -62,7 +63,9 @@ const Steps = ({ returnToLandingPage, employeeConfig }) => {
 
   const changeStep = (direction = 'next') => {
     if (direction === 'next') {
-      setActiveStep(activeStep + 1);
+      if (validateStep(UserCtx)) {
+        setActiveStep(activeStep + 1);
+      }
     } else if (direction === 'prev') {
       if (activeStep === 1) {
         returnToLandingPage();
@@ -75,15 +78,15 @@ const Steps = ({ returnToLandingPage, employeeConfig }) => {
   const getStepContent = () => {
     switch (activeStep) {
       case 1:
-        return <Step1 offers={offers}></Step1>;
+        return <Step1 offers={offers} setValidateStep={setValidateStep}></Step1>;
       case 2:
-        return <Step2 offers={offers} setOfferPrice={setOfferPrice}></Step2>;
+        return <Step2 offers={offers} setOfferPrice={setOfferPrice} setValidateStep={setValidateStep}></Step2>;
       case 3:
-        return <Step3 offers={offers}></Step3>;
+        return <Step3 offers={offers} setValidateStep={setValidateStep}></Step3>;
       case 4:
-        return <Step4 changeStep={changeStep}></Step4>;
+        return <Step4 changeStep={changeStep} setValidateStep={setValidateStep}></Step4>;
       case 5:
-        return <Step5 totalPrice={totalPrice} employeeConfig={employeeConfig}></Step5>;
+        return <Step5 totalPrice={totalPrice} employeeConfig={employeeConfig} setValidateStep={setValidateStep}></Step5>;
       default:
         break;
     }

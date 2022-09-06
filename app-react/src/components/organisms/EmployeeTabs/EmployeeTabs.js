@@ -6,9 +6,10 @@ import EditReservation from '../Forms/EditReservation/EditReservation';
 import { Modal } from 'components/molecules/Modal/Modal';
 import { Pagination } from 'components/atoms/Pagination/Pagination';
 import { ToastContainer } from 'react-toastify';
+import Table from 'components/molecules/Table/Table';
 import 'react-toastify/dist/ReactToastify.css';
 
-const EmployeeTabs = ({ reservations, offers, updateReservations, createNewReservation }) => {
+const EmployeeTabs = ({ reservations, offers, roomsOccupation, getRoomsOccupation, updateReservations, createNewReservation }) => {
   const [index, setIndex] = useState(0);
   const [showModal, setShowModal] = useState(false);
   const [activeItem, setActiveItem] = useState({});
@@ -79,14 +80,18 @@ const EmployeeTabs = ({ reservations, offers, updateReservations, createNewReser
             onPageChange={changeRoomPage}
           />
         </TabContent>
-        <TabContent hidden={index !== 1}>
-          <h1>Hehe nie ma jeszcze</h1>
-        </TabContent>
+        <TabContent hidden={index !== 1}>{index === 1 ? <Table openModal={openModal} roomsOccupation={roomsOccupation} /> : ''}</TabContent>
       </TabsWrapper>
       <Modal showModal={showModal} setShowModal={setShowModal}>
         <ModalContainer>
           {activeItem.type === 'reservation' ? (
-            <EditReservation reservation={activeItem} offers={offers} setShowModal={setShowModal} updateReservations={updateReservations} />
+            <EditReservation
+              reservation={activeItem}
+              offers={offers}
+              setShowModal={setShowModal}
+              updateReservations={updateReservations}
+              getRoomsOccupation={getRoomsOccupation}
+            />
           ) : (
             ''
           )}

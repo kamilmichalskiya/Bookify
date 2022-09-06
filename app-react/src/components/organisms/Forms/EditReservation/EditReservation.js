@@ -5,7 +5,7 @@ import FormField from 'components/molecules/FormField/FormField';
 import { LinksContext } from 'providers/LinksProvider';
 import { toast } from 'react-toastify';
 
-const EditReservation = ({ reservation, offers, setShowModal, updateReservations }) => {
+const EditReservation = ({ reservation, offers, setShowModal, updateReservations, getRoomsOccupation }) => {
   const initialValues = {
     active: reservation.active || false,
     customerData: reservation.customerData || {},
@@ -92,6 +92,7 @@ const EditReservation = ({ reservation, offers, setShowModal, updateReservations
         toast.success('Rezerwacja zaaktualizowana pomyślnie!');
         setShowModal(false);
         updateReservations();
+        getRoomsOccupation();
       } else {
         toast.error(`ERROR: ${status}: ${error}`);
       }
@@ -101,7 +102,7 @@ const EditReservation = ({ reservation, offers, setShowModal, updateReservations
       console.log(`Submitted Reservation: ${JSON.stringify(formValues)}`);
       updateReservation();
     }
-  }, [LinksCtx.offers, formErrors, formValues, isSubmit, reservation, setShowModal, updateReservations]);
+  }, [LinksCtx.offers, formErrors, formValues, getRoomsOccupation, isSubmit, reservation, setShowModal, updateReservations]);
 
   const validate = (values) => {
     const errors = {};

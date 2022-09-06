@@ -2,6 +2,7 @@ package pl.inf.app.api.reservation.control;
 
 import org.springframework.stereotype.Component;
 import pl.inf.app.api.offer.entity.UiOffer;
+import pl.inf.app.api.reservation.entity.InvoiceData;
 import pl.inf.app.api.reservation.entity.UiReservation;
 import pl.inf.app.api.room.entity.UiRoom;
 import pl.inf.app.bm.reservation.entity.ReservationBE;
@@ -27,21 +28,34 @@ public class ReservationToUiMapper implements Mapper<ReservationBE, UiReservatio
         reservation.setGuestData(source.getGuestData());
         reservation.setActive(source.isActive());
 
-        final UiRoom uiRoom = new UiRoom();
+        final InvoiceData invoiceData = reservation.getInvoiceData();
+        if (invoiceData != null) {
+            invoiceData.setCompanyName(source.getCompanyName());
+            invoiceData.setNip(source.getNip());
+            invoiceData.setStreet(source.getStreet());
+            invoiceData.setPostalCode(source.getPostalCode());
+            invoiceData.setCity(source.getCity());
+            invoiceData.setCountry(source.getCountry());
+            reservation.setInvoiceData(invoiceData);
+        }
+
         final RoomBE room = source.getRoom();
-        uiRoom.setId(room.getId());
-        uiRoom.setRoomType(room.getRoomType());
-        uiRoom.setCapacity(room.getCapacity());
-        uiRoom.setPrice(room.getPrice());
-        uiRoom.setRoomNumber(room.getRoomNumber());
-        uiRoom.setSingleBeds(room.getSingleBeds());
-        uiRoom.setDoubleBeds(room.getDoubleBeds());
-        uiRoom.setDescription(room.getDescription());
-        uiRoom.setArea(room.getArea());
-        uiRoom.setAddOns(room.getAddOns());
-        uiRoom.setAccessories(room.getAccessories());
-        uiRoom.setActive(room.isActive());
-        reservation.setRoom(uiRoom);
+        if (room != null) {
+            final UiRoom uiRoom = new UiRoom();
+            uiRoom.setId(room.getId());
+            uiRoom.setRoomType(room.getRoomType());
+            uiRoom.setCapacity(room.getCapacity());
+            uiRoom.setPrice(room.getPrice());
+            uiRoom.setRoomNumber(room.getRoomNumber());
+            uiRoom.setSingleBeds(room.getSingleBeds());
+            uiRoom.setDoubleBeds(room.getDoubleBeds());
+            uiRoom.setDescription(room.getDescription());
+            uiRoom.setArea(room.getArea());
+            uiRoom.setAddOns(room.getAddOns());
+            uiRoom.setAccessories(room.getAccessories());
+            uiRoom.setActive(room.isActive());
+            reservation.setRoom(uiRoom);
+        }
 
         reservation.setOffers(source.getOffers().stream().map(offerBE -> {
             final UiOffer uiOffer = new UiOffer();

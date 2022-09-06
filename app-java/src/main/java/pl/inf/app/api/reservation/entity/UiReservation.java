@@ -30,12 +30,15 @@ public class UiReservation {
     private Customer customerData;
     private Customer guestData;
     private boolean isActive;
+    private InvoiceData invoiceData;
 
     @Override
     public String toString() {
         return "UiReservation{" + "id=" + id + ", startDate=" + startDate + ", endDate=" + endDate + ", room=" +
                (room != null ? room.getId() : "") + ", totalPrice=" + totalPrice + ", paid=" + paid + ", offers=" +
-               offers.stream().map(UiOffer::getId).collect(Collectors.toList()) + ", " + "customerData=" + customerData +
-               ", guestData=" + guestData + ", isActive=" + isActive + '}';
+               offers.stream().map(UiOffer::getId).collect(Collectors.toList()) + ", customerData=" + customerData +
+               ", guestData=" + guestData + ", isActive=" + isActive + ", invoiceData='" +
+               (invoiceData != null ? invoiceData.toString() : "") + '}';
     }
+
 }
