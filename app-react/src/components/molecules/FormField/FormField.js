@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { BsSquare, BsCheckSquare } from "react-icons/bs";
+import { BsSquare, BsCheckSquare } from 'react-icons/bs';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { Label } from 'components/atoms/Label/Label';
@@ -49,7 +49,7 @@ const FormField = ({
 }) => {
   const [passwordShown, setPasswordShown] = useState(false);
   const [checkboxChecked, setcheckboxChecked] = useState(false);
-  
+
   const checkHandler = (e) => {
     setcheckboxChecked(e.currentTarget.checkboxChecked);
   };
@@ -87,13 +87,7 @@ const FormField = ({
       ) : (
         ''
       )}
-      {type === 'checkbox' ? (
-        <>
-          <Input name={name} id={id} checked={checked} type={type} onChange={onChange} disabled={disabled} />
-        </>
-      ) : (
-        ''
-      )}
+      {type === 'checkbox' ? <Input name={name} id={id} checked={checked} type={type} onChange={onChange} disabled={disabled} /> : ''}
       {type === 'textarea' ? <TextArea name={name} id={id} type={type} value={value} onChange={onChange} disabled={disabled} /> : ''}
       {type === 'select' ? (
         <Select styles={selectCustomStyles} defaultValue={value} onChange={onChange} disabled={disabled} placeholder="Wybierz..." options={options} />

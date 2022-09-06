@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { SaveButton, Button, PrimaryButton, SecondaryButton, TertiaryButton, DeleteButton } from 'components/atoms/Button/Button';
+import { SaveButton } from 'components/atoms/Button/Button';
 import { Header, ContentWrapper, Footer, ErrorText, ImageContainer, DeleteImageButton } from './EditRoom-styled';
 import { LinksContext } from 'providers/LinksProvider';
 import { roomTypeOptions } from 'data/roomTypeOptions';
@@ -230,7 +230,6 @@ const EditRoom = ({ room, setShowModal, updateData }) => {
           options=""
           checked={formValues.active ? 'checked' : ''}
           value=""
-          tintColors={{ true: '#FC8F00' }}
         />
         {formValues.images.length > 0 ? (
           <>
