@@ -7,6 +7,8 @@ export const Wrapper = styled.div`
   align-items: center;
   margin-top: 10px;
   padding: 0 40px;
+  position: fixed;
+  bottom: 0;
   background-color: ${({ theme }) => theme.colors.secondary};
   color: ${({ theme }) => theme.colors.white};
   font-size: ${({ theme }) => theme.fontSize.s};
