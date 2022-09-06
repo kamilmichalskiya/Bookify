@@ -90,7 +90,7 @@ const EditEmployee = ({ employee, setShowModal, updateData }) => {
   }, [LinksCtx.employees, formErrors, formValues, isSubmit, employee, setShowModal, updateData]);
 
   const checkEmail = async (email) => {
-    const checkEmailUrl = `${LinksCtx.employees}/email/check`; // api/employees/email/check
+    const checkEmailUrl = `${LinksCtx.employees}/email/check`;
     const requestOptions = {
       method: 'POST',
       body: email,
@@ -100,7 +100,6 @@ const EditEmployee = ({ employee, setShowModal, updateData }) => {
     const data = await response.json();
     if (response.ok && data === false) {
       return 'Konto o podanym adresie email już istnieje!';
-      // setFormErrors({ ...formErrors, email: 'Konto o podanym adresie email już istnieje!' });
     }
     return '';
   };
@@ -122,6 +121,9 @@ const EditEmployee = ({ employee, setShowModal, updateData }) => {
     } else if (usedEmail) {
       errors.email = usedEmail;
     }
+    if (!values.password) {
+      errors.password = 'Hasło jest wymagane!';
+    }
     if (values.password !== values.confirmPassword) {
       errors.confirmPassword = 'Hasła nie są identyczne!';
     }
@@ -131,12 +133,12 @@ const EditEmployee = ({ employee, setShowModal, updateData }) => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <Header>{employee?.employeeId ? 'Edytuj Pracownika' : 'Stwórz Pracownika'}</Header>
+      <Header>{employee?.employeeId ? 'Edytuj pracownika' : 'Stwórz pracownika'}</Header>
       <ContentWrapper>
         <FormField
           onChange={handleChange}
           value={formValues.active}
-          label="Pracownik Aktywny"
+          label="Pracownik aktywny"
           name="active"
           id="employeeActive"
           type="checkbox"
