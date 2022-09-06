@@ -14,15 +14,10 @@ export const RoomContainerPhotoWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-around;
-`;
-
-export const RoomContainerPhoto = styled.div`
-  background-image: url(${({ url }) => url});
-  background-size: cover;
-  width: 90%;
-  height: 220px;
-  max-width: 325px;
-  border-radius: 5px;
+  margin: 15px 0 5px;
+  max-width: 100%;
+  max-height: 400px;
+  overflow: hidden;
 `;
 
 export const RoomDescription = styled.div`
@@ -81,16 +76,6 @@ export const RoomAllFeatureIcon = styled.div`
 export const IconStyleWrapper = styled.div`
   ${StyledIconBase} {
     color: ${({ theme }) => theme.colors.white};
-  }
-  &:hover {
-    opacity: 0.9;
-    cursor: pointer;
-  }
-`;
-
-export const GreenIconStyleWrapper = styled(IconStyleWrapper)`
-  ${StyledIconBase} {
-    color: ${({ theme }) => theme.colors.primary};
   }
   &:hover {
     opacity: 0.9;

@@ -98,9 +98,18 @@ export const SectionHeader = styled.span`
 `;
 
 export const UserInput = styled.input`
+  font-family: Montserrat, sans-serif;
   margin: 10px 0;
   padding: 10px;
-  
+  border-radius: 5px;
+  font-size: ${({ theme }) => theme.fontSize.l};
+  color: ${({ theme }) => theme.colors.black};
+  font-weight: bold;
+  &::placeholder {
+    
+    font-weight: normal;
+  }
+
 `;
 
 export const ContentLeftSection = styled.div`
@@ -155,4 +164,10 @@ export const BottomMenu = styled.div`
   height: 80px;
   width: 100%;
   letter-spacing: 0.08em;
+`;
+
+export const ErrorText = styled.p`
+  font-size: 1rem;
+  color: ${({ theme }) => theme.colors.error};
+  margin: 0 0 10px;
 `;

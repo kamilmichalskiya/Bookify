@@ -7,7 +7,7 @@ import FormField from 'components/molecules/FormField/FormField';
 import { SaveButton } from 'components/atoms/Button/Button';
 import { formatCreditCardNumber, formatCVC, formatExpirationDate } from 'helpers/cardUtils';
 
-const Step4 = ({ changeStep }) => {
+const Step4 = ({ totalPrice, changeStep, setValidateStep }) => {
   const [cardState, setCardState] = useState({
     cvc: '',
     expiry: '',
@@ -19,12 +19,12 @@ const Step4 = ({ changeStep }) => {
   const [isSubmit, setIsSubmit] = useState(false);
   const UserCtx = useContext(UserDataContext);
   const [isRecaptchaValid, setIsRecaptchaValid] = useState(false);
-  let recaptchaUrl;
-  if (window.location.hostname === 'localhost') {
-    recaptchaUrl = '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI';
-  } else {
-    recaptchaUrl = '6LdX3nUhAAAAAL32frx95e4pw7i_wNqwh_x-dK2d';
-  }
+  let recaptchaUrl = '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI';
+
+  useEffect(() => {
+    setValidateStep(() => () => true);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const handleInputFocus = (e) => {
     setCardState({ ...cardState, focus: e.target.name });
@@ -99,7 +99,7 @@ const Step4 = ({ changeStep }) => {
         <>
           <PaymentHeader>
             W celu złożenia rezerwacji pokoju konieczne będzie złożenie przedpłaty wynoszącej:
-            <GreenTextWrapper> {Math.round(UserCtx.totalPrice * 0.15 * 100) / 100}zł</GreenTextWrapper>
+            <GreenTextWrapper> {totalPrice}zł</GreenTextWrapper>
           </PaymentHeader>
           <h2>Opłać rezerwację przy pomocy karty płatniczej</h2>
           <Card cvc={cardState.cvc} expiry={cardState.expiry} focused={cardState.focus} name={cardState.name} number={cardState.number} />

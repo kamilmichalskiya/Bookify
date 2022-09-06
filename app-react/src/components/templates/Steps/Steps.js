@@ -28,18 +28,17 @@ import ProgressBar4 from 'assets/img/progressbar4.png';
 import ProgressBar5 from 'assets/img/progressbar5.png';
 import Accordion from 'components/molecules/Accordion/Accordion';
 import { KeyboardArrowLeft } from '@styled-icons/material/KeyboardArrowLeft';
-import { Redirect } from 'react-router-dom';
 import { LinksContext } from 'providers/LinksProvider';
 import { UserDataContext } from 'providers/UserDataProvider';
 import { HiOutlineArrowNarrowRight } from 'react-icons/hi';
 import Loader from 'components/atoms/Loader/Loader';
 
-const Steps = () => {
+const Steps = ({ returnToLandingPage, employeeConfig }) => {
   const LinksCtx = useContext(LinksContext);
   const UserCtx = useContext(UserDataContext);
   const [isLoading, setIsLoading] = useState(true);
   const [activeStep, setActiveStep] = useState(1);
-  const [redirectUrl, setRedirectUrl] = useState(null);
+  const [validateStep, setValidateStep] = useState(false);
   const [offers, setOffers] = useState([]);
   const [roomPrice] = useState(UserCtx.totalPrice);
   const [offerPrice, setOfferPrice] = useState(0);
@@ -64,7 +63,9 @@ const Steps = () => {
 
   const changeStep = (direction = 'next') => {
     if (direction === 'next') {
-      setActiveStep(activeStep + 1);
+      if (validateStep(UserCtx)) {
+        setActiveStep(activeStep + 1);
+      }
     } else if (direction === 'prev') {
       if (activeStep === 1) {
         returnToLandingPage();
@@ -74,22 +75,18 @@ const Steps = () => {
     }
   };
 
-  const returnToLandingPage = () => {
-    setRedirectUrl('/');
-  };
-
   const getStepContent = () => {
     switch (activeStep) {
       case 1:
-        return <Step1 offers={offers}></Step1>;
+        return <Step1 offers={offers} setValidateStep={setValidateStep}></Step1>;
       case 2:
-        return <Step2 offers={offers} setOfferPrice={setOfferPrice}></Step2>;
+        return <Step2 offers={offers} setOfferPrice={setOfferPrice} setValidateStep={setValidateStep}></Step2>;
       case 3:
-        return <Step3 offers={offers}></Step3>;
+        return <Step3 offers={offers} setValidateStep={setValidateStep}></Step3>;
       case 4:
-        return <Step4 changeStep={changeStep}></Step4>;
+        return <Step4 totalPrice={totalPrice} changeStep={changeStep} setValidateStep={setValidateStep}></Step4>;
       case 5:
-        return <Step5 totalPrice={totalPrice}></Step5>;
+        return <Step5 totalPrice={totalPrice} employeeConfig={employeeConfig} setValidateStep={setValidateStep}></Step5>;
       default:
         break;
     }
@@ -114,7 +111,6 @@ const Steps = () => {
 
   return (
     <>
-      {redirectUrl ? <Redirect push to={{ pathname: redirectUrl }} /> : null}
       {isLoading ? <Loader isLoading={isLoading} /> : ''}
       <Wrapper>
         <Header>
@@ -171,11 +167,11 @@ const Steps = () => {
                 </div>
                 <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                   <p style={{ fontSize: '12px' }}>Przedpłata</p>
-                  <p style={{ fontSize: '12px' }}>{Math.round(totalPrice * 0.15 * 100) / 100}zł</p>
+                  <p style={{ fontSize: '12px' }}>{totalPrice}zł</p>
                 </div>
                 <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                   <p style={{ fontSize: '12px' }}>Na miejscu</p>
-                  <p style={{ fontSize: '12px' }}>{Math.round(100 * totalPrice - totalPrice * 0.15) / 100}zł</p>
+                  <p style={{ fontSize: '12px' }}>0 zł</p>
                 </div>
               </div>
             </Accordion>

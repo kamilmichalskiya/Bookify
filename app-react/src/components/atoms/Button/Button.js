@@ -60,12 +60,13 @@ export const TertiaryButton = styled.button`
 
 export const SaveButton = styled.button`
   background-color: ${({ theme }) => theme.colors.primary};
-  color: ${({ theme }) => theme.colors.dark};
   width: 120px;
   min-width: 80px;
   height: 32px;
   border-radius: 100px;
   font-weight: 600;
+  color: ${({ theme }) => theme.colors.white};
+  letter-spacing: 0.08em;
   &:hover {
     cursor: pointer;
     opacity: 0.9;

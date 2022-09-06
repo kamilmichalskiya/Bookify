@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import static pl.inf.app.bm.employee.entity.EmployeeBE.Role.ROLE_EMPLOYEE;
 import static pl.inf.app.error.ErrorType.EMPLOYEE_ADDING_ERROR;
 import static pl.inf.app.error.ErrorType.EMPLOYEE_NOT_FOUND;
 import static pl.inf.app.error.ErrorType.EMPLOYEE_UPDATING_ERROR;
@@ -61,6 +62,7 @@ public class EmployeeBF {
      */
     public <T> T create(final UiEmployee uiEmployee, final Mapper<EmployeeBE, T> uiMapper) {
         final EmployeeBE employeeBE = uiEmployeeToEntityMapper.map(new Filler<>(uiEmployee, new EmployeeBE()));
+        employeeBE.setRole(ROLE_EMPLOYEE);
         return Optional.of(employeeRepositoryBA.save(employeeBE)).map(uiMapper::map).orElseThrow(
                 () -> new ProcessException(EMPLOYEE_ADDING_ERROR, employeeBE));
     }

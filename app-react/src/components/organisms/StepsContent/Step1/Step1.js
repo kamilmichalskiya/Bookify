@@ -1,8 +1,7 @@
-import React, { useContext } from 'react';
+import React, { useEffect, useContext } from 'react';
 import {
   ContentLeftTitle,
   RoomContainerPhotoWrapper,
-  RoomContainerPhoto,
   RoomDescription,
   GreenTextWrapper,
   RoomMainFeaturesContainer,
@@ -12,30 +11,28 @@ import {
   RoomAllFeaturesTitle,
   RoomAllFeatureWrapper,
   RoomAllFeatureIcon,
-  GreenIconStyleWrapper,
 } from './Step1-styled';
 import '@fontsource/montserrat';
 import { Resize } from '@styled-icons/ionicons-outline/Resize';
 import { Bed } from '@styled-icons/fa-solid/Bed';
 import { Wifi } from '@styled-icons/fa-solid/Wifi';
 import { Check } from '@styled-icons/material/Check';
-import { KeyboardArrowRight } from '@styled-icons/material/KeyboardArrowRight';
-import { KeyboardArrowLeft } from '@styled-icons/material/KeyboardArrowLeft';
 import { UserDataContext } from 'providers/UserDataProvider';
+import RoomGalery from 'components/molecules/RoomGalery/RoomGalery';
 
-const Step1 = () => {
+const Step1 = ({ setValidateStep }) => {
   const UserCtx = useContext(UserDataContext);
+
+  useEffect(() => {
+    setValidateStep(() => () => true);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <>
       <ContentLeftTitle>Szczegóły pokoju</ContentLeftTitle>
       <RoomContainerPhotoWrapper>
-        <GreenIconStyleWrapper>
-          <KeyboardArrowLeft size="36" />
-        </GreenIconStyleWrapper>
-        <RoomContainerPhoto url={UserCtx.room.image} />
-        <GreenIconStyleWrapper>
-          <KeyboardArrowRight size="36" />
-        </GreenIconStyleWrapper>
+        <RoomGalery images={UserCtx.room.images} options={{ showBullets: UserCtx.room.images.length > 1 ? true : false }} />
       </RoomContainerPhotoWrapper>
       <RoomDescription>{UserCtx.room.description}</RoomDescription>
       <RoomMainFeaturesContainer>

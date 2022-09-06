@@ -16,7 +16,9 @@ import org.springframework.web.bind.annotation.RestController;
 import pl.inf.app.api.offer.control.OfferToUiMapper;
 import pl.inf.app.api.offer.entity.UiOffer;
 import pl.inf.app.bm.offer.boundary.OfferBF;
+import pl.inf.app.config.logger.boundary.LogBF;
 
+import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -45,8 +47,9 @@ public class OfferController {
      */
     @GetMapping
     public ResponseEntity<CollectionModel<EntityModel<UiOffer>>> getAll() {
-        return ResponseEntity.ok(CollectionModel.of(offerBF.getAll(offerToUiMapper)
-                .stream()
+        final List<UiOffer> uiOfferList = offerBF.getAll(offerToUiMapper);
+        LogBF.logCustom("Retrieve list of offers. Size : %d", uiOfferList.size());
+        return ResponseEntity.ok(CollectionModel.of(uiOfferList.stream()
                 .map(offer -> EntityModel.of(offer)
                         .add(linkTo(methodOn(OfferController.class).getById(offer.getId())).withRel(GET_OFFER.toString()))
                         .add(linkTo(methodOn(OfferController.class).updateOffer(offer.getId(), null)).withRel(
@@ -63,8 +66,9 @@ public class OfferController {
      */
     @GetMapping("/active")
     public ResponseEntity<CollectionModel<EntityModel<UiOffer>>> getActiveOffers() {
-        return ResponseEntity.ok(CollectionModel.of(offerBF.getActiveOffers(offerToUiMapper)
-                .stream()
+        final List<UiOffer> activeOffers = offerBF.getActiveOffers(offerToUiMapper);
+        LogBF.logCustom("Retrieve list of active offers. Size : %d", activeOffers.size());
+        return ResponseEntity.ok(CollectionModel.of(activeOffers.stream()
                 .map(offer -> EntityModel.of(offer)
                         .add(linkTo(methodOn(OfferController.class).getById(offer.getId())).withRel(GET_OFFER.toString())))
                 .collect(Collectors.toList())).add(linkTo(methodOn(OfferController.class).getActiveOffers()).withSelfRel()));
@@ -78,7 +82,9 @@ public class OfferController {
      */
     @GetMapping("/{id}")
     public ResponseEntity<EntityModel<UiOffer>> getById(@PathVariable final UUID id) {
-        return ResponseEntity.ok(EntityModel.of(offerBF.getById(id, offerToUiMapper))
+        final UiOffer offer = offerBF.getById(id, offerToUiMapper);
+        LogBF.logGet(offer);
+        return ResponseEntity.ok(EntityModel.of(offer)
                 .add(linkTo(methodOn(OfferController.class).updateOffer(id, null)).withRel(UPDATE_OFFER.toString()))
                 .add(linkTo(methodOn(OfferController.class).getById(id)).withSelfRel()));
     }
@@ -92,6 +98,7 @@ public class OfferController {
     @PostMapping
     public ResponseEntity<EntityModel<UiOffer>> createOffer(@RequestBody final UiOffer uiOffer) {
         final UiOffer offer = offerBF.create(uiOffer, offerToUiMapper);
+        LogBF.logCreate(offer);
         return ResponseEntity.ok(EntityModel.of(offer)
                 .add(linkTo(methodOn(OfferController.class).getById(offer.getId())).withRel(GET_OFFER.toString()))
                 .add(linkTo(methodOn(OfferController.class).createOffer(null)).withSelfRel()));
@@ -108,6 +115,7 @@ public class OfferController {
     public ResponseEntity<EntityModel<UiOffer>> updateOffer(@PathVariable final UUID id, @RequestBody final UiOffer uiOffer) {
         uiOffer.setId(id);
         final UiOffer offer = offerBF.update(uiOffer, offerToUiMapper);
+        LogBF.logUpdate(offer);
         return ResponseEntity.ok(EntityModel.of(offer)
                 .add(linkTo(methodOn(OfferController.class).getById(offer.getId())).withRel(GET_OFFER.toString()))
                 .add(linkTo(methodOn(OfferController.class).updateOffer(id, null)).withSelfRel()));

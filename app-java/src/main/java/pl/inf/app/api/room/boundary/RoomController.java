@@ -18,7 +18,9 @@ import pl.inf.app.api.room.control.RoomToUiMapper;
 import pl.inf.app.api.room.entity.UiRoom;
 import pl.inf.app.api.room.entity.UiSearchParams;
 import pl.inf.app.bm.room.boundary.RoomBF;
+import pl.inf.app.config.logger.boundary.LogBF;
 
+import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -48,8 +50,9 @@ public class RoomController {
      */
     @GetMapping
     public ResponseEntity<CollectionModel<EntityModel<UiRoom>>> getAll() {
-        return ResponseEntity.ok(CollectionModel.of(roomBF.getAll(roomToUiMapper)
-                .stream()
+        final List<UiRoom> uiRoomList = roomBF.getAll(roomToUiMapper);
+        LogBF.logCustom("Retrieve list of rooms. Size : %d", uiRoomList.size());
+        return ResponseEntity.ok(CollectionModel.of(uiRoomList.stream()
                 .map(uiRoom -> EntityModel.of(uiRoom)
                         .add(linkTo(methodOn(RoomController.class).getById(uiRoom.getId())).withRel(GET_ROOM.toString()))
                         .add(linkTo(methodOn(RoomController.class).updateRoom(uiRoom.getId(), null)).withRel(
@@ -67,7 +70,9 @@ public class RoomController {
      */
     @GetMapping("/{id}")
     public ResponseEntity<EntityModel<UiRoom>> getById(@PathVariable final UUID id) {
-        return ResponseEntity.ok(EntityModel.of(roomBF.getById(id, roomToUiMapper))
+        final UiRoom room = roomBF.getById(id, roomToUiMapper);
+        LogBF.logGet(room);
+        return ResponseEntity.ok(EntityModel.of(room)
                 .add(linkTo(methodOn(RoomController.class).updateRoom(id, null)).withRel(UPDATE_ROOM.toString()))
                 .add(linkTo(methodOn(RoomController.class).getById(id)).withSelfRel()));
     }
@@ -81,6 +86,7 @@ public class RoomController {
     @PostMapping
     public ResponseEntity<EntityModel<UiRoom>> createRoom(@RequestBody final UiRoom uiRoom) {
         final UiRoom room = roomBF.create(uiRoom, roomToUiMapper);
+        LogBF.logCreate(room);
         return ResponseEntity.ok(EntityModel.of(room)
                 .add(linkTo(methodOn(RoomController.class).getById(room.getId())).withRel(GET_ROOM.toString()))
                 .add(linkTo(methodOn(RoomController.class).createRoom(null)).withSelfRel()));
@@ -97,6 +103,7 @@ public class RoomController {
     public ResponseEntity<EntityModel<UiRoom>> updateRoom(@PathVariable final UUID id, @RequestBody final UiRoom uiRoom) {
         uiRoom.setId(id);
         final UiRoom room = roomBF.update(uiRoom, roomToUiMapper);
+        LogBF.logUpdate(room);
         return ResponseEntity.ok(EntityModel.of(room)
                 .add(linkTo(methodOn(RoomController.class).getById(room.getId())).withRel(GET_ROOM.toString()))
                 .add(linkTo(methodOn(RoomController.class).updateRoom(id, null)).withSelfRel()));
@@ -110,13 +117,13 @@ public class RoomController {
      */
     @PostMapping("/search")
     public ResponseEntity<CollectionModel<EntityModel<UiRoom>>> searchRooms(@RequestBody final UiSearchParams searchParams) {
-        return ResponseEntity.ok(CollectionModel.of(roomBF.search(searchParams, roomToUiMapper)
-                .stream()
-                .map(uiRoom -> EntityModel.of(uiRoom)
-                        .add(linkTo(methodOn(RoomController.class).getById(uiRoom.getId())).withRel(GET_ROOM.toString()))
-                        .add(linkTo(methodOn(ReservationController.class).createReservation(uiRoom.getId(), null)).withRel(
-                                CREATE_RESERVATION.toString())))
-                .collect(Collectors.toList())).add(linkTo(methodOn(RoomController.class).searchRooms(null)).withSelfRel()));
+        final List<UiRoom> roomList = roomBF.search(searchParams, roomToUiMapper);
+        LogBF.logCustom("Retrieve list of rooms (size : %d) by search params %s", roomList.size(), searchParams.toString());
+        return ResponseEntity.ok(CollectionModel.of(roomList.stream().map(uiRoom -> EntityModel.of(uiRoom)
+                .add(linkTo(methodOn(RoomController.class).getById(uiRoom.getId())).withRel(GET_ROOM.toString()))
+                .add(linkTo(methodOn(ReservationController.class).createReservation(uiRoom.getId(), null)).withRel(
+                        CREATE_RESERVATION.toString()))).collect(Collectors.toList()))
+                .add(linkTo(methodOn(RoomController.class).searchRooms(null)).withSelfRel()));
     }
 
 }

@@ -34,9 +34,9 @@ const EditEmployee = ({ employee, setShowModal, updateData }) => {
     console.log(formValues);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setFormErrors(validate(formValues));
+    setFormErrors(await validate(formValues));
     setIsSubmit(true);
   };
 
@@ -89,7 +89,22 @@ const EditEmployee = ({ employee, setShowModal, updateData }) => {
     }
   }, [LinksCtx.employees, formErrors, formValues, isSubmit, employee, setShowModal, updateData]);
 
-  const validate = (values) => {
+  const checkEmail = async (email) => {
+    const checkEmailUrl = `${LinksCtx.checkEmail}`;
+    const requestOptions = {
+      method: 'POST',
+      body: email,
+      headers: new Headers({ 'content-type': 'application/json' }),
+    };
+    const response = await fetch(checkEmailUrl, requestOptions);
+    const data = await response.json();
+    if (response.ok && data === false) {
+      return 'Konto o podanym adresie email już istnieje!';
+    }
+    return '';
+  };
+
+  const validate = async (values) => {
     const errors = {};
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
     if (!values.name) {
@@ -98,10 +113,16 @@ const EditEmployee = ({ employee, setShowModal, updateData }) => {
     if (!values.surname) {
       errors.surname = 'Nazwisko jest wymagane!';
     }
+    const usedEmail = await checkEmail(values.email);
     if (!values.email) {
       errors.email = 'Adres e-mail jest wymagany!';
     } else if (!regex.test(values.email)) {
       errors.email = 'Adres e-mail musi mieć poprawny format!';
+    } else if (usedEmail) {
+      errors.email = usedEmail;
+    }
+    if (!values.password) {
+      errors.password = 'Hasło jest wymagane!';
     }
     if (values.password !== values.confirmPassword) {
       errors.confirmPassword = 'Hasła nie są identyczne!';
@@ -112,15 +133,16 @@ const EditEmployee = ({ employee, setShowModal, updateData }) => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <Header>{employee?.employeeId ? 'Edytuj Pracownika' : 'Stwórz Pracownika'}</Header>
+      <Header>{employee?.employeeId ? 'Edytuj pracownika' : 'Stwórz pracownika'}</Header>
       <ContentWrapper>
         <FormField
           onChange={handleChange}
-          value={formValues.active}
-          label="Pracownik Aktywny"
+          value=""
+          label="Pracownik aktywny"
           name="active"
           id="employeeActive"
           type="checkbox"
+          checked={formValues.active ? 'checked' : ''}
         ></FormField>
         {initialValues.employeeId ? (
           <FormField
@@ -130,30 +152,16 @@ const EditEmployee = ({ employee, setShowModal, updateData }) => {
             name="employeeId"
             id="employeeId"
             type="text"
-            disabled={false}
+            disabled={true}
           ></FormField>
         ) : (
           ''
         )}
-        <FormField onChange={handleChange} value={formValues.name} name="name" id="employeeName" type="text" placeholder="Imię"></FormField>
+        <FormField onChange={handleChange} value={formValues.name} name="name" id="employeeName" type="text" label="Imię"></FormField>
         <ErrorText>{formErrors.name}</ErrorText>
-        <FormField
-          onChange={handleChange}
-          value={formValues.surname}
-          name="surname"
-          id="employeeSurname"
-          type="text"
-          placeholder="Nazwisko"
-        ></FormField>
+        <FormField onChange={handleChange} value={formValues.surname} name="surname" id="employeeSurname" type="text" label="Nazwisko"></FormField>
         <ErrorText>{formErrors.surname}</ErrorText>
-        <FormField
-          onChange={handleChange}
-          value={formValues.email}
-          name="email"
-          id="employeeEmail"
-          type="text"
-          placeholder="Adres e-mail"
-        ></FormField>
+        <FormField onChange={handleChange} value={formValues.email} name="email" id="employeeEmail" type="text" label="Adres e-mail"></FormField>
         <ErrorText>{formErrors.email}</ErrorText>
         <FormField
           onChange={handleChange}
@@ -161,7 +169,7 @@ const EditEmployee = ({ employee, setShowModal, updateData }) => {
           name="password"
           id="employeePassword"
           type="password"
-          placeholder="Hasło"
+          label="Hasło"
         ></FormField>
         <ErrorText>{formErrors.password}</ErrorText>
         <FormField
@@ -170,7 +178,7 @@ const EditEmployee = ({ employee, setShowModal, updateData }) => {
           name="confirmPassword"
           id="employeeConfirmPassword"
           type="password"
-          placeholder="Potwierdź hasło"
+          label="Potwierdź hasło"
         ></FormField>
         <ErrorText>{formErrors.confirmPassword}</ErrorText>
       </ContentWrapper>

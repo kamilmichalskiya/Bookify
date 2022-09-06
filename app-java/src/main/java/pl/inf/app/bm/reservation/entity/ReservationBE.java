@@ -67,11 +67,24 @@ public class ReservationBE {
 
     private boolean active;
 
+    private String companyName;
+
+    private String nip;
+
+    private String street;
+
+    private String postalCode;
+
+    private String city;
+
+    private String country;
+
     @Override
     public String toString() {
         return "ReservationBE{" + "id=" + id + ", startDate=" + startDate + ", endDate=" + endDate + ", room=" +
                (room != null ? room.getId() : "") + ", totalPrice=" + totalPrice + ", paid=" + paid + ", offers=" +
                offers.stream().map(OfferBE::getId).collect(Collectors.toList()) + ", customerData=" + customerData +
-               ", guestData=" + guestData + ", active=" + active + '}';
+               ", guestData=" + guestData + ", active=" + active + ", companyName='" + companyName + ", nip='" + nip +
+               ", street='" + street + ", postalCode='" + postalCode + ", city='" + city + ", country='" + country + '}';
     }
 }

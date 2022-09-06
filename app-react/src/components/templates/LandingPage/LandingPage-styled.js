@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { StyledIconBase } from '@styled-icons/styled-icon';
+import { MdExitToApp } from 'react-icons/md';
 
 export const Wrapper = styled.div`
   display: flex;
@@ -54,6 +55,19 @@ export const IconStyleWrapper = styled.div`
   ${StyledIconBase} {
     color: ${({ theme }) => theme.colors.white};
   }
+  &:hover {
+    opacity: 0.9;
+    cursor: pointer;
+  }
+`;
+
+export const IconExit = styled(MdExitToApp)`
+  color: ${({ theme }) => theme.colors.white};
+  position: absolute;
+  right: 50px;
+  font-size: 2rem;
+  transform: scale(1.5);
+  color: #fff;
   &:hover {
     opacity: 0.9;
     cursor: pointer;

@@ -5,6 +5,7 @@ import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.inf.app.api.offer.entity.UiOffer;
+import pl.inf.app.api.reservation.control.ReservationToUiMapper;
 import pl.inf.app.api.reservation.entity.UiReservation;
 import pl.inf.app.bm.notification.entity.NotificationEvent;
 import pl.inf.app.bm.offer.boundary.OfferBF;
@@ -22,6 +23,7 @@ import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -67,7 +69,9 @@ public class ReservationBF {
      * @return list of mapped reservations
      */
     public <T> List<T> getAll(final Mapper<ReservationBE, T> mapper) {
-        return reservationRepositoryBA.findAll().stream().map(mapper::map).collect(Collectors.toList());
+        final Date date = new Date(LocalDate.now().atStartOfDay().toInstant(OffsetDateTime.now().getOffset()).toEpochMilli());
+        return reservationRepositoryBA.findByActiveTrueAndEndDateGreaterThanEqual(date).stream().map(mapper::map).collect(
+                Collectors.toList());
     }
 
     /**
@@ -87,6 +91,8 @@ public class ReservationBF {
                 .map(uiOffers -> uiOffers.stream().map(UiOffer::getId).collect(Collectors.toList()))
                 .map(idList -> offerBF.getOffersById(idList, HashSet::new))
                 .orElse(null));
+        reservationBE.setActive(true);
+        reservationBE.setPaid(true);
 
         if (!validReservation(reservationBE)) {
             throw new ProcessException(RESERVATION_VALIDATION_ERROR, reservationBE, uiReservation);
@@ -99,6 +105,7 @@ public class ReservationBF {
                     .text(getBody(reservation))
                     .build();
             eventPublisher.publishEvent(notificationEvent);
+            eventPublisher.publishEvent(reservation);
             return reservation;
         }).map(uiMapper::map).orElseThrow(() -> new ProcessException(RESERVATION_CREATING_ERROR, reservationBE));
     }
@@ -130,9 +137,22 @@ public class ReservationBF {
     }
 
     private String getBody(final ReservationBE reservation) {
-        return String.format("Dokonano rezerwacji (id: %s) pokoju %s w dniach od %s do %s za kwotę %s zł\n\n" +
-                             "Dziękujemy Zespół Bookify\n\n" + "Poniższa wiadomość jest wyłącznie wiadomością testową",
-                reservation.getId(), reservation.getRoom().getId(), reservation.getStartDate(), reservation.getEndDate(),
+        return String.format("Dokonano rezerwacji (id: %s) pokoju nr %s w dniach od %s do %s za kwotę %s zł\n\n" +
+                             "Dziękujemy Zespół Bookify\n\nPoniższa wiadomość jest wyłącznie wiadomością testową",
+                reservation.getId(), reservation.getRoom().getRoomNumber(), reservation.getStartDate(), reservation.getEndDate(),
                 reservation.getTotalPrice());
+    }
+
+    /**
+     * Retrieve list of rooms reservations
+     *
+     * @return list of rooms reservations
+     */
+    public Map<Integer, List<UiReservation>> getOccupation(final ReservationToUiMapper reservationToUiMapper) {
+        final Date date = new Date(LocalDate.now().atStartOfDay().toInstant(OffsetDateTime.now().getOffset()).toEpochMilli());
+        return reservationRepositoryBA.findByActiveTrueAndEndDateGreaterThanEqual(date)
+                .stream()
+                .map(reservationToUiMapper::map)
+                .collect(Collectors.groupingBy(reservationBE -> reservationBE.getRoom().getRoomNumber()));
     }
 }

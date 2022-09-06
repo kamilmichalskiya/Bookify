@@ -16,7 +16,9 @@ import org.springframework.web.bind.annotation.RestController;
 import pl.inf.app.api.employee.control.EmployeeToUiMapper;
 import pl.inf.app.api.employee.entity.UiEmployee;
 import pl.inf.app.bm.employee.boundary.EmployeeBF;
+import pl.inf.app.config.logger.boundary.LogBF;
 
+import java.util.List;
 import java.util.stream.Collectors;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
@@ -44,8 +46,9 @@ public class EmployeeController {
      */
     @GetMapping
     public ResponseEntity<CollectionModel<EntityModel<UiEmployee>>> getAll() {
-        return ResponseEntity.ok(CollectionModel.of(employeeBF.getAll(employeeToUiMapper).stream().map(employee -> EntityModel.of(
-                employee)
+        final List<UiEmployee> uiEmployeeList = employeeBF.getAll(employeeToUiMapper);
+        LogBF.logCustom("Retrieve list of employees. Size : %d", uiEmployeeList.size());
+        return ResponseEntity.ok(CollectionModel.of(uiEmployeeList.stream().map(employee -> EntityModel.of(employee)
                 .add(linkTo(methodOn(EmployeeController.class).getById(employee.getEmployeeId())).withRel(
                         GET_EMPLOYEE.toString()))
                 .add(linkTo(methodOn(EmployeeController.class).updateEmployee(employee.getEmployeeId(), null)).withRel(
@@ -62,7 +65,9 @@ public class EmployeeController {
      */
     @GetMapping("/{id}")
     public ResponseEntity<EntityModel<UiEmployee>> getById(@PathVariable final Integer id) {
-        return ResponseEntity.ok(EntityModel.of(employeeBF.getById(id, employeeToUiMapper))
+        final UiEmployee employee = employeeBF.getById(id, employeeToUiMapper);
+        LogBF.logGet(employee);
+        return ResponseEntity.ok(EntityModel.of(employee)
                 .add(linkTo(methodOn(EmployeeController.class).updateEmployee(id, null)).withRel(UPDATE_EMPLOYEE.toString()))
                 .add(linkTo(methodOn(EmployeeController.class).getById(id)).withSelfRel()));
     }
@@ -76,6 +81,7 @@ public class EmployeeController {
     @PostMapping
     public ResponseEntity<EntityModel<UiEmployee>> createEmployee(@RequestBody final UiEmployee uiEmployee) {
         final UiEmployee employee = employeeBF.create(uiEmployee, employeeToUiMapper);
+        LogBF.logCreate(employee);
         return ResponseEntity.ok(EntityModel.of(employee)
                 .add(linkTo(methodOn(EmployeeController.class).getById(employee.getEmployeeId())).withRel(
                         GET_EMPLOYEE.toString()))
@@ -96,6 +102,7 @@ public class EmployeeController {
                                                                   @RequestBody final UiEmployee uiEmployee) {
         uiEmployee.setEmployeeId(id);
         final UiEmployee employee = employeeBF.update(uiEmployee, employeeToUiMapper);
+        LogBF.logUpdate(employee);
         return ResponseEntity.ok(EntityModel.of(employee)
                 .add(linkTo(methodOn(EmployeeController.class).getById(employee.getEmployeeId())).withRel(
                         GET_EMPLOYEE.toString()))
@@ -110,6 +117,7 @@ public class EmployeeController {
      */
     @PostMapping("/email/check")
     public ResponseEntity<Boolean> checkMail(@RequestBody final String email) {
+        LogBF.logCustom("Check email : %s", email);
         return ResponseEntity.ok(employeeBF.checkMail(email));
     }
 

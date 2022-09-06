@@ -27,7 +27,7 @@ const setBoolCheckboxStateObject = (offers) => {
   return stateObject;
 };
 
-const Step2 = ({ offers, setOfferPrice }) => {
+const Step2 = ({ offers, setOfferPrice, setValidateStep }) => {
   const UserCtx = useContext(UserDataContext);
   const [offersSelected, setOffersSelected] = useState(setBoolCheckboxStateObject(offers));
   const [totalPrice, setTotalPrice] = useState(0);
@@ -36,6 +36,11 @@ const Step2 = ({ offers, setOfferPrice }) => {
   const handleOfferSelected = (offer) => {
     setOffersSelected({ ...offersSelected, [offer.name]: !offersSelected[offer.name] });
   };
+
+  useEffect(() => {
+    setValidateStep(() => () => true);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     const calculateDays = (startDate, endDate) => {

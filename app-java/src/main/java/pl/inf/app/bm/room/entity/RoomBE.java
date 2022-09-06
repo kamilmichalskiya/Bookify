@@ -42,6 +42,8 @@ public class RoomBE {
     @Enumerated(EnumType.STRING)
     private RoomType roomType;
 
+    private int roomNumber;
+
     private float price;
 
     private int capacity;
