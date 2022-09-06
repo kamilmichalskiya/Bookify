@@ -10,15 +10,11 @@ export const Input = styled.input`
   padding: 10px 25px;
   border: none;
   border-radius: 5px;
-  ${({ type }) => type === 'checkbox' && `width: 24px; margin: 10px 0;`};
-  ${({ type }) =>
-    type === 'file' &&
-    `
-    border-radius: 4px;
-    background-color: ${({ theme }) => theme.colors.primary};
-    padding: 0;
-    height: 40px;
+  ${({ type }) => type === 'checkbox' && `
+    width: 24px; 
+    margin: 10px 0;
     `};
+  ${({ type }) => type === 'file' && `display: none;`};
   ::placeholder {
     color: ${({ theme }) => theme.colors.placeholder};
     font-size: ${({ theme }) => theme.fontSize.m};
@@ -26,7 +22,6 @@ export const Input = styled.input`
   }
   &:focus {
     outline: none;
-    /* box-shadow: 0 0 10px ${({ theme }) => theme.colors.primary}; */
   }
 `;
 
@@ -34,7 +29,7 @@ export const TextArea = styled.textarea`
   width: 100%;
   max-width: 500px;
   height: 100px;
-  font-size: 1.25rem;
+  font-size: 1rem;
   padding: 5px 8px;
   border: 1px solid ${({ theme }) => theme.colors.white};
   box-sizing: border-box;

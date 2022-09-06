@@ -8,7 +8,7 @@ import CreatableSelect from 'react-select/creatable';
 import { selectCustomStyles } from 'assets/styles/selectCustomStyles';
 import Stepper from 'components/molecules/Stepper/Stepper';
 import { EyeOutline } from '@styled-icons/evaicons-outline/EyeOutline';
-import { PasswordInputWrapper, DarkEyeStyleWrapper } from './FormField-styled';
+import { PasswordInputWrapper, DarkEyeStyleWrapper, FileButton } from './FormField-styled';
 
 const Wrapper = styled.div`
   display: flex;
@@ -112,16 +112,19 @@ const FormField = ({
       )}
       {type === 'stepper' ? <Stepper title="" value={value} updateValue={onChange} minValue={0}></Stepper> : ''}
       {type === 'file' ? (
-        <Input
-          name={name}
-          id={id}
-          type={type}
-          value={value}
-          onChange={onChange}
-          disabled={disabled}
-          placeholder={`Upload an ${name}`}
-          accept=".png, .jpg, .jpeg"
-        />
+        <>
+          <FileButton for={id}>Wybierz</FileButton>
+          <Input
+            name={name}
+            id={id}
+            type={type}
+            value={value}
+            onChange={onChange}
+            disabled={disabled}
+            placeholder={`Upload an ${name}`}
+            accept=".png, .jpg, .jpeg"
+          />
+        </>
       ) : (
         ''
       )}

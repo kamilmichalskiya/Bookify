@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { SaveButton } from 'components/atoms/Button/Button';
+import { SaveButton, Button, PrimaryButton, SecondaryButton, TertiaryButton, DeleteButton } from 'components/atoms/Button/Button';
 import { Header, ContentWrapper, Footer, ErrorText, ImageContainer, DeleteImageButton } from './EditRoom-styled';
 import { LinksContext } from 'providers/LinksProvider';
 import { roomTypeOptions } from 'data/roomTypeOptions';
@@ -286,15 +286,6 @@ const EditRoom = ({ room, setShowModal, updateData }) => {
           type="stepper"
         />
         <ErrorText>{formErrors.doubleBeds}</ErrorText>
-        <FormField
-          onChange={handleChange}
-          value={formValues.description}
-          label="Opis pokoju"
-          name="description"
-          id="roomDescription"
-          type="textarea"
-        />
-        <ErrorText>{formErrors.description}</ErrorText>
         <FormField onChange={handleChange} value={formValues.area} label="Metraż (m²)" name="area" id="roomArea" type="text" />
         <ErrorText>{formErrors.area}</ErrorText>
         <FormField
@@ -318,10 +309,24 @@ const EditRoom = ({ room, setShowModal, updateData }) => {
           options={formValues.accessories}
         />
         <ErrorText>{formErrors.accessories}</ErrorText>
+        <FormField
+          onChange={handleChange}
+          value={formValues.description}
+          label="Opis pokoju"
+          name="description"
+          id="roomDescription"
+          type="textarea"
+        />
+        <ErrorText>{formErrors.description}</ErrorText>
       </ContentWrapper>
       <Footer>
         <div></div>
         <SaveButton onClick={handleSubmit}>Zapisz</SaveButton>
+        <Button onClick={handleSubmit}>Button</Button>
+        <PrimaryButton onClick={handleSubmit}>Primary</PrimaryButton>
+        <SecondaryButton onClick={handleSubmit}>Secondary</SecondaryButton>
+        <TertiaryButton onClick={handleSubmit}>Tertiary</TertiaryButton>
+        <DeleteButton onClick={handleSubmit}>Delete</DeleteButton>
       </Footer>
     </form>
   );
