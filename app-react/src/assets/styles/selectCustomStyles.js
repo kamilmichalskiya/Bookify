@@ -1,7 +1,7 @@
 export const selectCustomStyles = {
   container: (provided, state) => ({
     ...provided,
-    width: '400px',
+    maxWidth: '400px',
   }),
   control: (provided, state) => ({
     ...provided,
