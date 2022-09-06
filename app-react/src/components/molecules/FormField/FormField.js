@@ -115,7 +115,7 @@ const FormField = ({
       {type === 'stepper' ? <Stepper title="" value={value} updateValue={onChange} minValue={0}></Stepper> : ''}
       {type === 'file' ? (
         <>
-          <FileButton for={id}>Wybierz</FileButton>
+          <FileButton htmlFor={id}>Wybierz</FileButton>
           <Input
             name={name}
             id={id}
