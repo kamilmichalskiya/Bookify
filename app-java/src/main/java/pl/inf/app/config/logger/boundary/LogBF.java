@@ -33,12 +33,6 @@ public class LogBF {
 
     private final LogRepositoryBA logRepositoryBA;
 
-    @PostConstruct
-    private void initLogRepository() {
-        logRepository = this.logRepositoryBA;
-        LOGGER = LoggerFactory.getLogger(LogBF.class);
-    }
-
     /**
      * Fills and saves the log entity
      */
@@ -84,5 +78,11 @@ public class LogBF {
 
     public static void logCustom(final String message, final Object... params) {
         log(message, CUSTOM, params);
+    }
+
+    @PostConstruct
+    private void initLogRepository() {
+        logRepository = this.logRepositoryBA;
+        LOGGER = LoggerFactory.getLogger(LogBF.class);
     }
 }

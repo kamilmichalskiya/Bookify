@@ -134,7 +134,7 @@ public class ReservationBF {
 
     private String getBody(final ReservationBE reservation) {
         return String.format("Dokonano rezerwacji (id: %s) pokoju nr %s w dniach od %s do %s za kwotę %s zł\n\n" +
-                             "Dziękujemy Zespół Bookify\n\n" + "Poniższa wiadomość jest wyłącznie wiadomością testową",
+                             "Dziękujemy Zespół Bookify\n\nPoniższa wiadomość jest wyłącznie wiadomością testową",
                 reservation.getId(), reservation.getRoom().getRoomNumber(), reservation.getStartDate(), reservation.getEndDate(),
                 reservation.getTotalPrice());
     }

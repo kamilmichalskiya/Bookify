@@ -1,6 +1,7 @@
 package pl.inf.app.bm.reservation.control;
 
 import org.springframework.stereotype.Component;
+import pl.inf.app.api.reservation.entity.InvoiceData;
 import pl.inf.app.api.reservation.entity.UiReservation;
 import pl.inf.app.bm.reservation.entity.ReservationBE;
 import pl.inf.app.utils.Filler;
@@ -35,12 +36,16 @@ public class UiReservationToEntityMapper implements Mapper<Filler<UiReservation,
         target.setPaid(source.isPaid());
         target.setCustomerData(source.getCustomerData());
         target.setGuestData(source.getGuestData());
-        target.setCompanyName(source.getCompanyName());
-        target.setNip(source.getNip());
-        target.setStreet(source.getStreet());
-        target.setPostalCode(source.getPostalCode());
-        target.setCity(source.getCity());
-        target.setCountry(source.getCountry());
+
+        final InvoiceData invoiceData = source.getInvoiceData();
+        if (invoiceData != null) {
+            target.setCompanyName(invoiceData.getCompanyName());
+            target.setNip(invoiceData.getNip());
+            target.setStreet(invoiceData.getStreet());
+            target.setPostalCode(invoiceData.getPostalCode());
+            target.setCity(invoiceData.getCity());
+            target.setCountry(invoiceData.getCountry());
+        }
 
         return target;
     }
