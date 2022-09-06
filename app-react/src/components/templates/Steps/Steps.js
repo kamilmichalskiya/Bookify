@@ -84,7 +84,7 @@ const Steps = ({ returnToLandingPage, employeeConfig }) => {
       case 3:
         return <Step3 offers={offers} setValidateStep={setValidateStep}></Step3>;
       case 4:
-        return <Step4 changeStep={changeStep} setValidateStep={setValidateStep}></Step4>;
+        return <Step4 totalPrice={totalPrice} changeStep={changeStep} setValidateStep={setValidateStep}></Step4>;
       case 5:
         return <Step5 totalPrice={totalPrice} employeeConfig={employeeConfig} setValidateStep={setValidateStep}></Step5>;
       default:

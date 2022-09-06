@@ -32,16 +32,13 @@ const EmployeePanel = ({ history }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isUserPanel]);
 
-  useEffect(() => {
-    if (reservations?.length !== 0) {
-      setIsLoading(false);
-    }
-  }, [reservations]);
-
   const getRoomsOccupation = async () => {
     const response = await fetch(`${LinksCtx.reservations}/occupation`);
     const data = await response.json();
     setRoomsOccupation(data);
+    if (response.ok) {
+      setIsLoading(false);
+    }
     console.log(data);
   };
 
