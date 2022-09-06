@@ -46,7 +46,7 @@ const Steps = ({ returnToLandingPage, employeeConfig }) => {
 
   useEffect(() => {
     const getRoomOffers = async () => {
-      const response = await fetch(`${LinksCtx.offers}/active`);
+      const response = await fetch(LinksCtx.activeOffers);
       const data = await response.json();
       const offersData = data._embedded.uiOfferList;
       setOffers(offersData);
