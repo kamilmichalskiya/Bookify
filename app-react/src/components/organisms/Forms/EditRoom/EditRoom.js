@@ -13,6 +13,7 @@ import RoomGalery from 'components/molecules/RoomGalery/RoomGalery';
 const EditRoom = ({ room, setShowModal, updateData }) => {
   const initialValues = {
     active: room.active || false,
+    roomNumber: room.roomNumber || 0,
     images: room.images || '',
     roomType: room.roomType ? { label: room.roomType, value: room.roomType } : '',
     price: room.price || '',
@@ -166,6 +167,13 @@ const EditRoom = ({ room, setShowModal, updateData }) => {
 
   const validate = (values) => {
     const errors = {};
+    if (!values.roomNumber) {
+      errors.roomNumber = 'Numer pokoju jest wymagany!';
+    } else if (isNaN(values.roomNumber)) {
+      errors.roomNumber = 'Numer pokoju musi być liczbą!';
+    } else if (values.roomNumber <= 0) {
+      errors.roomNumber = 'Numer pokoju musi być większy od zera!';
+    }
     if (!values.images || values.images.length === 0) {
       errors.images = 'Minimum jedno zdjęcie jest wymagane!';
     }
@@ -231,6 +239,8 @@ const EditRoom = ({ room, setShowModal, updateData }) => {
           checked={formValues.active ? 'checked' : ''}
           value=""
         />
+        <FormField onChange={handleChange} value={formValues.roomNumber} label="Numer pokoju" name="roomNumber" id="roomNumber" type="text" />
+        <ErrorText>{formErrors.roomNumber}</ErrorText>
         {formValues.images.length > 0 ? (
           <>
             <Label>Zdjęcie pokoju:</Label>
