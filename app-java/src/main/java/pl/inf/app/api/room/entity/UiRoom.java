@@ -32,9 +32,9 @@ public class UiRoom {
 
     @Override
     public String toString() {
-        return "UiRoom{" + "id=" + id + ", image='" + images.size() + '\'' + ", roomType=" + roomType + ", price=" + price +
-               ", capacity=" + capacity + ", singleBeds=" + singleBeds + ", doubleBeds=" + doubleBeds + ", description='" +
-               description + '\'' + ", area=" + area + ", addOns=" + addOns + ", accessories=" + accessories + ", isActive=" +
-               isActive + '}';
+        return "UiRoom{" + "id=" + id + ", image='" + images.size() + '\'' + ", roomType=" + roomType + ", roomNumber=" +
+               roomNumber + ", price=" + price + ", capacity=" + capacity + ", singleBeds=" + singleBeds + ", doubleBeds=" +
+               doubleBeds + ", description='" + description + '\'' + ", area=" + area + ", addOns=" + addOns + ", accessories=" +
+               accessories + ", isActive=" + isActive + '}';
     }
 }

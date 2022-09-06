@@ -14,9 +14,9 @@ public class EmployeeToUiMapper implements Mapper<EmployeeBE, UiEmployee> {
     public UiEmployee map(final EmployeeBE source) {
         final UiEmployee employee = new UiEmployee();
         employee.setEmployeeId(source.getId());
-        employee.setEmail(source.getEmail());
         employee.setName(source.getName());
         employee.setSurname(source.getSurname());
+        employee.setEmail(source.getEmail());
         employee.setActive(source.isActive());
         return employee;
     }

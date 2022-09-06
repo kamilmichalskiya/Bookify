@@ -84,6 +84,7 @@ public class ReservationBE {
         return "ReservationBE{" + "id=" + id + ", startDate=" + startDate + ", endDate=" + endDate + ", room=" +
                (room != null ? room.getId() : "") + ", totalPrice=" + totalPrice + ", paid=" + paid + ", offers=" +
                offers.stream().map(OfferBE::getId).collect(Collectors.toList()) + ", customerData=" + customerData +
-               ", guestData=" + guestData + ", active=" + active + '}';
+               ", guestData=" + guestData + ", active=" + active + ", companyName='" + companyName + ", nip='" + nip +
+               ", street='" + street + ", postalCode='" + postalCode + ", city='" + city + ", country='" + country + '}';
     }
 }

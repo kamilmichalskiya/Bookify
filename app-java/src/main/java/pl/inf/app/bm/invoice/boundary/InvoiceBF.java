@@ -26,11 +26,10 @@ import java.util.concurrent.TimeUnit;
 @Service
 public class InvoiceBF {
     private final Logger LOGGER = LoggerFactory.getLogger(InvoiceBF.class);
+    private final ApplicationEventPublisher eventPublisher;
 
     @Value("${notification.service}")
     private String service;
-
-    private final ApplicationEventPublisher eventPublisher;
 
     public void generateInvoice(final ReservationBE reservation) {
         final PDDocument document = new PDDocument();
