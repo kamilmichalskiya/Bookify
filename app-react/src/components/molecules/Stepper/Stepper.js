@@ -1,5 +1,6 @@
 import React from 'react';
-import { StepperLine, StepperLabel, StepperWrapper, StepperButton, StepperValue } from './Stepper-styled';
+import { StepperLine, StepperWrapper, StepperButton, StepperValue } from './Stepper-styled';
+import { Label } from 'components/atoms/Label/Label';
 import PropTypes from 'prop-types';
 
 const Stepper = ({ title, value, updateValue, minValue }) => {
@@ -15,7 +16,7 @@ const Stepper = ({ title, value, updateValue, minValue }) => {
 
   return (
     <StepperLine>
-      <StepperLabel>{title}</StepperLabel>
+      <Label>{title}</Label>
       <StepperWrapper>
         <StepperButton disabled={minValue === value} onClick={decreaseValue}>
           -

@@ -218,7 +218,7 @@ const EditRoom = ({ room, setShowModal, updateData }) => {
 
   return (
     <form>
-      <Header>{room?.id ? 'Edytuj Pokój' : 'Stwórz Pokój'}</Header>
+      <Header>{room?.id ? 'Edytuj pokój' : 'Stwórz pokój'}</Header>
       <ContentWrapper>
         <FormField
           onChange={handleChange}
@@ -237,7 +237,7 @@ const EditRoom = ({ room, setShowModal, updateData }) => {
             <ImageContainer>
               <RoomGalery images={formValues.images} options={{ showNav: false }} roomImageSwipeCallback={roomImageSwipeCallback} />
               <DeleteImageButton onClick={removeImage} title="Usuń zdjęcie">
-                X
+                x
               </DeleteImageButton>
             </ImageContainer>
             <FormField onChange={addImage} value="" label="Wgraj więcej zdjęć" name="images" id="roomImages" type="file" />
@@ -271,7 +271,7 @@ const EditRoom = ({ room, setShowModal, updateData }) => {
         <FormField
           onChange={handleStepperSingleBedChange}
           value={formValues.singleBeds}
-          label="Ilość pojedyńczych łóżek"
+          label="Ilość pojedynczych łóżek"
           name="singleBeds"
           id="roomSingleBeds"
           type="stepper"
@@ -286,15 +286,6 @@ const EditRoom = ({ room, setShowModal, updateData }) => {
           type="stepper"
         />
         <ErrorText>{formErrors.doubleBeds}</ErrorText>
-        <FormField
-          onChange={handleChange}
-          value={formValues.description}
-          label="Opis Pokoju"
-          name="description"
-          id="roomDescription"
-          type="textarea"
-        />
-        <ErrorText>{formErrors.description}</ErrorText>
         <FormField onChange={handleChange} value={formValues.area} label="Metraż (m²)" name="area" id="roomArea" type="text" />
         <ErrorText>{formErrors.area}</ErrorText>
         <FormField
@@ -318,6 +309,15 @@ const EditRoom = ({ room, setShowModal, updateData }) => {
           options={formValues.accessories}
         />
         <ErrorText>{formErrors.accessories}</ErrorText>
+        <FormField
+          onChange={handleChange}
+          value={formValues.description}
+          label="Opis pokoju"
+          name="description"
+          id="roomDescription"
+          type="textarea"
+        />
+        <ErrorText>{formErrors.description}</ErrorText>
       </ContentWrapper>
       <Footer>
         <div></div>

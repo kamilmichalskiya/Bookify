@@ -6,7 +6,7 @@ export const ModalFooterContainer = styled.div`
   align-items: flex-end;
   width: 100%;
   padding: 10px;
-  margin: 30px 0 5px 0;
+  margin: 10px 0 5px 0;
 `;
 
 export const GreenTextWrapper = styled.span`

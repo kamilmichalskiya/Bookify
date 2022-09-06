@@ -12,12 +12,13 @@ export const ContentWrapper = styled.div`
   width: 100%;
   margin: 15px 0px;
   font-size: 1rem;
+  padding: 20px 0 5px;
 `;
 
 export const Footer = styled.div`
   width: 100%;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   padding-top: 15px;
   margin-top: 30px;
