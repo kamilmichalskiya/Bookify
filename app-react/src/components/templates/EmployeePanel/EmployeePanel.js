@@ -73,12 +73,12 @@ const EmployeePanel = ({ history }) => {
   };
 
   const logout = async () => {
-    // const response = await fetch(LinksCtx.logout, {
-    //   method: 'GET',
-    // });
-    // if (response.redirected) {
-    history.push('/');
-    // }
+    const response = await fetch(LinksCtx.logout, {
+      method: 'GET',
+    });
+    if (response.redirected) {
+      history.push('/');
+    }
   };
 
   return (
