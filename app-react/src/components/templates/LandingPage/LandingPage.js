@@ -37,6 +37,7 @@ const LandingPage = ({ history, employeeConfig = {} }) => {
 
   const returnToLandingPage = () => {
     setRedirect(false);
+    getRooms();
   };
 
   const onRoomDetailsClickHandler = (selectedRoom, days) => {
@@ -62,28 +63,28 @@ const LandingPage = ({ history, employeeConfig = {} }) => {
     }
   }, []);
 
-  useEffect(() => {
-    const getRooms = async () => {
-      const requestBody = {
-        startDate: UserCtx.startDate,
-        endDate: UserCtx.endDate,
-        adult: 1,
-        kids: 0,
-        roomTypes: [],
-        addOns: [],
-      };
-      const requestOptions = {
-        method: 'POST',
-        body: JSON.stringify(requestBody),
-        headers: new Headers({ 'content-type': 'application/json' }),
-      };
-      const response = await fetch(`${LinksCtx.rooms}/search`, requestOptions);
-      const data = await response.json();
-      const roomsArray = data._embedded.uiRoomList;
-      setRooms(roomsArray);
-      setIsLoading(false);
+  const getRooms = async () => {
+    const requestBody = {
+      startDate: UserCtx.startDate,
+      endDate: UserCtx.endDate,
+      adult: 1,
+      kids: 0,
+      roomTypes: [],
+      addOns: [],
     };
+    const requestOptions = {
+      method: 'POST',
+      body: JSON.stringify(requestBody),
+      headers: new Headers({ 'content-type': 'application/json' }),
+    };
+    const response = await fetch(`${LinksCtx.rooms}/search`, requestOptions);
+    const data = await response.json();
+    const roomsArray = data._embedded.uiRoomList;
+    setRooms(roomsArray);
+    setIsLoading(false);
+  };
 
+  useEffect(() => {
     if (LinksCtx.rooms && rooms?.length === 0) {
       getRooms();
     }

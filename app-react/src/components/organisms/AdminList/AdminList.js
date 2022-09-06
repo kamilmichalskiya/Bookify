@@ -19,7 +19,7 @@ const AdminList = ({ type, items, openModal }) => {
           {item.image ? <Photo url={item.image}></Photo> : null}
           <ItemContainerContext>
             <ItemContainerContextTitle>
-              {item.roomType ? `Pokój ${item.roomType} (${item.capacity} osobowy)` : `${item.name} `}
+              {item.roomType ? `Pokój nr. ${item.roomNumber} ${item.roomType} (${item.capacity} osobowy)` : `${item.name} `}
               {item.surname ? item.surname : ''}
             </ItemContainerContextTitle>
             <ItemContainerContextData>
