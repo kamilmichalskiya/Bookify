@@ -87,6 +87,12 @@ const SearchBar = ({ displayLevelMode, setRooms }) => {
     setUserSelection({ ...userSelection, [name]: value });
   };
 
+  const getMinDate = (startDate) => {
+    const newMinDate = new Date(startDate);
+    newMinDate.setDate(newMinDate.getDate() + 1);
+    return newMinDate;
+  };
+
   return (
     <SearchBarContainer>
       {displayLevelMode === 'user' ? (
@@ -114,7 +120,7 @@ const SearchBar = ({ displayLevelMode, setRooms }) => {
               selectsEnd
               startDate={userSelection.startDate}
               endDate={userSelection.endDate}
-              minDate={userSelection.startDate}
+              minDate={getMinDate(userSelection.startDate)}
               onChange={(date) => handleChange(date, 'endDate')}
               locale="pl"
               dateFormat="dd MMMM yyyy"

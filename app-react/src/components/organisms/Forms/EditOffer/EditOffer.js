@@ -105,11 +105,12 @@ const EditOffer = ({ offer, setShowModal, updateData }) => {
       <Header>{offer?.id ? 'Edytuj Ofertę' : 'Stwórz Ofertę'}</Header>
       <ContentWrapper>
         <FormField
-          value={formValues.active}
+          value=""
           label="Oferta aktywna"
           name="active"
           id="offerActive"
           type="checkbox"
+          checked={formValues.active ? 'checked' : ''}
           onChange={handleChange}
         ></FormField>
         <FormField value={formValues.name} label="Nazwa Oferty" name="name" id="offerName" type="text" onChange={handleChange}></FormField>

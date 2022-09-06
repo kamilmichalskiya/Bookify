@@ -90,7 +90,7 @@ const EditEmployee = ({ employee, setShowModal, updateData }) => {
   }, [LinksCtx.employees, formErrors, formValues, isSubmit, employee, setShowModal, updateData]);
 
   const checkEmail = async (email) => {
-    const checkEmailUrl = `${LinksCtx.employees}/email/check`;
+    const checkEmailUrl = `${LinksCtx.checkEmail}`;
     const requestOptions = {
       method: 'POST',
       body: email,
@@ -137,11 +137,12 @@ const EditEmployee = ({ employee, setShowModal, updateData }) => {
       <ContentWrapper>
         <FormField
           onChange={handleChange}
-          value={formValues.active}
+          value=""
           label="Pracownik aktywny"
           name="active"
           id="employeeActive"
           type="checkbox"
+          checked={formValues.active ? 'checked' : ''}
         ></FormField>
         {initialValues.employeeId ? (
           <FormField
@@ -151,7 +152,7 @@ const EditEmployee = ({ employee, setShowModal, updateData }) => {
             name="employeeId"
             id="employeeId"
             type="text"
-            disabled={false}
+            disabled={true}
           ></FormField>
         ) : (
           ''
