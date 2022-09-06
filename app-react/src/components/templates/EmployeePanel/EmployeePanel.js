@@ -51,7 +51,7 @@ const EmployeePanel = ({ history }) => {
   };
 
   const getOffers = async () => {
-    const response = await fetch(LinksCtx.offers);
+    const response = await fetch(LinksCtx.activeOffers);
     const data = await response.json();
     const offersArray = data._embedded.uiOfferList;
     setOffers(offersArray);

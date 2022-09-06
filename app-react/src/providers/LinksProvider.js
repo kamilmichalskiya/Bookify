@@ -9,6 +9,7 @@ const linkNames = {
   login: 'LOGIN',
   logout: 'LOGOUT',
   checkEmail: 'CHECK_EMAIL',
+  activeOffers: 'GET_ACTIVE_OFFERS',
 };
 
 export const LinksContext = React.createContext({
@@ -61,6 +62,9 @@ const LinksProvider = ({ children }) => {
             break;
           case linkNames.checkEmail:
             newLinksContext.checkEmail = href;
+            break;
+          case linkNames.activeOffers:
+            newLinksContext.activeOffers = href;
             break;
           default:
             break;

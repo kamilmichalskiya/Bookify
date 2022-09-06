@@ -1,6 +1,7 @@
 package pl.inf.app.bm.reservation.boundary;
 
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -105,7 +106,9 @@ public class ReservationBF {
                     .text(getBody(reservation))
                     .build();
             eventPublisher.publishEvent(notificationEvent);
-            eventPublisher.publishEvent(reservation);
+            if (StringUtils.isNotBlank(reservation.getNip())) {
+                eventPublisher.publishEvent(reservation);
+            }
             return reservation;
         }).map(uiMapper::map).orElseThrow(() -> new ProcessException(RESERVATION_CREATING_ERROR, reservationBE));
     }

@@ -12,13 +12,12 @@ export const Pagination = styled(ReactPaginate).attrs({
   padding: 0 5rem;
   border: 1px solid ${({ theme }) => theme.colors.secondary};
   border-radius: 100px;
-  padding: 20px;
+  padding: 15px 20px;
   background-color: ${({ theme }) => theme.colors.secondary};
-  margin: 0 0 10px;
+  margin: 0 0 40px;
   li a {
-    border-radius: 5px;
+    border-radius: 50px;
     padding: 0.1rem 1rem;
-    border: 1px solid ${({ theme }) => theme.colors.tertiary};
     background-color: ${({ theme }) => theme.colors.secondary};
     cursor: pointer;
     color: ${({ theme }) => theme.colors.tertiary};
