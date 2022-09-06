@@ -2,6 +2,7 @@ package pl.inf.app.bm.employee.control;
 
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import pl.inf.app.api.employee.entity.UiEmployee;
 import pl.inf.app.bm.employee.entity.EmployeeBE;
@@ -15,7 +16,7 @@ import pl.inf.app.utils.Mapper;
 @Component
 public class UiEmployeeToEntityMapper implements Mapper<Filler<UiEmployee, EmployeeBE>, EmployeeBE> {
 
-    //TODO BCRYPT PASSWORD ENCODER ENCODE PASSWORD
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public EmployeeBE map(final Filler<UiEmployee, EmployeeBE> filler) {
@@ -26,7 +27,7 @@ public class UiEmployeeToEntityMapper implements Mapper<Filler<UiEmployee, Emplo
 
         target.setEmail(source.getEmail());
         if (StringUtils.isNotBlank(source.getPassword())) {
-            target.setPassword(source.getPassword());
+            target.setPassword(passwordEncoder.encode(source.getPassword()));
         }
         target.setName(source.getName());
         target.setSurname(source.getSurname());
