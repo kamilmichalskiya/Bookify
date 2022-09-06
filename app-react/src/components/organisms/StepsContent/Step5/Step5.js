@@ -11,6 +11,9 @@ const Step5 = ({ totalPrice }) => {
     const createReservation = async () => {
       if (UserCtx?.room?._links?.CREATE_RESERVATION?.href) {
         const reservationUrl = UserCtx.room._links.CREATE_RESERVATION.href;
+        const UserContext = { ...UserCtx };
+        delete UserContext.guestData.active;
+        delete UserContext.invoiceData.active;
         const body = { ...UserCtx, totalPrice: totalPrice };
         if (body.customerData.email && !body.guestData.email) {
           body.guestData.email = body.customerData.email;

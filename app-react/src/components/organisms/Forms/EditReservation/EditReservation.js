@@ -79,7 +79,7 @@ const EditReservation = ({ reservation, offers, setShowModal, updateReservations
 
   useEffect(() => {
     const updateReservation = async () => {
-      const updateReservationUrl = reservation._links.UPDATE_RESERVATION[0].href;
+      const updateReservationUrl = reservation._links.UPDATE_RESERVATION.href;
       const requestOptions = {
         method: 'PUT',
         body: JSON.stringify(formValues),
