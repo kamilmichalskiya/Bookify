@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { BsSquare, BsCheckSquare } from "react-icons/bs";
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { Label } from 'components/atoms/Label/Label';
@@ -20,7 +21,10 @@ const Wrapper = styled.div`
     flex-direction: row-reverse;
     justify-content: flex-end;
     align-items: center;
-    margin-top: 15px;
+     &:checked {
+      background-color: green;
+      border-color: green;
+    }
     ${Label} {
       margin-left: 15px;
       padding: 8px 0 3px;
@@ -44,7 +48,11 @@ const FormField = ({
   placeholder,
 }) => {
   const [passwordShown, setPasswordShown] = useState(false);
-
+  const [checkboxChecked, setcheckboxChecked] = useState(false);
+  
+  const checkHandler = (e) => {
+    setcheckboxChecked(e.currentTarget.checkboxChecked);
+  };
   const togglePassword = () => {
     setPasswordShown(!passwordShown);
   };

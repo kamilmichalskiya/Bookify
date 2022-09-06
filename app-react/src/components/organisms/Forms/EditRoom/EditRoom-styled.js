@@ -14,12 +14,13 @@ export const ContentWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+  padding: 20px 0 5px;
 `;
 
 export const Footer = styled.div`
   width: 100%;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   padding-top: 15px;
   margin-top: 30px;
@@ -51,14 +52,18 @@ export const DeleteImageButton = styled.button`
   position: absolute;
   cursor: pointer;
   display: block;
-  top: 0;
-  right: 0;
+  top: 3px;
+  right: 3px;
   background-color: ${({ theme }) => theme.colors.primary};
-  color: ${({ theme }) => theme.colors.secondary};
-  width: 50px;
-  height: 50px;
-  border-radius: 0px 0px 0px 20px;
+  color: ${({ theme }) => theme.colors.white};
+  width: 30px;
+  height: 30px;
+  border-radius: 50px;
   font-weight: bold;
-  font-size: 1.25rem;
-  border: 3px solid ${({ theme }) => theme.colors.secondary};
+  font-size: 1rem;
+  margin: auto;
+  &:hover {
+    cursor: pointer;
+    color: ${({ theme }) => theme.colors.red};
+  }
 `;

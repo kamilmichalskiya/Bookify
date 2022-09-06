@@ -230,6 +230,7 @@ const EditRoom = ({ room, setShowModal, updateData }) => {
           options=""
           checked={formValues.active ? 'checked' : ''}
           value=""
+          tintColors={{ true: '#FC8F00' }}
         />
         {formValues.images.length > 0 ? (
           <>
@@ -237,7 +238,7 @@ const EditRoom = ({ room, setShowModal, updateData }) => {
             <ImageContainer>
               <RoomGalery images={formValues.images} options={{ showNav: false }} roomImageSwipeCallback={roomImageSwipeCallback} />
               <DeleteImageButton onClick={removeImage} title="Usuń zdjęcie">
-                X
+                x
               </DeleteImageButton>
             </ImageContainer>
             <FormField onChange={addImage} value="" label="Wgraj więcej zdjęć" name="images" id="roomImages" type="file" />
@@ -322,11 +323,6 @@ const EditRoom = ({ room, setShowModal, updateData }) => {
       <Footer>
         <div></div>
         <SaveButton onClick={handleSubmit}>Zapisz</SaveButton>
-        <Button onClick={handleSubmit}>Button</Button>
-        <PrimaryButton onClick={handleSubmit}>Primary</PrimaryButton>
-        <SecondaryButton onClick={handleSubmit}>Secondary</SecondaryButton>
-        <TertiaryButton onClick={handleSubmit}>Tertiary</TertiaryButton>
-        <DeleteButton onClick={handleSubmit}>Delete</DeleteButton>
       </Footer>
     </form>
   );

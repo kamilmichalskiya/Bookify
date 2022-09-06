@@ -15,12 +15,13 @@ export const ContentWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+  padding: 20px 0 5px;
 `;
 
 export const Footer = styled.div`
   width: 100%;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   padding-top: 15px;
   margin-top: 30px;

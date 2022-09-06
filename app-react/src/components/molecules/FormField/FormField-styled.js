@@ -24,11 +24,12 @@ export const DarkEyeStyleWrapper = styled.div`
 `;
 
 export const FileButton = styled.label`
-  background-color: ${({ theme }) => theme.colors.primary};
-  color: ${({ theme }) => theme.colors.white};
-  width: 150px;
-  min-width: 100px;
-  height: 36px;
+  background-color: ${({ theme }) => theme.colors.white};
+  color: ${({ theme }) => theme.colors.secondary};
+  width: 120px;
+  min-width: 80px;
+  font-size: 0.8rem;
+  height: 32px;
   border-radius: 100px;
   font-weight: 600;
   display: flex;
