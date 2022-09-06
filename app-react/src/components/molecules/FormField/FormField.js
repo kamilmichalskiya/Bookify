@@ -130,7 +130,7 @@ FormField.propTypes = {
   id: PropTypes.string.isRequired,
   type: PropTypes.string,
   disabled: PropTypes.bool,
-  checked: PropTypes.string,
+  checked: PropTypes.any,
   onFocus: PropTypes.func,
   options: PropTypes.any,
   maxLength: PropTypes.any,

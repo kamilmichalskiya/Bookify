@@ -7,7 +7,7 @@ import FormField from 'components/molecules/FormField/FormField';
 import { SaveButton } from 'components/atoms/Button/Button';
 import { formatCreditCardNumber, formatCVC, formatExpirationDate } from 'helpers/cardUtils';
 
-const Step4 = ({ changeStep }) => {
+const Step4 = ({ changeStep, setValidateStep }) => {
   const [cardState, setCardState] = useState({
     cvc: '',
     expiry: '',
@@ -19,10 +19,12 @@ const Step4 = ({ changeStep }) => {
   const [isSubmit, setIsSubmit] = useState(false);
   const UserCtx = useContext(UserDataContext);
   const [isRecaptchaValid, setIsRecaptchaValid] = useState(false);
-  let recaptchaUrl;
-  if (window.location.hostname === 'localhost') {
-    recaptchaUrl = '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI';
-  }
+  let recaptchaUrl = '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI';
+
+  useEffect(() => {
+    setValidateStep(() => () => true);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const handleInputFocus = (e) => {
     setCardState({ ...cardState, focus: e.target.name });

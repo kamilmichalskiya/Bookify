@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useEffect, useContext } from 'react';
 import {
   ContentLeftTitle,
   RoomContainerPhotoWrapper,
@@ -20,8 +20,14 @@ import { Check } from '@styled-icons/material/Check';
 import { UserDataContext } from 'providers/UserDataProvider';
 import RoomGalery from 'components/molecules/RoomGalery/RoomGalery';
 
-const Step1 = () => {
+const Step1 = ({ setValidateStep }) => {
   const UserCtx = useContext(UserDataContext);
+
+  useEffect(() => {
+    setValidateStep(() => () => true);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <>
       <ContentLeftTitle>Szczegóły pokoju</ContentLeftTitle>
