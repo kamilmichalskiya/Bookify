@@ -148,7 +148,7 @@ export const ContentRight = styled.div`
   background-color: ${({ theme }) => theme.colors.secondary};
   width: 100%;
   border-radius: 5px;
-  padding: 10px 20px 20px;
+  padding: 10px 20px;
   @media ${({ theme }) => theme.breakpoints.sm} {
     width: 42%;
   }
