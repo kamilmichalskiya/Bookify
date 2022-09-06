@@ -17,6 +17,7 @@ export const RoomContainerPhotoWrapper = styled.div`
   margin: 15px 0 5px;
   max-width: 100%;
   max-height: 400px;
+  overflow: hidden;
 `;
 
 export const RoomDescription = styled.div`

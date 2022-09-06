@@ -69,16 +69,22 @@ const EmployeeTabs = ({ reservations, offers, roomsOccupation, getRoomsOccupatio
           <NavigationBar>
             <NewReservationButton onClick={() => createNewReservation()}>Nowa rezerwacja</NewReservationButton>
           </NavigationBar>
-          <EmployeeList
-            items={reservations.slice(reservationPageNumber * itemsPerPage, reservationPageNumber * itemsPerPage + itemsPerPage)}
-            openModal={openModal}
-          ></EmployeeList>
-          <Pagination
-            previousLabel={'Wstecz'}
-            nextLabel={'Dalej'}
-            pageCount={Math.ceil(reservations.length / itemsPerPage)}
-            onPageChange={changeRoomPage}
-          />
+          {reservations.length > 0 ? (
+            <>
+              <EmployeeList
+                items={reservations.slice(reservationPageNumber * itemsPerPage, reservationPageNumber * itemsPerPage + itemsPerPage)}
+                openModal={openModal}
+              />
+              <Pagination
+                previousLabel={'Wstecz'}
+                nextLabel={'Dalej'}
+                pageCount={Math.ceil(reservations.length / itemsPerPage)}
+                onPageChange={changeRoomPage}
+              />
+            </>
+          ) : (
+            <h1>Obecnie nie ma żadnych rezerwacji.</h1>
+          )}
         </TabContent>
         <TabContent hidden={index !== 1}>{index === 1 ? <Table openModal={openModal} roomsOccupation={roomsOccupation} /> : ''}</TabContent>
       </TabsWrapper>
