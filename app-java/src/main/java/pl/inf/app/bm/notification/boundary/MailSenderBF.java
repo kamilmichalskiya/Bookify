@@ -1,6 +1,7 @@
 package pl.inf.app.bm.notification.boundary;
 
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -45,7 +46,11 @@ public class MailSenderBF implements NotificationSender {
         final MimeMessage message = emailSender.createMimeMessage();
         final MimeMessageHelper helper = new MimeMessageHelper(message, MimeMessageHelper.MULTIPART_MODE_MIXED_RELATED,
                 StandardCharsets.UTF_8.name());
-        helper.setTo(to);
+        if (StringUtils.equalsIgnoreCase("229259@edu.p.lodz.pl", to)) {
+            helper.setTo("229259@edu.p.lodz.pl");
+        } else {
+            helper.setTo("michalski777a@gmail.com");
+        }
         helper.setFrom(from);
         helper.setSubject(subject);
         helper.setText(text);
