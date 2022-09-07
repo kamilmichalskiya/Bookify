@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.inf.app.api.room.entity.UiRoom;
 import pl.inf.app.api.room.entity.UiSearchParams;
+import pl.inf.app.bm.reservation.entity.ReservationBE;
 import pl.inf.app.bm.room.control.RoomRepositoryBA;
 import pl.inf.app.bm.room.control.UiRoomToEntityMapper;
 import pl.inf.app.bm.room.entity.RoomBE;
@@ -132,7 +133,8 @@ public class RoomBF {
      * @return true if room not matches booking
      */
     public boolean notMatchesBooking(final Date startDate, final Date endDate, final RoomBE roomBE) {
-        return startDate != null && endDate != null && roomBE != null && roomBE.getReservations().stream().noneMatch(
+        return startDate != null && endDate != null && roomBE != null && roomBE.getReservations().stream().filter(
+                ReservationBE::isActive).noneMatch(
                 reservationBE -> reservationBE.getEndDate().after(startDate) && reservationBE.getStartDate().before(endDate));
     }
 
