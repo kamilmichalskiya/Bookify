@@ -14,7 +14,7 @@ const EditRoom = ({ room, setShowModal, updateData }) => {
   const initialValues = {
     active: room.active || false,
     roomNumber: room.roomNumber || 0,
-    images: room.images || '',
+    images: room.images || [],
     roomType: room.roomType ? { label: room.roomType, value: room.roomType } : '',
     price: room.price || '',
     capacity: room.capacity || 0,
